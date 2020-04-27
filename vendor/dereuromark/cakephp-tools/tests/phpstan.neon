@@ -1,0 +1,13 @@
+parameters:
+	autoload_files:
+	- %rootDir%/../../../tests/bootstrap.php
+	excludes_analyse:
+		- %rootDir%/../../../src/TestSuite/*
+		- %rootDir%/../../../src/View/Helper/TreeHelper
+		- %rootDir%/../../../src/Utility/Mime
+	ignoreErrors:
+		- '#Call to an undefined method .+TimeHelper::.+\(\)#'
+
+services:
+	-
+		class: Cake\PHPStan\AssociationTableMixinClassReflectionExtension

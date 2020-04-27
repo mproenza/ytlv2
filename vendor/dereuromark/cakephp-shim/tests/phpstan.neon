@@ -1,0 +1,7 @@
+parameters:
+	autoload_files:
+		- bootstrap.php
+		- shim.php
+	excludes_analyse:
+		- %rootDir%/../../../src/TestSuite/*
+	ignoreErrors:

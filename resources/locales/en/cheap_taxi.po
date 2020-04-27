@@ -1,0 +1,161 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-07 08:49-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /home.ctp:29
+msgid "Ver ofertas disponibles"
+msgstr "See available offers"
+
+#: /home.ctp:29
+msgid "¿Buscas taxi económico en Cuba?"
+msgstr "Looking for affordable taxi in Cuba?"
+
+#: /home.ctp:29
+msgid "Encuentra taxi privado en Cuba por la mitad del precio estándar"
+msgstr "Find private taxi in Cuba for half the regular price"
+
+#: /home.ctp:29
+msgid "Nuestros choferes hacen ofertas de 50% de descuento en algunas ocasiones. Nosotros las listamos aquí y tú puedes reservarlas."
+msgstr "Our drivers make 50% discount ride offers in some occasions. We list them here and you can book them."
+
+#: /home.ctp:29
+msgid "Ver traslados disponibles con 50% de descuento"
+msgstr "See available taxi offers with 50% discount"
+
+#: /home.ctp:29
+msgid "¿Por qué los choferes ofertan traslados con un descuento tan grande?"
+msgstr "Why do our drivers offer rides with such big discounts?"
+
+#: /home.ctp:29
+msgid "En ocasiones los choferes están obligados a realizar un recorrido con el taxi vacío. Por ejemplo, <b>cuando dejan clientes lejos y tienen que regresar a casa</b>, o <b>cuando tienen que recoger clientes y deben salir desde un punto lejano</b>."
+msgstr "In some occasions, the drivers HAVE TO do some rides with an empty taxi. For example, <b>when they drop customers off far away and need to return back home</b>, or <b>when they need to pick up passengers and they need to depart from far away</b>."
+
+#: /home.ctp:29
+msgid "Cuando no tienen pasajeros contratados para estos recorridos, <b>los choferes prefieren al menos llevar a algunos por la mitad del precio y así amortiguar gastos de ese traslado</b>."
+msgstr "When they don't have passengers for these rides, <b>they prefer to take some passengers for at least half the price and recover some expenses of that ride</b>."
+
+#: /home.ctp:29
+msgid "No hay que compartir taxi"
+msgstr "No need to share the taxi"
+
+#: /home.ctp:29
+msgid "Recibirás un servicio de taxi privado sin tener que compartirlo con otros pasajeros."
+msgstr "This is a private taxi service, so you won't share the taxi with other passengers."
+
+#: /home.ctp:29
+msgid "Servicio puerta a puerta"
+msgstr "Door to door service"
+
+#: /home.ctp:29
+msgid "El taxi te recoge en tu estancia u hotel y te lleva directamente hasta tu próximo destino."
+msgstr "The taxi picks you up at your accommodation or hotel and takes you directly to your next accommodation."
+
+#: /home.ctp:29
+msgid "Contacto directo con el chofer"
+msgstr "Direct contact with the driver"
+
+#: /home.ctp:29
+msgid "Contacta directamente con el chofer para acordar cualquier detalle extra sobre el viaje."
+msgstr "Contact directly with the driver making the offer to arrange any extra details about the trip."
+
+#: /home.ctp:29
+msgid "Encuentra tu oportunidad de ahorrar en taxi"
+msgstr "Find your opportunity to save in taxi"
+
+#: /home.ctp:29
+msgid "Busca según las fechas que necesitas trasladarte"
+msgstr "Search by the dates you need each ride"
+
+#: /home.ctp:29
+msgid "Todos los precios son totales, NO por persona"
+msgstr "All prices are total, NOT per person"
+
+#: /home.ctp:29
+msgid "Las fechas y horarios son fijos y no tienen modificación"
+msgstr "The dates and departure times are fixed and can not be changed"
+
+#: /home.ctp:29
+msgid "¿No encuentras todos los traslados que necesitas?"
+msgstr "Didn't find all the rides you need?"
+
+#: /home.ctp:29
+msgid "Combina con nuestro <strong>servicio de taxi colectivo</strong> llamado %s. Diariamente organizamos traslados desde y hasta destinos como %s y otros."
+msgstr "Combine with our <strong>shared taxi service</strong> called %s. Everyday we organize rides from/to %s and other destinations."
+
+#: /home.ctp:29
+msgid "EXCELENTES PRECIOS"
+msgstr "AMAZING PRICES"
+
+#: /home.ctp:29
+msgid "Ver rutas y precios de taxi colectivo en PickoCar"
+msgstr "See routes and prices of shared taxi in PickoCar"
+
+#: /home.ctp:29
+msgid "Trabajamos con una comunidad de geniales taxistas independientes en Cuba"
+msgstr "We work with a community of amazing independent taxi drivers in Cuba"
+
+#: /home.ctp:29
+msgid "Inspírate con %s historias escritas sobre nuestros choferes por clientes anteriores"
+msgstr "Get inspired by the %s stories written about our drivers by previous customers"
+
+
+#### OFFER_INFO.CTP
+
+#: /home.ctp:29
+msgid "%s ofrece"
+msgstr "%s offers"
+
+#: /home.ctp:29
+msgid "hasta %s personas"
+msgstr "up to %s passengers"
+
+#: /home.ctp:29
+msgid "Sólo disponible"
+msgstr "Only available"
+
+#: /home.ctp:29
+msgid "Fecha / Horario salida"
+msgstr "Date / Departure"
+
+#: /home.ctp:29
+msgid "Contactar a %s para este traslado"
+msgstr "Contact %s for this ride"
+
+
+### ADMIN
+#: /home.ctp:29
+msgid "%s ofrece taxi privado %s - %s el próximo %s por $%s, hasta %s"
+msgstr "%s offers private taxi %s - %s next %s for $%s, up to %s"
+
+
+
+### DRIVER PROFILE
+#: /home.ctp:29
+msgid "%s ofrece:<br>Taxi privado <span style="display:inline-block">%s > %s</span><br>%s"
+msgstr "%s offers:<br>Private taxi <span style="display:inline-block">%s > %s</span><br>%s"
+
+#: /home.ctp:29
+msgid "<strong>Contacta a %s</strong> y reserva este viaje para el próximo %s"
+msgstr "<strong>Contact %s</strong> and book this trip for next %s"
+
+
+#### META
+#: /home.ctp:83
+msgid "Taxi privado %s > %s por %s. Oferta de taxi económico en Cuba."
+msgstr "Private taxi %s > %s for %s. Economic taxi in Cuba."
+
+#: /home.ctp:83
+msgid "%s oferta taxi privado %s > %s por %s el próximo %s. Mira los detalles de esta oferta económica en su perfil."
+msgstr "%s offers private taxi %s > %s for %s next %s. See the details of this affordable offer in his profile."

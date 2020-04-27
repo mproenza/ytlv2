@@ -1,0 +1,68 @@
+2020-04-03 17:38:27 Error: [Cake\Core\Exception\MissingPluginException] Plugin MI18n could not be found. in C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Core\PluginCollection.php on line 140
+Exception Attributes: array (
+  'plugin' => 'MI18n',
+)
+Stack Trace:
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Core\PluginCollection.php:245
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Http\BaseApplication.php:115
+- C:\xampp-new\htdocs\yotellevo\src\Application.php:60
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Console\CommandRunner.php:195
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Console\CommandRunner.php:132
+- C:\xampp-new\htdocs\yotellevo\bin\cake.php:12
+
+
+
+2020-04-03 17:49:57 Error: [Cake\Core\Exception\MissingPluginException] Plugin MI18n could not be found. in C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Core\PluginCollection.php on line 140
+Exception Attributes: array (
+  'plugin' => 'MI18n',
+)
+Stack Trace:
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Core\PluginCollection.php:245
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Http\BaseApplication.php:115
+- C:\xampp-new\htdocs\yotellevo\src\Application.php:60
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Console\CommandRunner.php:195
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Console\CommandRunner.php:132
+- C:\xampp-new\htdocs\yotellevo\bin\cake.php:12
+
+
+
+2020-04-13 01:31:57 Error: [Cake\Database\Exception] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'yotellevo.driver_traveler_conversations' doesn't exist in C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 142
+Stack Trace:
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Database\Schema\Collection.php:100
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php:84
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\ORM\Table.php:509
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\ORM\Table.php:649
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\bake\src\Command\ModelCommand.php:200
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\bake\src\Command\ModelCommand.php:123
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\bake\src\Command\ModelCommand.php:99
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\bake\src\Command\ModelCommand.php:82
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Console\BaseCommand.php:175
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Console\CommandRunner.php:336
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Console\CommandRunner.php:171
+- C:\xampp-new\htdocs\yotellevo\bin\cake.php:12
+
+Caused by: [PDOException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'yotellevo.driver_traveler_conversations' doesn't exist in C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Database\Statement\MysqlStatement.php on line 40
+Stack Trace:
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Database\Statement\MysqlStatement.php:40
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Database\Connection.php:358
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Core\Retry\CommandRetry.php:69
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Database\Connection.php:361
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Database\Connection.php:310
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Core\Retry\CommandRetry.php:69
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Database\Connection.php:314
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Database\Schema\Collection.php:140
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Database\Schema\Collection.php:100
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php:84
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\ORM\Table.php:509
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\ORM\Table.php:649
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\bake\src\Command\ModelCommand.php:200
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\bake\src\Command\ModelCommand.php:123
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\bake\src\Command\ModelCommand.php:99
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\bake\src\Command\ModelCommand.php:82
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Console\BaseCommand.php:175
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Console\CommandRunner.php:336
+- C:\xampp-new\htdocs\yotellevo\vendor\cakephp\cakephp\src\Console\CommandRunner.php:171
+- C:\xampp-new\htdocs\yotellevo\bin\cake.php:12
+
+
+

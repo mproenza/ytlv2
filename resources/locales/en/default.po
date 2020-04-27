@@ -1,0 +1,78 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-07 08:49-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /home.ctp:19
+msgid "Entrar"
+msgstr "Login"
+
+#: /home.ctp:27
+msgid "Sobre Nosotros"
+msgstr "About Us"
+#: /home.ctp:27
+msgid "SOBRE NOSOTROS"
+msgstr "ABOUT US"
+
+#: /home.ctp:27
+msgid "Contactar choferes en Cuba"
+msgstr "Contact drivers in Cuba"
+
+#: /home.ctp:27
+msgid "Comparte esta página en %s"
+msgstr "Share this page on %s"
+
+#: /home.ctp:27
+msgid "Espera"
+msgstr "Wait"
+
+#: /home.ctp:27
+msgid "solicitar"
+msgstr "request"
+
+#: /home.ctp:27
+msgid "CONTACTO"
+msgstr "CONTACT"
+
+#: /home.ctp:27
+msgid "TESTIMONIOS"
+msgstr "TESTIMONIALS"
+
+#: /home.ctp:27
+msgid "Opiniones"
+msgstr "Reviews"
+
+#: /home.ctp:27
+msgid "OPINAR SOBRE CHOFER"
+msgstr "REVIEW A DRIVER"
+
+#: /home.ctp:27
+msgid "Taxi en %s"
+msgstr "Taxi in %s"
+
+#: /home.ctp:27
+msgid "Sobre Nosotros"
+msgstr "About us"
+
+#: /home.ctp:27
+msgid "Enlaces"
+msgstr "Links"
+
+#: /home.ctp:27
+msgid "YoTeLlevo es una <b>comunidad de choferes de taxi privado en Cuba</b>. Los contactas antes de llegar a la isla y te dan sus precios para tus traslados en Cuba."
+msgstr "YoTeLlevo is a <b>community of private taxi drivers in Cuba</b>. You contact them before arriving in the island and they give you prices for your trips in Cuba."
+
+#: /home.ctp:27
+msgid "También somos los creadores de %s, un servicio de taxi compartido en Cuba."
+msgstr "We are also the creators of %s, a shared taxi service in Cuba."
