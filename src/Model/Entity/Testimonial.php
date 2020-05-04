@@ -33,7 +33,7 @@ use Cake\ORM\Entity;
  */
 class Testimonial extends Entity
 {
-    public static $basicContain = ['Drivers', 'Drivers.DriversProfiles', 'Conversations', 'TestimonialsReplies'];
+    public static $myCommonRelatedModels = ['Drivers', 'Drivers.DriversProfiles', 'Conversations', 'TestimonialsReplies'];
     
     public static $langs = array('es', 'en');
     public static $states = array('L' => 'all', 'P' => 'pending', 'A' => 'approved', 'R' => 'rejected');

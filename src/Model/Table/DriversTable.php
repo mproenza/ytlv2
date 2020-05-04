@@ -280,6 +280,8 @@ class DriversTable extends Table
             
         //debug($query);
         
-        return $query;
+        return $query->cache(function ($q) {
+            return 'drivers-' . md5(serialize($q->clause('where')));
+        });
     }
 }

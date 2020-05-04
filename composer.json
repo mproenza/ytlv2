@@ -12,6 +12,7 @@
         "cakephp/plugin-installer": "^1.2",
         "dereuromark/cakephp-cache": "1.0.0-rc",
         "dereuromark/cakephp-tools": "^2.0",
+        "josegonzalez/cakephp-upload": "5.0.0-beta",
         "mobiledetect/mobiledetectlib": "^2.8"
     },
     "require-dev": {
@@ -31,7 +32,8 @@
         "psr-4": {
             "App\\": "src/",
             "MI18n\\": "plugins/MI18n/src/",
-            "CubaTheme\\": "plugins/CubaTheme/src/"
+            "CubaTheme\\": "plugins/CubaTheme/src/",
+			"ThemeAmenities\\": "plugins/ThemeAmenities/src/"
         }
     },
     "autoload-dev": {
@@ -39,7 +41,8 @@
             "App\\Test\\": "tests/",
             "Cake\\Test\\": "vendor/cakephp/cakephp/tests/",
             "MI18n\\Test\\": "plugins/MI18n/tests/",
-            "CubaTheme\\Test\\": "plugins/CubaTheme/tests/"
+            "CubaTheme\\Test\\": "plugins/CubaTheme/tests/",
+			"ThemeAmenities\\Test\\": "plugins/ThemeAmenities/tests/"
         }
     },
     "scripts": {

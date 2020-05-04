@@ -56,6 +56,8 @@ class ComposerStaticInitd9c4378249472b52f790997962a31eda
             'Twig\\' => 5,
             'Tools\\Test\\Fixture\\' => 19,
             'Tools\\' => 6,
+            'ThemeAmenities\\Test\\' => 20,
+            'ThemeAmenities\\' => 15,
         ),
         'S' => 
         array (
@@ -98,6 +100,7 @@ class ComposerStaticInitd9c4378249472b52f790997962a31eda
         ),
         'L' => 
         array (
+            'League\\Flysystem\\' => 17,
             'Laminas\\ZendFrameworkBridge\\' => 28,
             'Laminas\\HttpHandlerRunner\\' => 26,
             'Laminas\\Diactoros\\' => 18,
@@ -105,6 +108,8 @@ class ComposerStaticInitd9c4378249472b52f790997962a31eda
         'J' => 
         array (
             'JsonSchema\\' => 11,
+            'Josegonzalez\\Upload\\Test\\Fixture\\' => 33,
+            'Josegonzalez\\Upload\\' => 20,
             'Jasny\\Twig\\' => 11,
         ),
         'D' => 
@@ -177,6 +182,14 @@ class ComposerStaticInitd9c4378249472b52f790997962a31eda
         'Tools\\' => 
         array (
             0 => __DIR__ . '/..' . '/dereuromark/cakephp-tools/src',
+        ),
+        'ThemeAmenities\\Test\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/ThemeAmenities/tests',
+        ),
+        'ThemeAmenities\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/ThemeAmenities/src',
         ),
         'Symfony\\Polyfill\\Php73\\' => 
         array (
@@ -300,6 +313,10 @@ class ComposerStaticInitd9c4378249472b52f790997962a31eda
         array (
             0 => __DIR__ . '/..' . '/m1/env/src',
         ),
+        'League\\Flysystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/flysystem/src',
+        ),
         'Laminas\\ZendFrameworkBridge\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src',
@@ -315,6 +332,14 @@ class ComposerStaticInitd9c4378249472b52f790997962a31eda
         'JsonSchema\\' => 
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
+        ),
+        'Josegonzalez\\Upload\\Test\\Fixture\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/josegonzalez/cakephp-upload/tests/Fixture',
+        ),
+        'Josegonzalez\\Upload\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/josegonzalez/cakephp-upload/src',
         ),
         'Jasny\\Twig\\' => 
         array (

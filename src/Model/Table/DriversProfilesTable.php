@@ -42,6 +42,10 @@ class DriversProfilesTable extends Table
         $this->setTable('drivers_profiles');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+        
+        $this->addBehavior('Josegonzalez/Upload.Upload', [
+            'avatar_filepath' => []
+        ]);
 
         $this->belongsTo('Drivers', [
             'foreignKey' => 'driver_id',

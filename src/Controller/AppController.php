@@ -40,7 +40,7 @@ class AppController extends Controller
      */
     public function initialize(): void
     {
-        parent::initialize();
+        parent::initialize();        
         
         $this->Dummy = \Cake\ORM\TableRegistry::getTableLocator()->get('Dummy');
         

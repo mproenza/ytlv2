@@ -128,13 +128,13 @@ class TestimonialsController extends AppController
         $this->paginate = [
             'order'=>['Testimonials.created' => 'DESC'],
             'limit'=>30,
-            'contain' => \App\Model\Entity\Testimonial::$basicContain,
+            'contain' => \App\Model\Entity\Testimonial::$myCommonRelatedModels,
             'conditions' => ['Testimonials.featured'=>true, 'Testimonials.lang IN'=>$langs]
         ];
         
         $this->set('testimonials', $this->paginate($this->Testimonials));
         
-        $this->viewBuilder()->setTheme('CubaTheme');
+        $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme');
     }
     public function reviews() {
         $this->featured(false);

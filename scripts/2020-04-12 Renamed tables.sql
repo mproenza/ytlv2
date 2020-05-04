@@ -1,6 +1,7 @@
 RENAME TABLE `driver_traveler_conversations` TO `conversation_messages`;
 RENAME TABLE `drivers_travels` TO `conversations`;
 RENAME TABLE `travels_conversations_meta` TO `conversations_meta`;
+RENAME TABLE `email_attachments` TO `conversation_message_attachments`;
 
 DROP TABLE `drivers_travels_by_email`;
 DROP TABLE `drivers_profiles_resources`;
@@ -14,3 +15,6 @@ ALTER TABLE `drivers` CHANGE `name` `name` VARCHAR(250) CHARACTER SET latin1 COL
 
 ALTER TABLE `conversations_meta` DROP `received_confirmation_type`;
 ALTER TABLE `conversations_meta` DROP `testimonial_id`;
+
+
+ALTER TABLE `conversation_message_attachments` ADD `filesize` INT NULL AFTER `relfilepath`;
