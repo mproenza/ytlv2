@@ -856,17 +856,17 @@
     },
     {
         "name": "composer/composer",
-        "version": "1.10.5",
-        "version_normalized": "1.10.5.0",
+        "version": "1.10.6",
+        "version_normalized": "1.10.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/composer/composer.git",
-            "reference": "7a4d5b6aa30d2118af27c04f5e897b57156ccfa9"
+            "reference": "be81b9c4735362c26876bdbfd3b5bc7e7f711c88"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/composer/composer/zipball/7a4d5b6aa30d2118af27c04f5e897b57156ccfa9",
-            "reference": "7a4d5b6aa30d2118af27c04f5e897b57156ccfa9",
+            "url": "https://api.github.com/repos/composer/composer/zipball/be81b9c4735362c26876bdbfd3b5bc7e7f711c88",
+            "reference": "be81b9c4735362c26876bdbfd3b5bc7e7f711c88",
             "shasum": ""
         },
         "require": {
@@ -885,7 +885,8 @@
             "symfony/process": "^2.7 || ^3.0 || ^4.0 || ^5.0"
         },
         "conflict": {
-            "symfony/console": "2.8.38"
+            "symfony/console": "2.8.38",
+            "symfony/phpunit-bridge": "3.4.40"
         },
         "require-dev": {
             "phpspec/prophecy": "^1.10",
@@ -896,7 +897,7 @@
             "ext-zip": "Enabling the zip extension allows you to unzip archives",
             "ext-zlib": "Allow gzip compression of HTTP requests"
         },
-        "time": "2020-04-10T09:44:22+00:00",
+        "time": "2020-05-06T08:28:10+00:00",
         "bin": [
             "bin/composer"
         ],
@@ -934,6 +935,16 @@
             "autoload",
             "dependency",
             "package"
+        ],
+        "funding": [
+            {
+                "url": "https://packagist.com",
+                "type": "custom"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                "type": "tidelift"
+            }
         ]
     },
     {
@@ -3321,17 +3332,17 @@
     },
     {
         "name": "psy/psysh",
-        "version": "v0.10.3",
-        "version_normalized": "0.10.3.0",
+        "version": "v0.10.4",
+        "version_normalized": "0.10.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/bobthecow/psysh.git",
-            "reference": "2bde2fa03e05dff0aee834598b951d6fc7c6fe02"
+            "reference": "a8aec1b2981ab66882a01cce36a49b6317dc3560"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/bobthecow/psysh/zipball/2bde2fa03e05dff0aee834598b951d6fc7c6fe02",
-            "reference": "2bde2fa03e05dff0aee834598b951d6fc7c6fe02",
+            "url": "https://api.github.com/repos/bobthecow/psysh/zipball/a8aec1b2981ab66882a01cce36a49b6317dc3560",
+            "reference": "a8aec1b2981ab66882a01cce36a49b6317dc3560",
             "shasum": ""
         },
         "require": {
@@ -3354,7 +3365,7 @@
             "ext-readline": "Enables support for arrow-key history navigation, and showing and manipulating command history.",
             "hoa/console": "A pure PHP readline implementation. You'll want this if your PHP install doesn't already support readline or libedit."
         },
-        "time": "2020-04-07T06:44:48+00:00",
+        "time": "2020-05-03T19:32:03+00:00",
         "bin": [
             "bin/psysh"
         ],

@@ -18,3 +18,6 @@ ALTER TABLE `conversations_meta` DROP `testimonial_id`;
 
 
 ALTER TABLE `conversation_message_attachments` ADD `filesize` INT NULL AFTER `relfilepath`;
+
+ALTER TABLE `drivers_profiles` CHANGE `avatar_filepath` `avatar_filedir` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;
+ALTER TABLE `drivers_profiles` ADD `avatar_filename` VARCHAR(250) NULL AFTER `driver_name`;
