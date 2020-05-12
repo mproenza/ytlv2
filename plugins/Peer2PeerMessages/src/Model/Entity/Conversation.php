@@ -96,11 +96,12 @@ class Conversation extends Entity
         //'travel_date' => true,
         'due_date' => true,
         
-        'original_date' => true,
+        //'original_date' => true,
         'original_due_date' => true,
         
         'child_conversation_id' => true,
-        'discount_id' => true,
+        
+        //'discount_id' => true,
         
         'child_conversation' => true,
         'discount_ride' => true,

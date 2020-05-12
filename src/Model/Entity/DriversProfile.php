@@ -48,4 +48,8 @@ class DriversProfile extends Entity
         'driver' => true,
     ];
     
+    public function _getAvatarFilepath() {
+        return $this->avatar_filedir.DS.$this->avatar_filename;
+    }
+    
 }

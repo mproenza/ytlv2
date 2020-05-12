@@ -50,17 +50,6 @@ class LocalitiesTable extends Table
             'foreignKey' => 'province_id',
             'joinType' => 'INNER',
         ]);
-        /*$this->hasMany('LocalitiesThesaurus', [
-            'foreignKey' => 'locality_id',
-        ]);
-        $this->hasMany('TravelsByEmail', [
-            'foreignKey' => 'locality_id',
-        ]);
-        $this->belongsToMany('Drivers', [
-            'foreignKey' => 'locality_id',
-            'targetForeignKey' => 'driver_id',
-            'joinTable' => 'drivers_localities',
-        ]);*/
     }
 
     /**
@@ -97,5 +86,19 @@ class LocalitiesTable extends Table
         $rules->add($rules->existsIn(['province_id'], 'Provinces'));
 
         return $rules;
+    }
+    
+    
+    
+    public static function getAsSuggestions() {
+        $LocalitiesTable = new LocalitiesTable();
+        $localities = $LocalitiesTable->find('list')->cache('localities')->toArray();
+
+        $ThesaurusTable = new LocalitiesThesaurusTable();
+        $thesaurusEntries = $ThesaurusTable->find('list', ['conditions'=>['use_as_hint'=>true]])->cache('localities-thesaurus')->toArray();
+
+        $list = array_merge($localities, $thesaurusEntries);
+        
+        return $list;
     }
 }

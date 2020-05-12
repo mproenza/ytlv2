@@ -9,7 +9,7 @@
     </div>
     <div class="item-caption py-3">
         <div class="item-name px-2">
-            <p class="mbr-fonts-style display-7"><?php echo __d('mobirise/testimonials', '{0} sobre {1}', $testimonial->author, $driver->drivers_profile->driver_name)?><br><br></p>
+            <p class="mbr-fonts-style display-7"><?php echo __d('mobirise/testimonials', '{0} sobre {1}', $testimonial->author, $driver->profile->driver_name)?><br><br></p>
             
             <?php
             /*

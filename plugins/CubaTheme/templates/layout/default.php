@@ -96,13 +96,11 @@ echo $this->Html->script ('jquery-validation-1.10.0/dist/jquery.validate.min', a
 if(Configure::read('App.language') != 'en') echo $this->Html->script('jquery-validation-1.10.0/localization/messages_'.Configure::read('App.language'), array('inline' => false));
 
 echo $this->Html->script ('typeaheadjs/js/typeahead-martin', array('inline' => false));
-
-/*$this->Js->set('localities', Locality::getAsSuggestions());
-echo $this->Js->writeBuffer(array('inline' => false));
-
-echo $this->fetch('script');*/
-
 ?>
+    
+<?= $this->fetch('script');?>
+<?= $this->fetch('script_bottom');?>
+<?= $this->fetch('script_internal');?>
 
 <script type="text/javascript">
     
@@ -150,7 +148,7 @@ echo $this->fetch('script');*/
     $(document).ready(function() {
         $('input.locality-typeahead').typeahead({
             valueKey: 'name',
-            local: window.app.localities,
+            local: <?= json_encode(App\Model\Table\LocalitiesTable::getAsSuggestions())?>,
             limit: 20
         })/*.on('typeahead:selected', function(event, datum) {
             

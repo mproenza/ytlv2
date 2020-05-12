@@ -43,7 +43,7 @@ class PagesController extends AppController
     
     public function beforeRender(\Cake\Event\EventInterface $event) {
         parent::beforeFilter($event);
-        $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme');
+        $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme.CubaTheme');
     }
     
     /**

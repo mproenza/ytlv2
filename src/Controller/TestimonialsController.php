@@ -134,7 +134,7 @@ class TestimonialsController extends AppController
         
         $this->set('testimonials', $this->paginate($this->Testimonials));
         
-        $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme');
+        $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme.CubaTheme');
     }
     public function reviews() {
         $this->featured(false);

@@ -57,6 +57,11 @@ class DriversTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        
+        $this->hasOne('DriversProfiles', [
+            'foreignKey' => 'driver_id',
+            'propertyName' => 'profile'
+        ]);
 
         $this->belongsTo('Provinces', [
             'foreignKey' => 'province_id',
@@ -77,9 +82,7 @@ class DriversTable extends Table
         $this->hasMany('DiscountRides', [
             'foreignKey' => 'driver_id',
         ]);
-        $this->hasOne('DriversProfiles', [
-            'foreignKey' => 'driver_id',
-        ]);
+        
         $this->hasMany('DriversTransactionalEmails', [
             'foreignKey' => 'driver_id',
         ]);

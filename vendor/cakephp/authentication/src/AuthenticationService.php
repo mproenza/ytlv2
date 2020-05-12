@@ -169,6 +169,9 @@ class AuthenticationService implements AuthenticationServiceInterface
     /**
      * {@inheritDoc}
      *
+     * @param \Psr\Http\Message\ServerRequestInterface $request The request.
+     * @return \Authentication\Authenticator\ResultInterface The result object. If none of the adapters was a success
+     *  the last failed result is returned.
      * @throws \RuntimeException Throws a runtime exception when no authenticators are loaded.
      */
     public function authenticate(ServerRequestInterface $request): ResultInterface
@@ -369,6 +372,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         }
         $query = urlencode($param) . '=' . urlencode($redirect);
 
+        /** @var array $url */
         $url = parse_url($target);
         if (isset($url['query']) && strlen($url['query'])) {
             $url['query'] .= '&' . $query;
@@ -376,6 +380,7 @@ class AuthenticationService implements AuthenticationServiceInterface
             $url['query'] = $query;
         }
         $fragment = isset($url['fragment']) ? '#' . $url['fragment'] : '';
+        $url['path'] = $url['path'] ?? '/';
 
         return $url['path'] . '?' . $url['query'] . $fragment;
     }
@@ -409,9 +414,11 @@ class AuthenticationService implements AuthenticationServiceInterface
             return null;
         }
         $parsed += ['path' => '/', 'query' => ''];
+        /** @psalm-suppress PossiblyUndefinedArrayOffset */
         if (strlen($parsed['path']) && $parsed['path'][0] !== '/') {
             $parsed['path'] = "/{$parsed['path']}";
         }
+        /** @psalm-suppress PossiblyUndefinedArrayOffset */
         if ($parsed['query']) {
             $parsed['query'] = "?{$parsed['query']}";
         }

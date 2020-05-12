@@ -63,15 +63,19 @@ class ConversationsTable extends Table
         ]);
         $this->belongsTo('Travels', [
             'foreignKey' => 'travel_id',
+            'joinType' => 'LEFT',
         ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('ChildConversations', [
             'foreignKey' => 'child_conversation_id',
+            'joinType' => 'LEFT',
         ]);
         $this->belongsTo('DiscountRides', [
             'foreignKey' => 'discount_id',
+            'joinType' => 'LEFT',
         ]);
         $this->hasMany('ApiSyncQueue2driverConversations', [
             'foreignKey' => 'conversation_id',
@@ -90,6 +94,8 @@ class ConversationsTable extends Table
         ]);
         $this->hasOne('ConversationsMeta', [
             'foreignKey' => 'conversation_id',
+            'joinType' => 'INNER',
+            'propertyName' => 'meta'
         ]);
     }
 

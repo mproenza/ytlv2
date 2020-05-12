@@ -296,7 +296,7 @@
             </div>
             <div class="related">
                 <h4><?= __('Related Drivers Profiles') ?></h4>
-                <?php if (!empty($driver->drivers_profiles)) : ?>
+                <?php if (!empty($driverprofiles)) : ?>
                 <div class="table-responsive">
                     <table>
                         <tr>
@@ -313,7 +313,7 @@
                             <th><?= __('Testimonial Attempts') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
-                        <?php foreach ($driver->drivers_profiles as $driversProfiles) : ?>
+                        <?php foreach ($driverprofiles as $driversProfiles) : ?>
                         <tr>
                             <td><?= h($driversProfiles->id) ?></td>
                             <td><?= h($driversProfiles->driver_id) ?></td>

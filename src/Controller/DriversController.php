@@ -21,6 +21,7 @@ class DriversController extends AppController
     {
         $this->paginate = [
             'contain' => ['Provinces', 'Users'],
+            'limit' => 500
         ];
         $drivers = $this->paginate($this->Drivers);
 
@@ -190,7 +191,7 @@ class DriversController extends AppController
         
         $this->set('driverWithProfile', $driverWithProfile);
         
-        $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme');
+        $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme.CubaTheme');
         $this->viewBuilder()->setLayout('driver_profile');
     }
     

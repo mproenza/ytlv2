@@ -10,8 +10,8 @@ class EnhancedHtmlHelper extends HtmlHelper {
     private function _getCssAliases() {
         return array(
             'bootstrap'=>array(
-                'debug'=>'bootstrap',
-                'release'=>'bootstrap'
+                'debug'=>'common/bootstrap-3.1.1-dist/css/bootstrap.min',
+                'release'=>'common/bootstrap-3.1.1-dist/css/bootstrap.min'/*'http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.js'*/
             ),
             'calendar'=>array(
                 'debug'=>['fullcalendar/fullcalendar', 'fullcalendar/fullcalendar.print'],
@@ -28,12 +28,12 @@ class EnhancedHtmlHelper extends HtmlHelper {
     private function _getScriptAliases() {
         return array(
             'bootstrap'=>array(
-                'debug'=>'bootstrap',
-                'release'=>'bootstrap'
+                'debug'=>'common/bootstrap-3.1.1-dist/js/bootstrap.min',
+                'release'=>'common/bootstrap-3.1.1-dist/js/bootstrap.min'/*'http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js'*/
             ),
             'jquery'=>array(
-                'debug'=>'jquery',
-                'release'=>'jquery'
+                'debug'=>'common/jquery-1.9.0.min',
+                'release'=>'common/jquery-1.9.0.min'
             ),
             'datepicker'=>array(
                 'debug'=>'datepicker/bootstrap-datepicker',
