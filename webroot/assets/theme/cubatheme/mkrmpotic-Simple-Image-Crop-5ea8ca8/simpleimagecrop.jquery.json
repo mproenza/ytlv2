@@ -1,0 +1,24 @@
+{
+"name": "simpleimagecrop",
+"title": "Simple Image Crop",
+"description": "jQuery plugin for image cropping in combination with PHP backend.",
+"keywords": [ "image", "crop", "cropping", "cropper", "picture", "resize" ],
+"version": "0.8.5",
+"author": {
+"name": "Marin Krmpotić",
+"url": "http://www.marinkrmpotic.com"
+},
+"licenses": [
+{
+"type": "MIT",
+"url": "https://github.com/mkrmpotic/Simple-Image-Crop/blob/master/LICENSE"
+}
+],
+"bugs": "https://github.com/mkrmpotic/Simple-Image-Crop/issues",
+"homepage": "https://github.com/mkrmpotic/Simple-Image-Crop",
+"demo": "http://www.marinkrmpotic.com/simpleimagecrop",
+"docs": "https://github.com/mkrmpotic/Simple-Image-Crop",
+"dependencies": {
+"jquery": ">=1.7.0"
+}
+}

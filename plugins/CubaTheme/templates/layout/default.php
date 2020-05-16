@@ -55,6 +55,9 @@ echo $this->Html->css ('font-awesome/css/font-awesome.min', array('inline' => fa
 // CSS
 echo $this->Html->css ('datepicker/css/datepicker', array('inline' => false));
 echo $this->Html->css ('typeaheadjs/css/typeahead.js-bootstrap', array('inline' => false));
+echo $this->Html->css ('theme/cubatheme/css/iCheck/custom');
+echo $this->Html->css ('theme/cubatheme/css/awesome-cropper/components/imgareaselect/css/imgareaselect-default');
+echo $this->Html->css ('theme/cubatheme/css/awesome-cropper/css/jquery.awesome-cropper');
 
 echo $this->fetch('css');
 ?>
@@ -97,6 +100,10 @@ if(Configure::read('App.language') != 'en') echo $this->Html->script('jquery-val
 
 echo $this->Html->script ('typeaheadjs/js/typeahead-martin', array('inline' => false));
 
+echo $this->Html->script ('theme/cubatheme/js/iCheck/icheck.min');
+echo $this->Html->script ('theme/cubatheme/js/awesome-cropper/components/imgareaselect/scripts/jquery.imgareaselect');
+echo $this->Html->script ('theme/cubatheme/js/awesome-cropper/build/jquery.awesome-cropper');
+
 /*$this->Js->set('localities', Locality::getAsSuggestions());
 echo $this->Js->writeBuffer(array('inline' => false));
 
@@ -106,7 +113,25 @@ echo $this->fetch('script');*/
 
 <script type="text/javascript">
     
-    $(document).ready(function() {   
+    $(document).ready(function() { 
+        
+        /*Checkbox personalized and check event*/             
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-green',
+            }).on('ifChanged', function(){
+                
+                
+            });
+         
+        
+        $('#sample_input').awesomeCropper(
+        { width: 100, height: 100, debug: true }
+        );
+    
+       
+        
+        
         /*Popover de picko linker */
         picko = $('.picko-linker');
         if(picko !== null) {
@@ -147,18 +172,18 @@ echo $this->fetch('script');*/
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    /*$(document).ready(function() {
         $('input.locality-typeahead').typeahead({
             valueKey: 'name',
             local: window.app.localities,
             limit: 20
-        })/*.on('typeahead:selected', function(event, datum) {
+        }).on('typeahead:selected', function(event, datum) {
             
-        })*/;
+        });
         
         $('input.tt-hint').addClass('form-control');
         $('.twitter-typeahead').css('display', 'block');
-    });
+    });*/
 
 </script>
 

@@ -45,9 +45,9 @@ return [
             //'port' => 'non_standard_port_number',
 
             'username' => 'root',
-            'password' => '',
+            'password' => 'conficuba',
 
-            'database' => 'yotellevo_full',
+            'database' => 'yotellevo2',
             /**
              * If not using the default 'public' schema with the PostgreSQL driver
              * set it here.
@@ -68,8 +68,8 @@ return [
             'host' => 'localhost',
             //'port' => 'non_standard_port_number',
             'username' => 'root',
-            'password' => '',
-            'database' => 'yotellevo',
+            'password' => 'conficuba',
+            'database' => 'yotellevo2',
             //'schema' => 'myapp',
         ],
     ],

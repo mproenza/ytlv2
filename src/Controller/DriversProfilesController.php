@@ -2,16 +2,24 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Core\Configure;
+use Cake\ORM\TableRegistry;
 
 /**
  * DriversProfiles Controller
  *
  * @property \App\Model\Table\DriversProfilesTable $DriversProfiles
+ * @property \App\Model\Table\DriversUnapprovedTable $DriversUnapproved
  *
  * @method \App\Model\Entity\DriversProfile[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class DriversProfilesController extends AppController
 {
+    
+     public function beforeRender(\Cake\Event\EventInterface $event) {
+        parent::beforeFilter($event);
+        $this->viewBuilder()->setTheme('CubaTheme');
+    }
     /**
      * Index method
      *
@@ -62,6 +70,30 @@ class DriversProfilesController extends AppController
         }
         $drivers = $this->DriversProfiles->Drivers->find('list', ['limit' => 200]);
         $this->set(compact('driversProfile', 'drivers'));
+    }
+    
+    /**
+     * Add new profile method
+     *
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     */
+    public function newProfile()
+    {
+        $this->DriversUnapproved = TableRegistry::getTableLocator()->get('DriversUnapproved');//La annotation no funciona
+        $this->Provinces = TableRegistry::getTableLocator()->get('Provinces');//La annotation no funciona
+        $driversProfile = $this->DriversUnapproved->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $driversProfile = $this->DriversUnapproved->patchEntity($driversProfile, $this->request->getData());
+            if ($this->DriversUnapproved->save($driversProfile)) {
+                $this->Flash->success(__('The drivers profile has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The drivers profile could not be saved. Please, try again.'));
+        }
+        $provinces = $this->Provinces->find('list', ['limit' => 200]);
+        $this->set(compact('driversProfile', 'provinces'));
+        
     }
 
     /**
