@@ -1,0 +1,8 @@
+parameters:
+	autoload_files:
+		- bootstrap.php
+	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false
+	ignoreErrors:
+		- '#Access to an undefined property Cake\\ORM\\BehaviorRegistry::\$Search#'
+		- '#Negated boolean expression is always false.#'

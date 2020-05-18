@@ -57,21 +57,32 @@ class ConversationsTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER',
+        ]);
         $this->belongsTo('Drivers', [
             'foreignKey' => 'driver_id',
             'joinType' => 'INNER',
+            'propertyName' =>'driver'
+        ]);
+        $this->hasOne('ConversationsMeta', [
+            'foreignKey' => 'conversation_id',
+            'joinType' => 'LEFT',
+            'propertyName' => 'meta'
         ]);
         $this->belongsTo('Travels', [
             'foreignKey' => 'travel_id',
+            'joinType' => 'LEFT',
         ]);
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id',
-        ]);
+        
         $this->belongsTo('ChildConversations', [
             'foreignKey' => 'child_conversation_id',
+            'joinType' => 'LEFT',
         ]);
         $this->belongsTo('DiscountRides', [
             'foreignKey' => 'discount_id',
+            'joinType' => 'LEFT',
         ]);
         $this->hasMany('ApiSyncQueue2driverConversations', [
             'foreignKey' => 'conversation_id',
@@ -86,9 +97,6 @@ class ConversationsTable extends Table
             'foreignKey' => 'conversation_id',
         ]);
         $this->hasMany('Testimonials', [
-            'foreignKey' => 'conversation_id',
-        ]);
-        $this->hasOne('ConversationsMeta', [
             'foreignKey' => 'conversation_id',
         ]);
     }
@@ -130,12 +138,12 @@ class ConversationsTable extends Table
             ->allowEmptyString('identifier');
 
         $validator
-            ->date('travel_date')
-            ->allowEmptyDate('travel_date');
+            ->date('due_date')
+            ->allowEmptyDate('due_date');
 
         $validator
-            ->date('original_date')
-            ->allowEmptyDate('original_date');
+            ->date('original_due_date')
+            ->allowEmptyDate('due_date');
 
         return $validator;
     }

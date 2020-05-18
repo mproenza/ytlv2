@@ -5,13 +5,13 @@ use App\Model\Entity\Province;
     <div style="background: #ffffff" class="pt-1 pb-3">
         <div class="col-lg-2 col-md-3">
             <div class="user_image" style="width: 150px;height: 150px;overflow: hidden;margin: 2rem auto 2rem auto;">
-                <img src="<?php echo $driver->drivers_profile->featured_img_url?>" style="width: 100%;min-width: 100%;min-height: 100%;">
+                <img src="<?php echo $driver->profile->featured_img_url?>" style="width: 100%;min-width: 100%;min-height: 100%;">
             </div>
         </div>
         <div class="testimonials-caption col-lg-10 col-md-9">
             <div class="user_text ">
                 <p class="mbr-fonts-style  display-7">
-                    <strong><?php echo $driver->drivers_profile->driver_name?></strong>
+                    <strong><?php echo $driver->profile->driver_name?></strong>
                     <br><br>
                     <?php echo __d('drivers_by_province', 'Vive en {0}', Province::$provinces[$driver->province_id]['name'])?>
                     <br>
@@ -29,7 +29,7 @@ use App\Model\Entity\Province;
             </div>
 
             <div class="user_desk mbr-light mbr-fonts-style align-left pt-2 display-7">
-                <?php echo $this->Html->link(__d('drivers_by_province', 'Ver perfil'), array('controller'=>'drivers', 'action'=>'profile', $driver->drivers_profile->driver_nick), array('class'=>'btn-sm btn-success'))?>
+                <?php echo $this->Html->link(__d('drivers_by_province', 'Ver perfil'), array('controller'=>'drivers', 'action'=>'profile', $driver->profile->driver_nick), array('class'=>'btn-sm btn-success'))?>
             </div>
         </div>
     </div>

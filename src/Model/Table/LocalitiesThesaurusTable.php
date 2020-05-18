@@ -40,7 +40,7 @@ class LocalitiesThesaurusTable extends Table
         parent::initialize($config);
 
         $this->setTable('localities_thesaurus');
-        $this->setDisplayField('id');
+        $this->setDisplayField('fake_name');
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Localities', [

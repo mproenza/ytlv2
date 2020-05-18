@@ -3,10 +3,10 @@ use App\Model\Entity\Conversation;
 use App\Model\Entity\Driver;
 use Cake\Core\Configure;
 
-$notificationType = Conversation::$NOTIFICATION_TYPE_DIRECT_MESSAGE;
+$notificationType = Conversation::NOTIFICATION_TYPES['DIRECT_MESSAGE'];
 
 $isDiscountOffer = isset($discount_id);
-if($isDiscountOffer) $notificationType = Conversation::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST;
+if($isDiscountOffer) $notificationType = Conversation::NOTIFICATION_TYPES['DISCOUNT_OFFER_REQUEST'];
 ?>
 <?php echo $this->Flash->render('form-error');?>
 
@@ -27,10 +27,10 @@ if($isDiscountOffer) $notificationType = Conversation::$NOTIFICATION_TYPE_DISCOU
     echo $this->Form->custom_date('Conversation.travel_date', array('label' => __('Fecha inicial del viaje'), 'dateFormat' => 'dd/mm/yyyy', 'class'=>'input-sm'));
     
     echo $this->Form->input('ConversationerConversation.response_text', array(
-        'label' => __('Mensaje a {0} sobre lo que quieres hacer', Driver::shortenName($driverWithProfile->drivers_profile->driver_name)), 
+        'label' => __('Mensaje a {0} sobre lo que quieres hacer', Driver::shortenName($driverWithProfile->profile->driver_name)), 
         'type' => 'textarea', 
         'required' => 'required',
-        'placeholder' => __d('mobirise/driver_profile', 'Hola {0}', Driver::shortenName($driverWithProfile->drivers_profile->driver_name)).' ...'));
+        'placeholder' => __d('mobirise/driver_profile', 'Hola {0}', Driver::shortenName($driverWithProfile->profile->driver_name)).' ...'));
     ?>
 
     <?php if(!$isUserLoggedIn):?>
@@ -47,7 +47,7 @@ if($isDiscountOffer) $notificationType = Conversation::$NOTIFICATION_TYPE_DISCOU
     <br>
     <span class="input-group-btn">
         <input type="submit" class="btn btn-primary btn-form btn-block display-5" id="CDirectSubmit" 
-               value="<?php echo __d('mobirise/driver_profile', 'Enviar este mensaje a {0}', Driver::shortenName($driverWithProfile->drivers_profile->driver_name))?>"> 
+               value="<?php echo __d('mobirise/driver_profile', 'Enviar este mensaje a {0}', Driver::shortenName($driverWithProfile->profile->driver_name))?>"> 
 
     </span>
 

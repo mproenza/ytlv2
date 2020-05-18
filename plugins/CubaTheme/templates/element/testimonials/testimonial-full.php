@@ -9,7 +9,7 @@ if(!isset($shareReview)) $shareReview = true;
 if(!isset($linkToProfile)) $linkToProfile = false;
 if(!isset($driverReplies)) $driverReplies = array();
 
-$hasProfile = true;//isset($driver) && isset ($driver->drivers_profile) && !empty($driver->drivers_profile);
+$hasProfile = true;//isset($driver) && isset ($driverprofile) && !empty($driverprofile);
 $reviewHasImage = isset($testimonial->image_filepath) && $testimonial->image_filepath;
 ?>
 
@@ -39,14 +39,14 @@ $reviewHasImage = isset($testimonial->image_filepath) && $testimonial->image_fil
         <?php if($linkToProfile && $hasProfile):?>
             <p class="mbr-author-desc mbr-fonts-style display-6">
                 <?php 
-                $driver_name = $driver->drivers_profile->driver_name;
-                $driver_avatar = PathUtil::getFullPath($driver->drivers_profile->avatar_filepath);
+                $driver_name = $driver->profile->driver_name;
+                $driver_avatar = PathUtil::getFullPath($driver->profile->avatar_filepath);
 
-                if($driver['active']) $driver_hint = $this->Html->link('<code><big>'.$driver_name.'</big></code>', array('controller'=>'drivers', 'action'=>'profile', $driver->drivers_profile->driver_nick), array('escape'=>false));
+                if($driver['active']) $driver_hint = $this->Html->link('<code><big>'.$driver_name.'</big></code>', array('controller'=>'drivers', 'action'=>'profile', $driver->profile->driver_nick), array('escape'=>false));
                 else $driver_hint = '<b>'.$driver_name.'</b>';
                 ?>
                 <img src="<?php echo $driver_avatar?>" class="info" title="<?php echo $driver_name?>" style="max-width:60px"/>
-                <?php echo $this->Html->link(__d('testimonials', 'Ver perfil de {0}', $driver_name), array('controller'=>'drivers', 'action'=>'profile', $driver->drivers_profile->driver_nick), array('class'=>'btn btn-success display-4', 'escape'=>false))?>
+                <?php echo $this->Html->link(__d('testimonials', 'Ver perfil de {0}', $driver_name), array('controller'=>'drivers', 'action'=>'profile', $driver->profile->driver_nick), array('class'=>'btn btn-success display-4', 'escape'=>false))?>
             </p>
         <?php endif;?>
         
@@ -56,11 +56,11 @@ $reviewHasImage = isset($testimonial->image_filepath) && $testimonial->image_fil
             $share_img = 
                 $reviewHasImage?
                     PathUtil::getFullPath($testimonial->image_filepath):
-                    $driver->drivers_profile->featured_img_url;
+                    $driver->profile->featured_img_url;
                     
             $reviewUrl = Cake\Routing\Router::url([
                 'language'=>$testimonial->lang, 
-                'controller' => 'drivers', 'action' => 'profile', $driver->drivers_profile->driver_nick,
+                'controller' => 'drivers', 'action' => 'profile', $driver->profile->driver_nick,
                 '?'=>array('see-review'=>$testimonial->id), 
                 '_full'=>true]);
             ?>
@@ -73,7 +73,7 @@ $reviewHasImage = isset($testimonial->image_filepath) && $testimonial->image_fil
                     <b><small><span class="fa fa-facebook"></span></small></b>
                 </a>&nbsp;            
                 <a  style="padding:4px;background-color: #bd081c;color: #FFFFFF !important;text-decoration: none;border-radius:5px"
-                    href="https://pinterest.com/pin/create/button/?url=<?php echo $reviewUrl ?>&media=<?php echo $share_img ?>&description=<?php echo __d('testimonials', 'Testimonio de {0} sobre su chofer en Cuba, {1}', $testimonial->author, $driver->drivers_profile->driver_name)?>" 
+                    href="https://pinterest.com/pin/create/button/?url=<?php echo $reviewUrl ?>&media=<?php echo $share_img ?>&description=<?php echo __d('testimonials', 'Testimonio de {0} sobre su chofer en Cuba, {1}', $testimonial->author, $driver->profile->driver_name)?>" 
                     target="_blank"
                     title="Pinterest">
                     <b><small><span class="fa fa-pinterest"></span></small></b>

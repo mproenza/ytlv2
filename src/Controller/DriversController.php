@@ -21,6 +21,7 @@ class DriversController extends AppController
     {
         $this->paginate = [
             'contain' => ['Provinces', 'Users'],
+            'limit' => 500
         ];
         $drivers = $this->paginate($this->Drivers);
 
@@ -123,7 +124,7 @@ class DriversController extends AppController
 
         // Show 'other recommended' drivers on the driver's profile
         $recommendedDrivers = 
-                $this->Drivers->find('recommendedInProvince', 
+                $this->Drivers->find('recommendedInProvince',
                         [
                             'province_id' => $driverWithProfile->province->id,
                             'exclude_drivers' => [$driverWithProfile->id]
@@ -164,7 +165,7 @@ class DriversController extends AppController
         //$this->Testimonial->virtualFields['in_review']=  "IF (Testimonial.id IN ('$highlightReviewID'),0,1)";
 
         $this->paginate = [ 'Testimonials' => [
-                'contain'=>\App\Model\Entity\Testimonial::$basicContain,
+                'contain'=>\App\Model\Entity\Testimonial::$myCommonRelatedModels,
                 'conditions'=>[
                     'Testimonials.driver_id' => $driverWithProfile->id, 
                     'Testimonials.state'=> \App\Model\Entity\Testimonial::$statesValues['approved']
@@ -190,7 +191,7 @@ class DriversController extends AppController
         
         $this->set('driverWithProfile', $driverWithProfile);
         
-        $this->viewBuilder()->setTheme('CubaTheme');
+        $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme.CubaTheme');
         $this->viewBuilder()->setLayout('driver_profile');
     }
     

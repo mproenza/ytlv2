@@ -20,7 +20,8 @@
                     echo $this->Form->control('driver_id', ['options' => $drivers]);
                     echo $this->Form->control('driver_nick');
                     echo $this->Form->control('driver_name');
-                    echo $this->Form->control('avatar_filepath');
+                    echo $this->Form->control('avatar_filename');
+                    echo $this->Form->control('avatar_filedir');
                     echo $this->Form->control('featured_img_url');
                     echo $this->Form->control('description_es');
                     echo $this->Form->control('description_en');

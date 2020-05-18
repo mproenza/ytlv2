@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <th><?= __('Driver') ?></th>
-                    <td><?= $driversProfile->has('driver') ? $this->Html->link($driversProfile->driver->id, ['controller' => 'Drivers', 'action' => 'view', $driversProfile->driver->id]) : '' ?></td>
+                    <td><?= $driversProfile->has('driver') ? $this->Html->link($driversProfile->driver->name, ['controller' => 'Drivers', 'action' => 'view', $driversProfile->driver->id]) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Driver Nick') ?></th>
@@ -35,8 +35,12 @@
                     <td><?= h($driversProfile->driver_name) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Avatar Filepath') ?></th>
-                    <td><?= h($driversProfile->avatar_filepath) ?></td>
+                    <th><?= __('Avatar Filename') ?></th>
+                    <td><?= h($driversProfile->avatar_filename) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Avatar Filedir') ?></th>
+                    <td><?= h($driversProfile->avatar_filedir) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Featured Img Url') ?></th>

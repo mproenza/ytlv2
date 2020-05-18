@@ -40,7 +40,7 @@ class AppController extends Controller
      */
     public function initialize(): void
     {
-        parent::initialize();
+        parent::initialize();        
         
         $this->Dummy = \Cake\ORM\TableRegistry::getTableLocator()->get('Dummy');
         
@@ -117,12 +117,12 @@ class AppController extends Controller
                 'title'=>function($viewVars, $request) {
                     return __d('meta', 'Taxi en {0}, Cuba: {1}', 
                             $viewVars['driverWithProfile']->province->name,
-                            $viewVars['driverWithProfile']->drivers_profile->driver_name);
+                            $viewVars['driverWithProfile']->profile->driver_name);
                 },
                 'description'=>function($viewVars, $request) {
                     $description = __d('driver_profile', 'Taxi hasta {0} capacidades', $viewVars['driverWithProfile']->max_people_count);
                     if ($viewVars['driverWithProfile']->has_air_conditioner) $description .= ' ' . __d('driver_profile', 'con aire acondicionado');
-                    $description .= '. '.__d('driver_profile', 'Contacta a {0} para acordar traslados en Cuba.', \App\Model\Entity\Driver::shortenName($viewVars['driverWithProfile']->drivers_profile->driver_name));
+                    $description .= '. '.__d('driver_profile', 'Contacta a {0} para acordar traslados en Cuba.', \App\Model\Entity\Driver::shortenName($viewVars['driverWithProfile']->profile->driver_name));
                     return $description;
                 }
             ]
