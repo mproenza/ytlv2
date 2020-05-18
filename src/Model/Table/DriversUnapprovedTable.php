@@ -37,6 +37,24 @@ class DriversUnapprovedTable extends Table
     public function initialize(array $config): void
     {
         parent::initialize($config);
+        
+        $this->addBehavior('Josegonzalez/Upload.Upload', [
+             'avatar_path' => [
+                 'fields' => [
+                         'dir' => 'avatar_path_dir'
+                     ],
+             ],
+            'featured_image_url' => [
+                 'fields' => [
+                         'dir' => 'featured_image_url_dir'
+                     ],
+             ],
+            'profile_image_url' => [
+                 'fields' => [
+                         'dir' => 'profile_image_url_dir'
+                     ],
+             ]
+                ]);
 
         $this->setTable('drivers_unapproved');
         $this->setDisplayField('id');
@@ -76,20 +94,20 @@ class DriversUnapprovedTable extends Table
             ->notEmptyString('full_name');
 
         $validator
-            ->scalar('avatar_path')
+            /*->scalar('avatar_path')
             ->maxLength('avatar_path', 250)
-            ->requirePresence('avatar_path', 'create')
+            ->requirePresence('avatar_path', 'create')*/
             ->notEmptyFile('avatar_path');
 
         $validator
-            ->scalar('featured_img_url')
-            ->maxLength('featured_img_url', 255)
-            ->allowEmptyString('featured_img_url');
+           /* ->scalar('featured_img_url')
+            ->maxLength('featured_img_url', 255)*/
+            ->notEmptyFile('avatar_path');
         
         $validator
-            ->scalar('profile_img_url')
-            ->maxLength('profile_img_url', 255)
-            ->allowEmptyString('profile_img_url');
+            /*->scalar('profile_img_url')
+            ->maxLength('profile_img_url', 255)*/
+            ->notEmptyFile('avatar_path');
 
         $validator
             ->scalar('about')

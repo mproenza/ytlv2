@@ -13,17 +13,18 @@ use Cake\ORM\Entity;
  * @property string $full_name
  * @property string $car_model
  * @property string $avatar_path
- * @property string|null $featured_img_url
+ * @property string $featured_img_url
  * @property string $about
  * @property string $profile_img_url
- * @property bool $has_classic_car 
+ * @property string $phone 
  * @property int $max_people_count
  * 
  *
- * @property \App\Model\Entity\Driver $driver
+ * 
  */
 class DriversUnapproved extends Entity
 {
+    
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -37,11 +38,29 @@ class DriversUnapproved extends Entity
         'username' => true,
         'full_name' => true,
         'car_model' => true,
+        'phone'=>true,
         'max_people_count' => true,
         'about' => true,
         'featured_img_url' => true,
         'avatar_path' => true,
         'profile_img_url' => true,        
     ];
+    
+    
+    public function _getAvatarPath() {
+     if(isset($this->avatar_path)) return $this->avatar_path;
+
+     return $this->avatar_path_dir.DS.$this->avatar_path;
+    }
+
+    public function _getFeaturedImageUrlPath() {
+         if(isset($this->featured_image_url)) return $this->featured_image_url;
+         return $this->featured_image_url_dir.DS.$this->featured_image_url;
+    }
+
+    public function _getProfileImageUrlPath() {
+         if(isset($this->profile_image_url)) return $this->profile_image_url;
+         return $this->profile_image_url_dir.DS.$this->profile_image_url;
+    }
     
 }

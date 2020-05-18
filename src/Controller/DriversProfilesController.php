@@ -73,12 +73,14 @@ class DriversProfilesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function newProfile()
-    {
+    {        
         $this->DriversUnapproved = TableRegistry::getTableLocator()->get('DriversUnapproved');//La annotation no funciona
         $this->Provinces = TableRegistry::getTableLocator()->get('Provinces');//La annotation no funciona
         $driversProfile = $this->DriversUnapproved->newEmptyEntity();
         if ($this->request->is('post')) {
+            //die(print_r($this->request->getData()));
             $driversProfile = $this->DriversUnapproved->patchEntity($driversProfile, $this->request->getData());
+            debug($driversProfile); die();
             if ($this->DriversUnapproved->save($driversProfile)) {
                 $this->Flash->success(__('The drivers profile has been saved.'));
 

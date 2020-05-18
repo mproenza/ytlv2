@@ -55,9 +55,8 @@ echo $this->Html->css ('font-awesome/css/font-awesome.min', array('inline' => fa
 // CSS
 echo $this->Html->css ('datepicker/css/datepicker', array('inline' => false));
 echo $this->Html->css ('typeaheadjs/css/typeahead.js-bootstrap', array('inline' => false));
-echo $this->Html->css ('theme/cubatheme/css/iCheck/custom');
-echo $this->Html->css ('theme/cubatheme/css/awesome-cropper/components/imgareaselect/css/imgareaselect-default');
-echo $this->Html->css ('theme/cubatheme/css/awesome-cropper/css/jquery.awesome-cropper');
+echo $this->Html->css ('jasny/css/jasny-bootstrap.min');
+
 
 echo $this->fetch('css');
 ?>
@@ -100,9 +99,7 @@ if(Configure::read('App.language') != 'en') echo $this->Html->script('jquery-val
 
 echo $this->Html->script ('typeaheadjs/js/typeahead-martin', array('inline' => false));
 
-echo $this->Html->script ('theme/cubatheme/js/iCheck/icheck.min');
-echo $this->Html->script ('theme/cubatheme/js/awesome-cropper/components/imgareaselect/scripts/jquery.imgareaselect');
-echo $this->Html->script ('theme/cubatheme/js/awesome-cropper/build/jquery.awesome-cropper');
+echo $this->Html->script ('jasny/js/jasny-bootstrap.min');
 
 /*$this->Js->set('localities', Locality::getAsSuggestions());
 echo $this->Js->writeBuffer(array('inline' => false));
