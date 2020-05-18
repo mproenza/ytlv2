@@ -27,7 +27,7 @@
     <?php
     $socialTitle = $title;
     $socialDescription = $description;
-    $socialImageUrl = $driverWithProfile->drivers_profile->featured_img_url;
+    $socialImageUrl = $driverWithProfile->profile->featured_img_url;
     ?>
     
     <?php
@@ -114,7 +114,7 @@
 <body>
     <?= $this->element('general/ribbon')?>
     
-    <?= $this->element('general/menu', ['cta'=>__d('driver_profile', 'Contactar a {0}', $driverWithProfile->drivers_profile->driver_name)]) ?>
+    <?= $this->element('general/menu', ['cta'=>__d('driver_profile', 'Contactar a {0}', $driverWithProfile->profile->driver_name)]) ?>
 
     <?= $this->fetch('content') ?>
 

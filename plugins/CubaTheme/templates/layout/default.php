@@ -110,27 +110,30 @@ echo $this->Js->writeBuffer(array('inline' => false));
 echo $this->fetch('script');*/
 
 ?>
+    
+<?= $this->fetch('script');?>
+<?= $this->fetch('script_bottom');?>
+<?= $this->fetch('script_internal');?>
 
 <script type="text/javascript">
     
     $(document).ready(function() { 
         
-        /*Checkbox personalized and check event*/             
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-green',
-            }).on('ifChanged', function(){
-                
-                
-            });
+        /*Checkbox personalized and check event*/
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-green',
+        }).on('ifChanged', function(){
+
+
+        });
          
         
         $('#sample_input').awesomeCropper(
         { width: 100, height: 100, debug: true }
         );
-    
-       
-        
+
+
         
         /*Popover de picko linker */
         picko = $('.picko-linker');
@@ -175,7 +178,7 @@ echo $this->fetch('script');*/
     /*$(document).ready(function() {
         $('input.locality-typeahead').typeahead({
             valueKey: 'name',
-            local: window.app.localities,
+            local: <?= json_encode(App\Model\Table\LocalitiesTable::getAsSuggestions())?>,
             limit: 20
         }).on('typeahead:selected', function(event, datum) {
             

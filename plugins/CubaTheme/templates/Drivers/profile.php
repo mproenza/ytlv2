@@ -4,7 +4,7 @@ use Cake\Core\Configure;
 ?>
 
 <?php 
-$driver_name = $driverWithProfile->drivers_profile->driver_name;
+$driver_name = $driverWithProfile->profile->driver_name;
 $driver_short_name = Driver::shortenName($driver_name);
 $driverIsActive = $driverWithProfile->active;
 
@@ -24,7 +24,7 @@ $hasTestimonials = $testimonialsCount > 0;
     <div class="container">
         <div class="media-container-row">
             <div class="mbr-figure" style="width: 50%;">
-                <img src="<?= $driverWithProfile->drivers_profile->featured_img_url?>" alt="<?= $driver_short_name?>" title="">
+                <img src="<?= $driverWithProfile->profile->featured_img_url?>" alt="<?= $driver_short_name?>" title="">
             </div>
 
             <div class="media-content">
@@ -98,7 +98,7 @@ $hasTestimonials = $testimonialsCount > 0;
 </section>
 
 <?php $descFieldName = 'description_'.Configure::read('App.language')?>
-<?php $desc = json_decode($driverWithProfile->drivers_profile->$descFieldName, true)?>
+<?php $desc = json_decode($driverWithProfile->profile->$descFieldName, true)?>
 <?php if($desc != null):?>
 <section class="mbr-gallery mbr-slider-carousel cid-r6WhQMK4gz" id="gallery1-11">
     <div class="container">
@@ -173,7 +173,7 @@ $hasTestimonials = $testimonialsCount > 0;
 <section class="features1 cid-r6WltItbex">
     <div class="container">
         <div class="media-container-row">
-            <?= $driverWithProfile->drivers_profile->$descFieldName?>
+            <?= $driverWithProfile->profile->$descFieldName?>
         </div>
     </div>
 </section>

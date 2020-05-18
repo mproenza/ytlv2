@@ -15,11 +15,6 @@ use Cake\ORM\TableRegistry;
  */
 class DriversProfilesController extends AppController
 {
-    
-     public function beforeRender(\Cake\Event\EventInterface $event) {
-        parent::beforeFilter($event);
-        $this->viewBuilder()->setTheme('CubaTheme');
-    }
     /**
      * Index method
      *
@@ -93,6 +88,8 @@ class DriversProfilesController extends AppController
         }
         $provinces = $this->Provinces->find('list', ['limit' => 200]);
         $this->set(compact('driversProfile', 'provinces'));
+        
+        $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme.CubaTheme');
         
     }
 

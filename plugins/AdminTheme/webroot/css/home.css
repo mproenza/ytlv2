@@ -1,0 +1,229 @@
+.destination-thumb {
+    background-position:center;
+    width:100%;
+    height:200px;
+    /*max-width: 400px;*/
+    background-repeat: no-repeat;
+    text-align:center;
+}
+
+.destination-thumb .action {
+    visibility: hidden;
+    opacity:1 !important;
+}
+
+.destination-thumb .dest {
+    visibility: visible;
+}
+
+.destination-thumb:hover {
+    opacity:0.6
+}
+
+.destination-thumb:hover .action {
+    visibility: visible;
+}
+
+.destination-thumb:hover .dest {
+    visibility: hidden;
+}
+
+.trinidad {
+    background-image:url(../img/trinidad.jpg);    
+}
+
+.varadero {
+    background-image:url(../img/varadero.jpg);   
+}
+
+.vinales {
+    background-image:url(../img/vinales.jpg);    
+}
+
+.all-around {
+    background-image:url(../img/all-around.jpg);
+}
+
+.action {
+    font-size: 16pt !important;
+    /*position: absolute;
+    bottom: 0;*/
+}
+
+
+#front-page-bg {
+    background-image:url(../img/road4.jpg);
+    background-position:center;
+    background-color: lightblue;
+    width:100%;
+    height:600px;
+    text-align:center
+}
+@media (max-width: 767px) {
+    #front-page-bg h1 {
+        font-size:20pt
+    }
+    #front-page-bg h2 {
+        font-size:16pt
+    }
+    #front-page-bg h3 {
+        font-size:12pt
+    }
+}
+
+/*#front-page-bg #navbar{background-color:transparent}*/
+#nav.scrolled {
+    background-color: #1DE1A0 !important;
+}
+#nav.scrolled #nav-toggler {
+    color:white !important;
+}
+
+.handwritten{/*font-family:'Engagement', cursive;*/font-size:48px}
+.handwritten-2{/*font-family:'Engagement', cursive;*/font-size:24px}
+@media (max-width: 767px) {
+    .handwritten{font-size:40px}
+    .handwritten-2{font-size:20px}
+}
+
+.sell-button a {
+    font-size:18pt;
+    white-space: normal;
+    max-width:500px
+}
+.sell-button a .sub {
+   font-size:13pt;
+   padding-left:50px;
+   padding-right:50px
+}
+@media (max-width: 767px) {
+    .sell-button a {
+        font-size:16pt;
+    }
+    .sell-button a .sub {padding-left:20px;padding-right:20px}
+}
+
+
+.sell{margin:20px 0;padding:0 100px}
+.sell span{font-size:50px;}
+.sell span img{max-height: 50px;}
+@media (max-width: 767px){
+    .sell-snippet{margin-top:40px}
+    .sell{padding:0 25px}
+    .sell span{font-size:30px;}
+    .sell p.lead{font-size:16pt}
+}
+
+.icon-bar{
+	background-color:white;
+}
+
+
+.twitter-typeahead {
+    width: 100%;
+    position: relative;
+}
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+    margin-bottom: 0;
+    width:100%;
+    height: 34px;
+    position: absolute;
+    top:0;
+    left:0;
+}
+.twitter-typeahead .tt-hint {
+    color:#a1a1a1;
+    z-index: 1;
+    padding: 6px 12px;
+    border:1px solid transparent;
+}
+.twitter-typeahead .tt-query {
+    z-index: 2;
+    border-radius: 4px!important;
+    /* add these 2 statements if you have an appended input group */
+    border-top-right-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+    /* add these 2 statements if you have an prepended input group */
+   /*  border-top-left-radius: 0!important;
+    border-bottom-left-radius: 0!important; */
+}
+
+.tt-dropdown-menu {
+    min-width: 160px;
+    margin-top: 2px;
+    padding: 5px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.2);
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+}
+
+.tt-suggestion {
+    display: block;
+    padding: 3px 20px;
+}
+
+.tt-suggestion.tt-is-under-cursor {
+    color: #fff;
+    background-color: #0081c2;
+    background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+    background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+    background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+    background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0)
+}
+
+.tt-suggestion.tt-is-under-cursor a {
+    color: #fff;
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
+
+
+/**
+        FEATURETTES
+*/
+.featurette-container {
+    padding-left: 100px;padding-right: 100px;padding-bottom: 80px;
+}
+.featurette-divider {
+    margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+@media (max-width: 767px){
+    .featurette-container{padding-left: 30px;padding-right: 30px;}
+    .featurette-divider {margin: 30px 0; /* Space out the Bootstrap <hr> more */}
+}
+
+.featurette-heading {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+/*.featurette-image {
+    max-width: 400px;
+}*/
+.featurette {    
+}
+@media (max-width: 767px){    
+    .featurette {
+        text-align:center;
+    }
+}
+
+.value-proposition {background-color:rgba(255,255,255,0.8);padding:20px !important;}

@@ -46,7 +46,7 @@ class AppUtil {
         //$testimonials_sample = $TestimonialsTable->find('all', array('conditions'=>$conditions, 'order'=>array('Testimonials.created'=>'DESC'), 'limit'=>$testimonialsCount));
         
         $testimonials_sample = $TestimonialsTable->find()
-                ->contain(\App\Model\Entity\Testimonial::$basicContain)
+                ->contain(\App\Model\Entity\Testimonial::$myCommonRelatedModels)
                 ->where($conditions)
                 ->order(array('Testimonials.created'=>'DESC'))
                 ->limit($testimonialsCount);
@@ -60,7 +60,7 @@ class AppUtil {
             
             $testimonials_sample = $testimonials_sample->append(
                     $TestimonialsTable->find()
-                        ->contain(\App\Model\Entity\Testimonial::$basicContain)
+                        ->contain(\App\Model\Entity\Testimonial::$myCommonRelatedModels)
                         ->where($conditions)
                         ->order(array('Testimonials.created'=>'DESC'))
                         ->limit($testimonialsCount - $count)

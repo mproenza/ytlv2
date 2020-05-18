@@ -43,6 +43,8 @@ use Cake\ORM\Entity;
  */
 class Travel extends Entity
 {
+    public static $myCommonRelatedModels = ['OriginLocality', 'DestinationLocality', 'User', 'Operator'];
+    
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -84,4 +86,30 @@ class Travel extends Entity
         'travels_conversations_meta' => true,
         'travels_by_email' => true,
     ];
+    
+    public static function getPreferences() {
+        $preferences = array(
+            'need_modern_car'=>__d('travel', 'Auto Moderno'),
+            'need_air_conditioner'=>__d('travel', 'Aire Acondicionado')
+        );
+        
+        return $preferences;
+    }
+    
+    public static function getStateSettings($state, $property = null) {
+        $settings = array(
+            'P' => array('color'=>'green', 'label'=>__d('travel', 'Pendiente'), 'class'=>'label-default'),
+            'U' => array('color'=>'goldenrod', 'label'=>__d('travel', 'Pendiente de envío a choferes'), 'class'=>'label-warning'),
+            'C' => array('color'=>'#0088cc', 'label'=>__d('travel', 'Enviada a choferes'), 'class'=>'label-success'),
+            'E' => array('color'=>'lightcoral', 'label'=>__d('travel', 'Expirado'), 'class'=>'label-default'),
+        );       
+        
+        if(isset ($settings[$state])) {
+            if($property == null || $property == '') return $settings[$state];
+            else if(isset ($settings[$state][$property])) return $settings[$state][$property];
+        }
+        
+        return null;
+    }
+    
 }

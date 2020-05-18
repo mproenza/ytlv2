@@ -42,6 +42,14 @@ class DriversProfilesTable extends Table
         $this->setTable('drivers_profiles');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+        
+        $this->addBehavior('Josegonzalez/Upload.Upload', [
+            'avatar_filename' => [
+                'fields' => [
+                        'dir' => 'avatar_filedir'
+                    ],
+            ]
+        ]);
 
         $this->belongsTo('Drivers', [
             'foreignKey' => 'driver_id',
@@ -75,10 +83,10 @@ class DriversProfilesTable extends Table
             ->notEmptyString('driver_name');
 
         $validator
-            ->scalar('avatar_filepath')
-            ->maxLength('avatar_filepath', 250)
-            ->requirePresence('avatar_filepath', 'create')
-            ->notEmptyFile('avatar_filepath');
+            //->scalar('avatar_filepath')
+            //->maxLength('avatar_filepath', 250)
+            //->requirePresence('avatar_filepath', 'create')
+            ->notEmptyFile('avatar_filename');
 
         $validator
             ->scalar('featured_img_url')

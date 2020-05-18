@@ -59,37 +59,28 @@ class TravelsTable extends Table
             'Users' => ['travel_count'],
         ]);
 
-        $this->belongsTo('OriginLocalities', [
+        $this->belongsTo('OriginLocality', [
+            'className' => 'Localities',
             'foreignKey' => 'origin_locality_id',
+            'propertyName' => 'origin'
         ]);
-        $this->belongsTo('DestinationLocalities', [
+        $this->belongsTo('DestinationLocality', [
+            'className' => 'Localities',
             'foreignKey' => 'destination_locality_id',
+            'propertyName' => 'destination'
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('User', [
+            'className' => 'Users',
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Operators', [
+        $this->belongsTo('Operator', [
+            'className' => 'Users',
             'foreignKey' => 'operator_id',
-        ]);
-        $this->hasMany('ArchiveDriversTravels', [
-            'foreignKey' => 'travel_id',
+            'propertyName' => 'operator',
         ]);
         $this->hasMany('Conversations', [
             'foreignKey' => 'travel_id',
-        ]);
-        $this->hasMany('DriversTravelsByEmail', [
-            'foreignKey' => 'travel_id',
-        ]);
-        $this->belongsToMany('TravelsConversationsMeta', [
-            'foreignKey' => 'travel_id',
-            'targetForeignKey' => 'travels_conversations_metum_id',
-            'joinTable' => 'archive_travels_conversations_meta',
-        ]);
-        $this->belongsToMany('TravelsByEmail', [
-            'foreignKey' => 'travel_id',
-            'targetForeignKey' => 'travels_by_email_id',
-            'joinTable' => 'drivers_travels_by_email',
         ]);
     }
 
@@ -191,10 +182,10 @@ class TravelsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['id']));
-        $rules->add($rules->existsIn(['origin_locality_id'], 'OriginLocalities'));
-        $rules->add($rules->existsIn(['destination_locality_id'], 'DestinationLocalities'));
+        $rules->add($rules->existsIn(['origin_locality_id'], 'Localities'));
+        $rules->add($rules->existsIn(['destination_locality_id'], 'Localities'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
-        $rules->add($rules->existsIn(['operator_id'], 'Operators'));
+        $rules->add($rules->existsIn(['operator_id'], 'Users'));
 
         return $rules;
     }

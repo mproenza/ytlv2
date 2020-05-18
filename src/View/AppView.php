@@ -37,8 +37,8 @@ class AppView extends View
      */
     public function initialize(): void
     {
-        $this->loadHelper('Html', ['className' => 'EnhancedHtml']);
-        $this->loadHelper('Form', ['className' => 'BootstrapForm']);
-        $this->loadHelper('Paginator',  ['templates' => 'CubaTheme.paginator-templates']);
+        //$this->loadHelper('Html', ['className' => 'EnhancedHtml']);
+        //$this->loadHelper('Form', ['className' => 'BootstrapForm']);
+        //$this->loadHelper('Paginator',  ['templates' => 'CubaTheme.paginator-templates']);
     }
 }
