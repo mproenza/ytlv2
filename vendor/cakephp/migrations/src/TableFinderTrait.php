@@ -17,8 +17,9 @@ use Cake\Core\App;
 use Cake\Core\Plugin as CorePlugin;
 use Cake\Database\Schema\CollectionInterface;
 use Cake\Datasource\ConnectionManager;
-use Cake\Filesystem\Folder;
+use Cake\Filesystem\Filesystem;
 use Cake\ORM\TableRegistry;
+use FilesystemIterator;
 use ReflectionClass;
 
 trait TableFinderTrait
@@ -71,6 +72,7 @@ trait TableFinderTrait
 
                     $config = ConnectionManager::getConfig($this->connection);
                     $key = isset($config['schema']) ? 'schema' : 'database';
+                    /** @psalm-suppress PossiblyNullArrayAccess */
                     if ($config[$key] === $splitted[1]) {
                         $table = $splitted[0];
                     }
@@ -130,6 +132,7 @@ trait TableFinderTrait
         if ($pluginName) {
             $path = CorePlugin::path($pluginName) . 'src' . DS . $path;
         } else {
+            /** @psalm-suppress UndefinedConstant */
             $path = APP . $path;
         }
 
@@ -137,10 +140,10 @@ trait TableFinderTrait
             return [];
         }
 
-        $tableDir = new Folder($path);
-        $tableDir = $tableDir->find('.*\.php');
+        $files = (new Filesystem())->find($path, '/\.php$/i', FilesystemIterator::KEY_AS_FILENAME
+            | FilesystemIterator::UNIX_PATHS);
 
-        return $tableDir;
+        return array_keys(iterator_to_array($files));
     }
 
     /**
@@ -169,8 +172,9 @@ trait TableFinderTrait
             return $tables;
         }
 
-        $table = TableRegistry::get($className);
+        $table = TableRegistry::getTableLocator()->get($className);
         foreach ($table->associations()->keys() as $key) {
+            /** @psalm-suppress PossiblyNullReference */
             if ($table->associations()->get($key)->type() === 'belongsToMany') {
                 /** @var \Cake\ORM\Association\BelongsToMany $belongsToMany */
                 $belongsToMany = $table->associations()->get($key);
