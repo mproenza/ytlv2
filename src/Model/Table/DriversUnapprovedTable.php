@@ -39,17 +39,17 @@ class DriversUnapprovedTable extends Table
         parent::initialize($config);
         
         $this->addBehavior('Josegonzalez/Upload.Upload', [
-             'avatar_path' => [
+             'avatar' => [
                  'fields' => [
                          'dir' => 'avatar_path_dir'
                      ],
              ],
-            'featured_image_url' => [
+            'featured_image' => [
                  'fields' => [
                          'dir' => 'featured_image_url_dir'
                      ],
              ],
-            'profile_image_url' => [
+            'profile_image' => [
                  'fields' => [
                          'dir' => 'profile_image_url_dir'
                      ],
@@ -97,17 +97,17 @@ class DriversUnapprovedTable extends Table
             /*->scalar('avatar_path')
             ->maxLength('avatar_path', 250)
             ->requirePresence('avatar_path', 'create')*/
-            ->notEmptyFile('avatar_path');
+            ->notEmptyFile('avatar');
 
         $validator
            /* ->scalar('featured_img_url')
             ->maxLength('featured_img_url', 255)*/
-            ->notEmptyFile('avatar_path');
+            ->notEmptyFile('featured_img');
         
         $validator
             /*->scalar('profile_img_url')
             ->maxLength('profile_img_url', 255)*/
-            ->notEmptyFile('avatar_path');
+            ->notEmptyFile('profile_img');
 
         $validator
             ->scalar('about')
