@@ -228,9 +228,9 @@ use Cake\Core\Configure;
         
         ?>
         
-        <?= $this->fetch('script');?>
         <?= $this->fetch('script_bottom');?>
         <?= $this->fetch('script_internal');?>
+        <?= $this->fetch('script_inline');?>
         
         <script type="text/javascript">
             function goTo(id, time, offset) {

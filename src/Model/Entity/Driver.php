@@ -56,7 +56,7 @@ class Driver extends Entity
      */
     protected $_accessible = [
         'username' => true,
-        'password' => true,
+        //'password' => true,
         'name' => true,
         'web_auth_token' => true,
         'role' => true,

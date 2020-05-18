@@ -1,5 +1,5 @@
 <?php
-$pretty_date = $conversation->pretty_localized_date;
+$pretty_date = App\Util\TimeUtil::prettyDate($conversation->pretty_localized_date);
 if($conversation->is_expired) $pretty_date .= ' <span class="badge">Expirado</span>';
 
 $driver = $conversation->driver;
@@ -17,7 +17,7 @@ $driverHasProfile = isset ($driver->profile) && $driver->profile != null;
             
             <?php $isFromTravelRequest = isset($conversation->travel) && $conversation->travel !== null;?>
             <?php if($isFromTravelRequest): ?>
-                <?= $conversation->travel->origin. ' - '. $conversation->travel->destination; ?>
+                <?= $conversation->travel->origin_text. ' - '. $conversation->travel->destination_text; ?>
                 <small><small>[<?= $conversation->travel->people_count?> viajeros]</small></small>
             <?php endif;?>
                 

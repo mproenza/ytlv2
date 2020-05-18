@@ -1,5 +1,6 @@
 <?php 
 use App\Model\Entity\Conversation;
+use App\Util\TimeUtil;
 ?>
 
 <?php 
@@ -31,7 +32,7 @@ if($conversation->notification_type == Conversation::NOTIFICATION_TYPES['BY_ADMI
             </span>
         </small>
         
-    <!-- Pedido de confirmacion enviado al chofer --> 
+    <!-- Pedido de confirmacion enviado al chofer -->
     <?php elseif($hasMetadata && $conversation->meta->asked_confirmation):?>
            
         <small>
@@ -68,10 +69,9 @@ if($conversation->notification_type == Conversation::NOTIFICATION_TYPES['BY_ADMI
     <!-- ARCHIVADO -->
     <?php if(isset ($conversation->meta->archived)):?>
         
-        
         <div style="float:right;padding-right: 10px">
             <?php if($conversation->meta->archived):?>
-                <?= $this->Html->link('<i class="glyphicon glyphicon-export"></i>', array('controller'=>'conversations', 'action'=>'unarchive', $thread->id), array('escape'=>false, 'title'=>'Sacar del archivo', 'class'=>'info'))?>
+                <?= $this->Html->link('<i class="glyphicon glyphicon-export"></i>', array('controller'=>'conversations', 'action'=>'unarchive', $conversation->id), array('escape'=>false, 'title'=>'Sacar del archivo', 'class'=>'info'))?>
             <?php endif?>
 
             <?php if(!$conversation->meta->archived && 
@@ -81,21 +81,21 @@ if($conversation->notification_type == Conversation::NOTIFICATION_TYPES['BY_ADMI
                             (isset ($conversation['Travel']) && $conversation->meta->state == DriverTravelerConversation::$STATE_TRAVEL_DONE && TimeUtil::wasBefore('15 days', strtotime($travelDate)))
                         ) 
                     ):?>
-                <?= $this->Html->link('<i class="glyphicon glyphicon-import"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'archive', $thread->id), array('escape'=>false, 'title'=>'Archivar este viaje', 'class'=>'info text-danger'))?>
+                <?= $this->Html->link('<i class="glyphicon glyphicon-import"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'archive', $conversation->id), array('escape'=>false, 'title'=>'Archivar este viaje', 'class'=>'info text-danger'))?>
             <?php endif?>
         </div>
     <?php endif?>
-
-<?php endif?>
     
+<?php endif?>
 <!-- NOTIFIED BY -->
-<?php if(isset($thread->notified_by) /*&& isset($userRole) && $userRole == 'admin'*/ && $thread->notified_by != null):?>
+<?php if(isset($conversation->notified_by) /*&& isset($userRole) && $userRole == 'admin'*/ && $conversation->notified_by != null):?>
     <small>    
-        <span class="info" style="float:left;margin-left: <?= $badgesMargin - strlen($thread->notified_by)*5; $badgesMargin-=$badgesSpacing?>px;" title="Notificado por <?= $thread->notified_by;if($thread->created != null) echo '<br/> el '.TimeUtil::prettyDate($thread->created, false)?>">
-            <code><?= $thread->notified_by?></code>
+        <span class="info" style="float:left;margin-left: <?= $badgesMargin - strlen($conversation->notified_by)*5; $badgesMargin-=$badgesSpacing?>px;" title="Notificado por <?= $conversation->notified_by;if($conversation->created != null) echo '<br/> el '.TimeUtil::prettyDate($conversation->created, false)?>">
+            <code><?= $conversation->notified_by?></code>
         </span>
     </small>
 <?php endif?>
+
 
 <!-- COMMENTS -->
 <?php if($showComments):?>

@@ -215,6 +215,49 @@ class DriversTable extends Table
         return $rules;
     }
     
+    public static function getAsSuggestions() {
+        
+        $DriversTable = new DriversTable();
+        $drivers = $DriversTable->find('all')
+                ->contain(['DriversProfiles', 'Provinces'])
+                ->where(['active'=>true, 'receive_requests'=>true, 'role'=>'driver'])
+                ->cache('drivers_all_active');
+        
+        $list = [];
+        foreach ($drivers as $d) {
+            $list[] = [
+                'driver_id'=>$d->id, 
+                'driver_username'=>$d->username,
+                'driver_name'=>$d->name,
+                'driver_pax'=>$d->min_people_count.'-'.$d->max_people_count,
+                'province_id'=>$d->province->id,
+                'province_name'=>$d->province->name
+            ];
+        }
+        
+        return $list;
+        
+        /**
+         * Aqui asumo que cuando se llama a esta funcion, es porque en la vista se va a permitir notificar a mas choferes. Entonces, lo mejor es
+         * que siempre que se llame restringir la notificacion de choferes si está logueado un operador.
+         */
+        /*if(AuthComponent::user('role') == 'operator')
+            $this->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id', 'action'=>'N'));
+        
+        $drivers = $this->find('all', array('conditions'=>array('active'=>true, 'receive_requests'=>true, 'role'=>'driver')));
+        $list = array();
+        foreach ($drivers as $d) {
+            $list[] = array(
+                'driver_id'=>$d->id'], 
+                'driver_username'=>$d->username'], 
+                'driver_name'=>$d['DriverProfile']['driver_name'],
+                'driver_pax'=>$d->min_people_count'].'-'.$d->max_people_count'],
+                'province_id'=>$d['Province']['id'],
+                'province_name'=>$d['Province']['name']);
+        }  
+        return $list;*/
+    }
+    
     
     // CUSTOM FINDERS
     public function findWithFullProfile(Query $query, array $options) {

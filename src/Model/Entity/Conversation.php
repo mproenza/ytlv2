@@ -75,16 +75,17 @@ class Conversation extends Entity
      */
     protected $_accessible = [
         'driver_id' => true,
+        'user_id' => true,
         'travel_id' => true,
         'notification_type' => true,
-        'last_driver_email' => true,
+        'due_date' => true,
+        'original_due_date' => true,
         'message_count' => true,
         'notified_by' => true,
         'created' => true,
         'identifier' => true,
-        'travel_date' => true,
-        'original_date' => true,
-        'user_id' => true,
+        'last_driver_email' => true,
+        
         'child_conversation_id' => true,
         'discount_id' => true,
         'driver' => true,
@@ -102,7 +103,10 @@ class Conversation extends Entity
     
     
     public function _getIsExpired() {
-        return $this->due_date->isPast();
+        if(isset($this->due_date) && $this->due_date != null)
+            return $this->due_date->isPast();
+        
+        return false;
     }
     
     public function _getUnreadMessagesCount() {

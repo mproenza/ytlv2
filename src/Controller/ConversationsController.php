@@ -210,10 +210,86 @@ class ConversationsController extends AppController
         
         $conversations = $this->paginate($this->Conversations);
         
-        //$this->set('filter_applied', $filter);
         $this->set('conversations', $conversations);
-        //$this->render('all');
         
         $this->viewBuilder()->setTheme('AdminTheme')->setClassName('AdminTheme.AdminTheme');
+    }
+    
+    public function notifyDriver($travelID, $notificationType = 'M') {
+        
+        // ONLY AJAX IS ALLOWED
+        if(!$this->request->is('ajax')) throw new MethodNotAllowedException();
+            
+        if ($this->request->is('ajax')) {
+            $this->autoRender = false;
+            $data = $this->data;
+        } else if ($this->request->is('post') || $this->request->is('put')) {
+            $data = $this->request->data;
+        }
+
+        $driverId = $data['Driver']['driver_id'];
+
+        $this->Driver->id = $driverId;
+        if (!$this->Driver->exists()) {
+            throw new NotFoundException('Chofer inválido.');
+        }
+        $this->Travel->id = $travelID;
+        if (!$this->Travel->exists()) {
+            throw new NotFoundException('Viaje inválido.');
+        }
+
+        $driver = $this->Driver->findById($driverId);
+        $travel = $this->Travel->findById($travelID);
+
+        $config = null;
+
+        // Dump all the data that comes from TravelConversationMeta in custom variables
+        if( isset ($data['TravelConversationMeta'])) {
+            $config = array('custom_variables'=>$data['TravelConversationMeta']);
+            $config['template'] = 'arranged_travel';
+        }
+
+        $datasource = $this->Driver->getDataSource();
+        $datasource->begin();            
+
+        $this->TravelLogic->prepareForSendingToDrivers('Travel');
+        $OK = $this->TravelLogic->sendTravelToDriver($driver, $travel, $notificationType, $config);
+        if(is_array($OK) && isset ($OK['success']) && $OK['success']) {
+            $conversation_id = $OK['conversation_id'];
+            $OK = true;
+        }
+
+        // Save TravelConversationMeta
+        if( isset ($data['TravelConversationMeta'])) {
+            $data['TravelConversationMeta']['conversation_id'] = $conversation_id;
+
+            // Hay que ponerle following a los viajes que son arreglados
+            if(isset ($data['TravelConversationMeta']['arrangement']) && !empty($this->request->data['TravelConversationMeta']['arrangement'])) 
+                    $data['TravelConversationMeta']['following'] = true;
+
+            $OK = $this->TravelConversationMeta->save($data);
+        }
+
+        if($OK) {
+            $datasource->commit();
+        } else {
+            $datasource->rollback();
+            $this->setErrorMessage('Error notificando el viaje.');
+        }
+        
+        if ($this->request->is('ajax')) {
+            $driverName = $driver['Driver']['username'];
+            if(isset ($driver['DriverProfile']) && !empty ($driver['DriverProfile']) && !empty($driver['DriverProfile']['driver_name'])) 
+                $driverName = $driver['DriverProfile']['driver_name'];
+            
+            echo json_encode(array('object'=>array(
+                'conversation_id'=>$conversation_id, 
+                'driver_email'=>$driver['Driver']['username'],
+                'notification_type'=>$notificationType,
+                'driver_name'=>$driverName)));
+            return;
+        }
+        
+        return $this->redirect($this->referer().'#travel-'.$travelID);
     }
 }
