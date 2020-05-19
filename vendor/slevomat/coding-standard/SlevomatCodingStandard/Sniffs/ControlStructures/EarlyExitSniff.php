@@ -11,6 +11,7 @@ use SlevomatCodingStandard\Helpers\ScopeHelper;
 use SlevomatCodingStandard\Helpers\TokenHelper;
 use Throwable;
 use function array_key_exists;
+use function count;
 use function in_array;
 use function range;
 use function sort;
@@ -29,7 +30,6 @@ use const T_OPEN_CURLY_BRACKET;
 use const T_SEMICOLON;
 use const T_WHILE;
 use const T_WHITESPACE;
-use const T_YIELD;
 
 class EarlyExitSniff implements Sniff
 {
@@ -107,16 +107,16 @@ class EarlyExitSniff implements Sniff
 				continue;
 			}
 
+			if (count($allConditionsPointers) > 2 && $conditionEarlyExitPointer === null) {
+				return;
+			}
+
 			$previousConditionPointer = $conditionPointer;
 			$previousConditionEarlyExitPointer = $conditionEarlyExitPointer;
 
 			if ($conditionPointer === $ifPointer) {
 				$ifEarlyExitPointer = $conditionEarlyExitPointer;
 				continue;
-			}
-
-			if ($conditionEarlyExitPointer === null) {
-				return;
 			}
 		}
 
@@ -159,14 +159,6 @@ class EarlyExitSniff implements Sniff
 
 			$phpcsFile->fixer->endChangeset();
 
-			return;
-		}
-
-		if (
-			$previousConditionEarlyExitPointer !== null
-			&& $tokens[$previousConditionEarlyExitPointer]['code'] === T_YIELD
-			&& $tokens[$elseEarlyExitPointer]['code'] === T_YIELD
-		) {
 			return;
 		}
 
@@ -217,31 +209,16 @@ class EarlyExitSniff implements Sniff
 			return;
 		}
 
-		$elseIfEarlyExitPointer = null;
-		$previousConditionEarlyExitPointer = null;
-
 		foreach ($allConditionsPointers as $conditionPointer) {
 			$conditionEarlyExitPointer = $this->findEarlyExitInScope($phpcsFile, $tokens[$conditionPointer]['scope_opener'], $tokens[$conditionPointer]['scope_closer']);
 
 			if ($conditionPointer === $elseIfPointer) {
-				$elseIfEarlyExitPointer = $conditionEarlyExitPointer;
 				break;
 			}
-
-			$previousConditionEarlyExitPointer = $conditionEarlyExitPointer;
 
 			if ($conditionEarlyExitPointer === null) {
 				return;
 			}
-		}
-
-		if (
-			$previousConditionEarlyExitPointer !== null
-			&& $tokens[$previousConditionEarlyExitPointer]['code'] === T_YIELD
-			&& $elseIfEarlyExitPointer !== null
-			&& $tokens[$elseIfEarlyExitPointer]['code'] === T_YIELD
-		) {
-			return;
 		}
 
 		$fix = $phpcsFile->addFixableError(

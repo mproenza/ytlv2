@@ -5,6 +5,7 @@ namespace Migrations\Util;
 
 use Cake\Collection\Collection;
 use Cake\Utility\Hash;
+use Phinx\Db\Adapter\AdapterInterface;
 use ReflectionClass;
 
 /**
@@ -211,11 +212,11 @@ class ColumnParser
      *
      * @param string $field Name of field
      * @param string|null $type User-specified type
-     * @return string
+     * @return string|null
      */
-    public function getType($field, $type)
+    public function getType($field, $type): ?string
     {
-        $reflector = new ReflectionClass('Phinx\Db\Adapter\AdapterInterface');
+        $reflector = new ReflectionClass(AdapterInterface::class);
         $collection = new Collection($reflector->getConstants());
 
         $validTypes = $collection->filter(function ($value, $constant) {
@@ -243,13 +244,18 @@ class ColumnParser
      * Returns the default length to be used for a given fie
      *
      * @param string $type User-specified type
-     * @return int
+     * @return int|int[]
+     * @psalm-suppress InvalidNullableReturnType
      */
     public function getLength($type)
     {
         $length = null;
         if ($type === 'string') {
             $length = 255;
+        } elseif ($type === 'tinyinteger') {
+            $length = 4;
+        } elseif ($type === 'smallinteger') {
+            $length = 6;
         } elseif ($type === 'integer') {
             $length = 11;
         } elseif ($type === 'biginteger') {
@@ -258,6 +264,7 @@ class ColumnParser
             $length = [10, 6];
         }
 
+        /** @psalm-suppress NullableReturnStatement */
         return $length;
     }
 

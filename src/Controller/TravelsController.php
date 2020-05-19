@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\Entity\Travel;
-use App\Model\Table\DriversTable;
 
 class TravelsController extends AppController
 {
