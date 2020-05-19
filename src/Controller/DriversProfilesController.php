@@ -87,12 +87,20 @@ class DriversProfilesController extends AppController
             if ($this->DriversUnapproved->save($driversProfile)) {
                 $this->Flash->success(__('Se ha almacenado su información. Espere nuestra notificación'));
 
-                return $this->redirect('/');//Hay que crear una pagina para esto
+                return $this->redirect(['action'=>'register_welcome',$this->request->getData('full_name')]);//Hay que crear una pagina para esto
             }
             $this->Flash->error(__('The drivers profile could not be saved. Please, try again.'));
         }
         $provinces = $this->Provinces->find('list', ['limit' => 200]);
         $this->set(compact('driversProfile', 'provinces'));
+        
+        $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme.CubaTheme');
+        
+    }
+    
+    public function registerWelcome($name){
+        
+        $this->set(compact('name'));
         
         $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme.CubaTheme');
         
