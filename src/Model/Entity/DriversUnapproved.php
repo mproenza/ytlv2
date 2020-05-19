@@ -41,9 +41,12 @@ class DriversUnapproved extends Entity
         'phone'=>true,
         'max_people_count' => true,
         'about' => true,
+        'province_id' => true,
         'featured_img_url' => true,
         'avatar_path' => true,
-        'profile_img_url' => true,        
+        'profile_img_url' => true, 
+        'has_air_conditioner' => true,
+        'speaks_english' => true,
     ];
     
     

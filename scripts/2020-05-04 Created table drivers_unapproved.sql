@@ -3,4 +3,4 @@ CREATE TABLE `drivers_unapproved` ( `id` SERIAL NOT NULL , `username` TEXT NOT N
 ALTER TABLE `drivers_unapproved` ADD `min_people_count` INT NOT NULL AFTER `car_model`;
 
 ALTER TABLE `drivers_unapproved` ADD INDEX(`province_id`);
-ALTER TABLE `drivers_unapproved` ADD CONSTRAINT `unapproved_fk1` FOREIGN KEY (`province_id`) REFERENCES `provinces`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `drivers_unapproved` ADD CONSTRAINT `unapproved_fk1` FOREIGN KEY (`province_id`) REFERENCES `yotellevo2`.`provinces`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;

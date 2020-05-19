@@ -2009,9 +2009,7 @@ a.compose-mail {
                         <div class="row">
                             <div class="col-sm-7 b-r">                               
 
-                                                    <?php
-                                                    echo $this->Form->control('[DriversUnapproved][id]', array('type'=>'hidden'));
-                                                    ?>
+                                                    
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <?php echo $this->Form->control('username', array('type'=>'text', 'label' => 'Correo','class'=>'form-control','required'=>true)); ?>
@@ -2098,7 +2096,7 @@ a.compose-mail {
                             </div>
                         </div>
                          
-                             <?php echo $this->form->end(); ?> 
+                             <?php echo $this->Form->end(); ?> 
                             
                         </div>
                     </div>
