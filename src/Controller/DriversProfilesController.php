@@ -78,12 +78,11 @@ class DriversProfilesController extends AppController
         $this->Provinces = TableRegistry::getTableLocator()->get('Provinces');//La annotation no funciona
         $driversProfile = $this->DriversUnapproved->newEmptyEntity();
         if ($this->request->is('post')) {
-            
             //die(print_r($this->request->getData()));
             $driversProfile = $this->DriversUnapproved->patchEntity($driversProfile, $this->request->getData(),[
-    'associated' => [        
-        'Provinces'
-    ]]);
+                'associated' => [        
+                    'Provinces'
+                ]]);
             //debug($driversProfile); die();
             if ($this->DriversUnapproved->save($driversProfile)) {
                 $this->Flash->success(__('Se ha almacenado su información. Espere nuestra notificación'));

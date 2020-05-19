@@ -47,23 +47,10 @@ class DriversUnapproved extends Entity
         'profile_img_url' => true, 
         'has_air_conditioner' => true,
         'speaks_english' => true,
+        
+        'avatar' => true,
+        'featured_image' => true,
+        'profile_image' => true,
     ];
-    
-    
-    public function _getAvatarPath() {
-        if(isset($this->avatar_path)) return $this->avatar_path;
-
-        return $this->avatar_path_dir.DS.$this->avatar;
-    }
-
-    public function _getFeaturedImageUrl() {
-         if(isset($this->featured_image_url)) return $this->featured_image_url;
-         return $this->featured_image_url_dir.DS.$this->featured_image;
-    }
-
-    public function _getProfileImageUrl() {
-         if(isset($this->profile_image_url)) return $this->profile_image_url;
-         return $this->profile_image_url_dir.DS.$this->profile_image;
-    }
     
 }

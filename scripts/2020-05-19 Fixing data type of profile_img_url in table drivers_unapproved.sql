@@ -1,0 +1,1 @@
+ALTER TABLE `drivers_unapproved` CHANGE `profile_img_url` `profile_img_url` TEXT NOT NULL;

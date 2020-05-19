@@ -7,6 +7,9 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Event\EventInterface;
+use Cake\Datasource\EntityInterface;
+use ArrayObject;
 
 /**
  * DriversProfiles Model
@@ -67,6 +70,12 @@ class DriversUnapprovedTable extends Table
 
         
     }
+    
+    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options) {
+        if(isset($entity->avatar) && isset($entity->avatar_path_dir)) $entity->avatar_path = $entity->avatar_path_dir.DS.$entity->avatar;
+        if(isset($entity->featured_image) && isset($entity->featured_image_url_dir)) $entity->featured_img_url = $entity->featured_image_url_dir.DS.$entity->featured_image;
+        if(isset($entity->profile_image) && isset($entity->profile_image_url_dir)) $entity->profile_img_url = $entity->profile_image_url_dir.DS.$entity->profile_image;
+    }
 
     /**
      * Default validation rules.
@@ -77,7 +86,7 @@ class DriversUnapprovedTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->uuid('id')
+            //->uuid('id')
             ->allowEmptyString('id', null, 'create');
 
         $validator
