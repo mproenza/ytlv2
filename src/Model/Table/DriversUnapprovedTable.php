@@ -72,9 +72,9 @@ class DriversUnapprovedTable extends Table
     }
     
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options) {
-        if(isset($entity->avatar) && isset($entity->avatar_path_dir)) $entity->avatar_path = $entity->avatar_path_dir.DS.$entity->avatar;
-        if(isset($entity->featured_image) && isset($entity->featured_image_url_dir)) $entity->featured_img_url = $entity->featured_image_url_dir.DS.$entity->featured_image;
-        if(isset($entity->profile_image) && isset($entity->profile_image_url_dir)) $entity->profile_img_url = $entity->profile_image_url_dir.DS.$entity->profile_image;
+        if(isset($entity->avatar) && isset($entity->avatar_path_dir)) $entity->avatar_path = $entity->avatar_path_dir.$entity->avatar;
+        if(isset($entity->featured_image) && isset($entity->featured_image_url_dir)) $entity->featured_img_url = $entity->featured_image_url_dir.$entity->featured_image;
+        if(isset($entity->profile_image) && isset($entity->profile_image_url_dir)) $entity->profile_img_url = $entity->profile_image_url_dir.$entity->profile_image;
     }
 
     /**
