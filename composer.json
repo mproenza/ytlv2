@@ -37,7 +37,8 @@
             "MI18n\\": "plugins/MI18n/src/",
             "CubaTheme\\": "plugins/CubaTheme/src/",
 			"ThemeAmenities\\": "plugins/ThemeAmenities/src/",
-			"AdminTheme\\": "plugins/AdminTheme/src/"
+			"AdminTheme\\": "plugins/AdminTheme/src/",
+			"AdminYuniTheme\\": "plugins/AdminYuniTheme/src/"
         }
     },
     "autoload-dev": {
@@ -47,7 +48,8 @@
             "MI18n\\Test\\": "plugins/MI18n/tests/",
             "CubaTheme\\Test\\": "plugins/CubaTheme/tests/",
 			"ThemeAmenities\\Test\\": "plugins/ThemeAmenities/tests/",
-			"AdminTheme\\Test\\": "plugins/AdminTheme/tests/"
+			"AdminTheme\\Test\\": "plugins/AdminTheme/tests/",
+			"AdminYuniTheme\\Test\\": "plugins/AdminYuniTheme/tests/"
         }
     },
     "scripts": {

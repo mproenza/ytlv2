@@ -3,6 +3,7 @@ $baseDir = dirname(dirname(__FILE__));
 return [
     'plugins' => [
         'AdminTheme' => $baseDir . '/plugins/AdminTheme/',
+        'AdminYuniTheme' => $baseDir . '/plugins/AdminYuniTheme/',
         'Ajax' => $baseDir . '/vendor/dereuromark/cakephp-ajax/',
         'Authentication' => $baseDir . '/vendor/cakephp/authentication/',
         'Authorization' => $baseDir . '/vendor/cakephp/authorization/',

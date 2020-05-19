@@ -45,6 +45,7 @@ class Application extends BaseApplication
         $this->addPlugin('MI18n', ['routes'=>true]);
         $this->addPlugin('CubaTheme', ['bootstrap'=>true]);
         $this->addPlugin('AdminTheme', ['bootstrap'=>true]);
+        $this->addPlugin('AdminYuniTheme', ['bootstrap'=>true]);
         $this->addPlugin('Cache');
         $this->addPlugin('Josegonzalez/Upload', ['bootstrap'=>true]);
         

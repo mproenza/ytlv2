@@ -83,6 +83,8 @@ return array(
     'App\\Test\\' => array($baseDir . '/tests'),
     'App\\' => array($baseDir . '/src'),
     'Ajax\\' => array($vendorDir . '/dereuromark/cakephp-ajax/src'),
+    'AdminYuniTheme\\Test\\' => array($baseDir . '/plugins/AdminYuniTheme/tests'),
+    'AdminYuniTheme\\' => array($baseDir . '/plugins/AdminYuniTheme/src'),
     'AdminTheme\\Test\\' => array($baseDir . '/plugins/AdminTheme/tests'),
     'AdminTheme\\' => array($baseDir . '/plugins/AdminTheme/src'),
 );

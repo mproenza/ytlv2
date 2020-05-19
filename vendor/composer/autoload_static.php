@@ -159,6 +159,8 @@ class ComposerStaticInitd9c4378249472b52f790997962a31eda
             'App\\Test\\' => 9,
             'App\\' => 4,
             'Ajax\\' => 5,
+            'AdminYuniTheme\\Test\\' => 20,
+            'AdminYuniTheme\\' => 15,
             'AdminTheme\\Test\\' => 16,
             'AdminTheme\\' => 11,
         ),
@@ -476,6 +478,14 @@ class ComposerStaticInitd9c4378249472b52f790997962a31eda
         'Ajax\\' => 
         array (
             0 => __DIR__ . '/..' . '/dereuromark/cakephp-ajax/src',
+        ),
+        'AdminYuniTheme\\Test\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/AdminYuniTheme/tests',
+        ),
+        'AdminYuniTheme\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/AdminYuniTheme/src',
         ),
         'AdminTheme\\Test\\' => 
         array (
