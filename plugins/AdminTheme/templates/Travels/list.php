@@ -15,7 +15,7 @@ foreach ($users as $travels) {
             
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
             <br/>
-            <?php echo $this->element('admin/widget_search_filters', array('filters' => App\Controller\TravelsController::SEARCH_FILTERS))?>
+            <?php echo $this->element('widget/widget_search_filters', array('filters' => App\Controller\TravelsController::SEARCH_FILTERS))?>
             
             <br/><br/><br/>
 
@@ -56,5 +56,5 @@ foreach ($users as $travels) {
             foreach($travel->conversations as $conversation)
                 $drivers_in[ $travel->id ][] = $conversation->driver_id;
     
-    echo $this->element('admin/js/scripts_notify_drivers', compact('drivers_in'));
+    echo $this->element('js/scripts_notify_drivers', compact('drivers_in'));
 ?>
