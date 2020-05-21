@@ -10,7 +10,7 @@ class AdminYuniThemeView extends View
     {
         parent::initialize();
 
-        //$this->loadHelper('Html', ['className' => 'ThemeAmenities.EnhancedHtml']);
-        //$this->loadHelper('Form', ['className' => 'ThemeAmenities.BootstrapForm']);
+        $this->loadHelper('Html', ['className' => 'ThemeAmenities.EnhancedHtml']);
+        $this->loadHelper('Form', ['className' => 'ThemeAmenities.BootstrapForm']);
     }
 }

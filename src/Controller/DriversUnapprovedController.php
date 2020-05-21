@@ -17,7 +17,7 @@ class DriversUnapprovedController extends AppController
     
      public function beforeRender(\Cake\Event\EventInterface $event) {
         parent::beforeFilter($event);
-        $this->viewBuilder()->setTheme('AdminTheme')->setClassName('AdminTheme.AdminTheme');
+        
     }
     /**
      * Index method
@@ -31,7 +31,8 @@ class DriversUnapprovedController extends AppController
         ];
         $driversUnapproved = $this->paginate($this->DriversUnapproved);
 
-        $this->set(compact('$driversUnapproved'));
+        $this->set(compact('driversUnapproved'));
+        $this->viewBuilder()->setTheme('AdminYuniTheme')->setClassName('AdminYuniTheme.AdminYuniTheme');
     }
 
     /**

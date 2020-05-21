@@ -1,0 +1,2 @@
+msgid "taxi-driver-cuba-reviews"
+msgstr "opiniones-taxi-cuba"
