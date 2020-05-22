@@ -37,8 +37,7 @@ class DriversProfile extends Entity
         'driver_id' => true,
         'driver_nick' => true,
         'driver_name' => true,
-        'avatar_filename' => true,
-        'avatar_filedir'=>true,
+        'avatar_path' => true,
         'featured_img_url' => true,
         'description_es' => true,
         'description_en' => true,
@@ -46,10 +45,8 @@ class DriversProfile extends Entity
         'driver_code' => true,
         'testimonial_attempts' => true,
         'driver' => true,
+        
+        'avatar'
     ];
-    
-    public function _getAvatarFilepath() {
-        return $this->avatar_filedir.DS.$this->avatar_filename;
-    }
     
 }

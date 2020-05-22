@@ -56,6 +56,10 @@ class DriversProfilesTable extends Table
             'joinType' => 'INNER',
         ]);
     }
+    
+    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options) {
+        if(isset($entity->avatar) && isset($entity->avatar_dir)) $entity->avatar_path = $entity->avatar_dir.$entity->avatar;
+    }
 
     /**
      * Default validation rules.
@@ -86,7 +90,7 @@ class DriversProfilesTable extends Table
             //->scalar('avatar_filepath')
             //->maxLength('avatar_filepath', 250)
             //->requirePresence('avatar_filepath', 'create')
-            ->notEmptyFile('avatar_filename');
+            ->notEmptyFile('avatar');
 
         $validator
             ->scalar('featured_img_url')
