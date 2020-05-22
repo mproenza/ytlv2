@@ -2059,7 +2059,7 @@ a.compose-mail {
                                                      <label>Imagen de usuario <small>(Se debe ver el rostro JPG)</small></label>
                                                     <div class="input-group"> 
                                                         <div class="fileinput fileinput-new " data-provides="fileinput">
-                                                            <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="avatar" required></span>
+                                                            <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="image1" required></span>
                                                             <span class="fileinput-filename"></span>
                                                             <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                                         </div>
@@ -2071,7 +2071,7 @@ a.compose-mail {
                                                      <label>foto con su auto <small>(JPG hasta 500Kb)</small></label>
                                                     <div class="input-group"> 
                                                         <div class="fileinput fileinput-new " data-provides="fileinput">
-                                                            <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="profile_image" required></span>
+                                                            <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="image2" required></span>
                                                             <span class="fileinput-filename"></span>
                                                             <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                                         </div>
@@ -2083,7 +2083,7 @@ a.compose-mail {
                                                      <label>foto principal del perfil <small>(JPG hasta 500Kb)</small></label>
                                                     <div class="input-group"> 
                                                         <div class="fileinput fileinput-new " data-provides="fileinput">
-                                                            <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="featured_image" required></span>
+                                                            <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="image3" required></span>
                                                             <span class="fileinput-filename"></span>
                                                             <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                                         </div>

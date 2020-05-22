@@ -1,21 +1,26 @@
-CREATE TABLE `drivers_unapproved` ( 
-`id` SERIAL NOT NULL , 
-`username` TEXT NOT NULL , 
-`full_name` TEXT NOT NULL , 
-`province_id` BIGINT UNSIGNED NOT NULL , 
-`car_model` TEXT NOT NULL , 
-`max_people_count` INT NOT NULL , 
-`has_classic_car` BOOLEAN NOT NULL , 
-`has_air_conditioner` BOOLEAN NOT NULL , 
-`speaks_english` BOOLEAN NOT NULL , 
-`has_modern_car` BOOLEAN NOT NULL , 
-`about` TEXT NOT NULL , 
-`featured_img_url` TEXT NOT NULL , 
-`avatar_path` TEXT NOT NULL , 
-`profile_img_url` TEXT NOT NULL ) 
-ENGINE = InnoDB;
+CREATE TABLE `drivers_unapproved` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `username` text NOT NULL,
+  `full_name` text NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `province_id` bigint(20) UNSIGNED NOT NULL,
+  `car_model` text NOT NULL,
+  `max_people_count` int(11) NOT NULL,
+  `has_air_conditioner` tinyint(1) NOT NULL,
+  `speaks_english` tinyint(1) NOT NULL,
+  `about` text NOT NULL,
+  `image1_path` text NOT NULL,
+  `image2_path` text NOT NULL,
+  `image3_path` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-ALTER TABLE `drivers_unapproved` ADD `min_people_count` INT NOT NULL AFTER `car_model`;
 
-ALTER TABLE `drivers_unapproved` ADD INDEX(`province_id`);
-ALTER TABLE `drivers_unapproved` ADD CONSTRAINT `unapproved_fk1` FOREIGN KEY (`province_id`) REFERENCES `provinces`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `drivers_unapproved`
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `province_id` (`province_id`);
+  
+ALTER TABLE `drivers_unapproved`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  
+ALTER TABLE `drivers_unapproved`
+  ADD CONSTRAINT `unapproved_fk1` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
