@@ -13,14 +13,14 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="driversProfiles form content">
-            <?= $this->Form->create($driversProfile) ?>
+            <?= $this->Form->create($driversProfile, ['type'=>'file']) ?>
             <fieldset>
                 <legend><?= __('Add Drivers Profile') ?></legend>
                 <?php
                     echo $this->Form->control('driver_id', ['options' => $drivers]);
                     echo $this->Form->control('driver_nick');
                     echo $this->Form->control('driver_name');
-                    echo $this->Form->control('avatar_filename');
+                    echo $this->Form->control('avatar', ['type'=>'file']);
                     echo $this->Form->control('avatar_filedir');
                     echo $this->Form->control('featured_img_url');
                     echo $this->Form->control('description_es');

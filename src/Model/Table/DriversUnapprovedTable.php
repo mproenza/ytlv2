@@ -42,19 +42,19 @@ class DriversUnapprovedTable extends Table
         parent::initialize($config);
         
         $this->addBehavior('Josegonzalez/Upload.Upload', [
-             'avatar' => [
+             'image1' => [
                  'fields' => [
-                         'dir' => 'avatar_path_dir'
+                         'dir' => 'image1_dir'
                      ],
              ],
-            'featured_image' => [
+            'image2' => [
                  'fields' => [
-                         'dir' => 'featured_image_url_dir'
+                         'dir' => 'image2_dir'
                      ],
              ],
-            'profile_image' => [
+            'image3' => [
                  'fields' => [
-                         'dir' => 'profile_image_url_dir'
+                         'dir' => 'image3_dir'
                      ],
              ]
                 ]);
@@ -72,9 +72,9 @@ class DriversUnapprovedTable extends Table
     }
     
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options) {
-        if(isset($entity->avatar) && isset($entity->avatar_path_dir)) $entity->avatar_path = $entity->avatar_path_dir.$entity->avatar;
-        if(isset($entity->featured_image) && isset($entity->featured_image_url_dir)) $entity->featured_img_url = $entity->featured_image_url_dir.$entity->featured_image;
-        if(isset($entity->profile_image) && isset($entity->profile_image_url_dir)) $entity->profile_img_url = $entity->profile_image_url_dir.$entity->profile_image;
+        if(isset($entity->image1) && isset($entity->image1_dir)) $entity->image1_path = $entity->image1_dir.$entity->image1;
+        if(isset($entity->image2) && isset($entity->image2_dir)) $entity->image2_path = $entity->image2_dir.$entity->image2;
+        if(isset($entity->image3) && isset($entity->image3_dir)) $entity->image3_path = $entity->image3_dir.$entity->image3;
     }
 
     /**
@@ -106,17 +106,17 @@ class DriversUnapprovedTable extends Table
             /*->scalar('avatar_path')
             ->maxLength('avatar_path', 250)
             ->requirePresence('avatar_path', 'create')*/
-            ->notEmptyFile('avatar');
+            ->notEmptyFile('image1');
 
         $validator
            /* ->scalar('featured_img_url')
             ->maxLength('featured_img_url', 255)*/
-            ->notEmptyFile('featured_img');
+            ->notEmptyFile('image2');
         
         $validator
             /*->scalar('profile_img_url')
             ->maxLength('profile_img_url', 255)*/
-            ->notEmptyFile('profile_img');
+            ->notEmptyFile('image3');
 
         $validator
             ->scalar('about')
