@@ -46,10 +46,22 @@
                                     <td><?php echo $profile->username ?></td>
                                     <td>
                                         <div class="row">
-                                        <div class="col-md-4 col-xs-12 b-r"><img style="width: 80px; height: 60px" class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->profile_img_url)?>"></div>
-                                        <div class="col-md-4 col-xs-12 b-r"><img style="width: 80px; height: 60px" class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->featured_img_url)?>"></div>
-                                        <div class="col-md-4 col-xs-12"><img style="width: 80px; height: 60px" class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->avatar_path)?>"></div>
-                                        </div>
+                                            <div class="col-md-4 col-xs-12 b-r" ><a data-target="#IM1" data-toggle="modal"><img style="width: 80px; height: 60px" class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->profile_img_url)?>"></a></div>
+                                        
+                                        <div class="col-md-4 col-xs-12 b-r" href="#IM2" data-toggle="modal"><img style="width: 80px; height: 60px" class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->featured_img_url)?>"></div>
+                                        
+                                        <div class="col-md-4 col-xs-12" href="#IM3" data-toggle="modal"><img style="width: 80px; height: 60px" class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->avatar_path)?>"></div>
+                                        <div class="modal fade" id="#IM3">
+                                                <div class="modal-content">
+                                                    <div class="modal-body"><div class="carousel-inner">                                                            
+                                                            <div class="carousel-item active"><img src="<?= App\Util\PathUtil::getFullPath($profile->avatar_path)?>" alt="" title=""></div>                                                            
+                                                            
+                                                            <a class="close" href="#" role="button" data-dismiss="modal"><span class="sr-only">Close</span></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                         </div>
+                                        </div>                                        
                                     </td>
                                     <td><?php echo $profile->phone ?></td>
                                     <td><?php echo $profile->car_model ?></td>
@@ -76,6 +88,26 @@
                     </div>
                 </div>
             </div>
+<div class="modal fade" role="dialog" aria-hidden="true" tabindex="-1" id="#IM1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-body"><div class="carousel-inner">
+                                                            <div class="carousel-item active"><img src="<?= App\Util\PathUtil::getFullPath($profile->profile_img_url)?>" alt="" title=""></div>                                                
+                                                            <a class="close" href="#" role="button" data-dismiss="modal"><span class="sr-only">Close</span></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         </div>
+<div class="modal fade" id="#IM2">
+                                                <div class="modal-content">
+                                                    <div class="modal-body"><div class="carousel-inner">                                                            
+                                                            <div class="carousel-item active"><img src="<?= App\Util\PathUtil::getFullPath($profile->featured_img_url)?>" alt="" title=""></div>                                                  
+                                                            <a class="close" href="#" role="button" data-dismiss="modal"><span class="sr-only">Close</span></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                         </div>
 <script>
         $(document).ready(function() {
 
