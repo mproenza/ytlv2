@@ -7,6 +7,9 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Event\EventInterface;
+use Cake\Datasource\EntityInterface;
+use ArrayObject;
 
 /**
  * DriversProfiles Model
@@ -74,11 +77,11 @@ class DriversProfilesTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('driver_nick')
-            ->maxLength('driver_nick', 255)
-            ->requirePresence('driver_nick', 'create')
-            ->notEmptyString('driver_nick')
-            ->add('driver_nick', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->scalar('slug')
+            ->maxLength('slug', 255)
+            ->requirePresence('slug', 'create')
+            ->notEmptyString('slug')
+            ->add('slug', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('driver_name')
@@ -134,7 +137,7 @@ class DriversProfilesTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['driver_id'], 'Drivers'));
-        $rules->add($rules->isUnique(['driver_nick']));
+        $rules->add($rules->isUnique(['slug']));
 
         return $rules;
     }

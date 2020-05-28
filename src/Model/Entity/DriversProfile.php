@@ -10,7 +10,7 @@ use Cake\ORM\Entity;
  *
  * @property string $id
  * @property int $driver_id
- * @property string $driver_nick
+ * @property string $slug
  * @property string $driver_name
  * @property string $avatar_filepath
  * @property string|null $featured_img_url
@@ -35,7 +35,7 @@ class DriversProfile extends Entity
      */
     protected $_accessible = [
         'driver_id' => true,
-        'driver_nick' => true,
+        'slug' => true,
         'driver_name' => true,
         'avatar_path' => true,
         'featured_img_url' => true,

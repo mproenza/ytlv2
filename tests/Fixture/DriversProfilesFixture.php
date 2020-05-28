@@ -19,7 +19,7 @@ class DriversProfilesFixture extends TestFixture
     public $fields = [
         'id' => ['type' => 'uuid', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'driver_id' => ['type' => 'biginteger', 'length' => 20, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'driver_nick' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_bin', 'comment' => '', 'precision' => null],
+        'slug' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_bin', 'comment' => '', 'precision' => null],
         'driver_name' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_bin', 'comment' => '', 'precision' => null],
         'avatar_filepath' => ['type' => 'string', 'length' => 250, 'null' => false, 'default' => null, 'collate' => 'latin1_bin', 'comment' => '', 'precision' => null],
         'featured_img_url' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'latin1_bin', 'comment' => '', 'precision' => null],
@@ -34,7 +34,7 @@ class DriversProfilesFixture extends TestFixture
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
             'drivers_profiles_driver_unique' => ['type' => 'unique', 'columns' => ['driver_id'], 'length' => []],
-            'drivers_profiles_driver_nick_unique' => ['type' => 'unique', 'columns' => ['driver_nick'], 'length' => []],
+            'drivers_profiles_slug_unique' => ['type' => 'unique', 'columns' => ['slug'], 'length' => []],
             'drivers_profiles_ibfk_1' => ['type' => 'foreign', 'columns' => ['driver_id'], 'references' => ['drivers', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
@@ -54,7 +54,7 @@ class DriversProfilesFixture extends TestFixture
             [
                 'id' => 'b07950f8-b84e-4972-a64b-79c294b1bc4e',
                 'driver_id' => 1,
-                'driver_nick' => 'Lorem ipsum dolor sit amet',
+                'slug' => 'Lorem ipsum dolor sit amet',
                 'driver_name' => 'Lorem ipsum dolor sit amet',
                 'avatar_filepath' => 'Lorem ipsum dolor sit amet',
                 'featured_img_url' => 'Lorem ipsum dolor sit amet',

@@ -213,3 +213,13 @@ ServerRequest::addDetector('tablet', function ($request) {
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
+
+
+Configure::write('Custom.Email.email_message_separator_stripped', 
+        [
+            '-------- Mensaje original --------',
+            '______________________',
+            '***************'
+        ]
+);
+//Configure::write('Custom.Email.email_message_separator', '<div style="font-size: 1pt;text-align: center;width: 100%">'.Configure::read('Custom.Email.email_message_separator_stripped').'</div>');

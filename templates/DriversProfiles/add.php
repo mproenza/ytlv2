@@ -18,7 +18,7 @@
                 <legend><?= __('Add Drivers Profile') ?></legend>
                 <?php
                     echo $this->Form->control('driver_id', ['options' => $drivers]);
-                    echo $this->Form->control('driver_nick');
+                    echo $this->Form->control('slug');
                     echo $this->Form->control('driver_name');
                     echo $this->Form->control('avatar', ['type'=>'file']);
                     echo $this->Form->control('avatar_filedir');

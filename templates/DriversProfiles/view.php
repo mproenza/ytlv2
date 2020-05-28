@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                     <th><?= __('Driver Nick') ?></th>
-                    <td><?= h($driversProfile->driver_nick) ?></td>
+                    <td><?= h($driversProfile->slug) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Driver Name') ?></th>

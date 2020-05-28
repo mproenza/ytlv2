@@ -16,7 +16,7 @@ if($conversation->notification_type == Conversation::NOTIFICATION_TYPES['BY_ADMI
 if($conversation->notification_type == Conversation::NOTIFICATION_TYPES['BY_ADMIN_WITH_NOTE']) $info['class'] .= ' text-success';
 ?>
 
-<?= $conversation->driver->name.': '.$this->Html->link($conversation->id, array('controller'=>'conversations', 'action'=>'view', $conversation->id), $info);?>
+<?= $conversation->driver->name.': '.$this->Html->link($conversation->id, array('controller'=>'conversations', 'action'=>'admin', $conversation->id), $info);?>
 
 <?php $badgesMargin = -30; $badgesSpacing = 25;?>
 <?php if($hasMetadata):?>
@@ -46,7 +46,7 @@ if($conversation->notification_type == Conversation::NOTIFICATION_TYPES['BY_ADMI
     <?php if($conversation->meta->testimonial_id):?> 
         <small>
             <span class="label info" style="float:left;margin-left: <?= $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Ver testimonio recibido">                
-                <a target="_blank" href="<?= $this->Html->url(array('controller' => 'testimonials', 'action' => 'admin', $conversation->meta->testimonial_id))?>"><big><i style="color: red !important" class="glyphicon glyphicon-heart"></i></big></a>
+                <a target="_blank" href="<?= Router::url(array('controller' => 'testimonials', 'action' => 'admin', $conversation->meta->testimonial_id))?>"><big><i style="color: red !important" class="glyphicon glyphicon-heart"></i></big></a>
             </span>
         </small>    
     <?php elseif($conversation->meta->testimonial_requested):?> 

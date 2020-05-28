@@ -317,7 +317,7 @@
                         <tr>
                             <td><?= h($driversProfiles->id) ?></td>
                             <td><?= h($driversProfiles->driver_id) ?></td>
-                            <td><?= h($driversProfiles->driver_nick) ?></td>
+                            <td><?= h($driversProfiles->slug) ?></td>
                             <td><?= h($driversProfiles->driver_name) ?></td>
                             <td><?= h($driversProfiles->avatar_filepath) ?></td>
                             <td><?= h($driversProfiles->featured_img_url) ?></td>

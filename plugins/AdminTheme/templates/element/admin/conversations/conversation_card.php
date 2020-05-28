@@ -1,6 +1,5 @@
 <?php
-$pretty_date = App\Util\TimeUtil::prettyDate($conversation->pretty_localized_date);
-if($conversation->is_expired) $pretty_date .= ' <span class="badge">Expirado</span>';
+if($conversation->is_expired) $conversation->pretty_date .= ' <span class="badge">Expirado</span>';
 
 $driver = $conversation->driver;
 $driverHasProfile = isset ($driver->profile) && $driver->profile != null;
@@ -31,5 +30,5 @@ $driverHasProfile = isset ($driver->profile) && $driver->profile != null;
     <?= $this->element('admin/conversations/conversation_link_with_metadata', array('conversation'=>$conversation))?>
 </div>
 
-<div style="padding-top: 5px"> <?= 'Fecha del Viaje: '.$pretty_date;?></div>
+<div style="padding-top: 5px"> <?= 'Fecha del Viaje: '.$conversation->pretty_date;?></div>
 

@@ -13,7 +13,7 @@
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('driver_id') ?></th>
-                    <th><?= $this->Paginator->sort('driver_nick') ?></th>
+                    <th><?= $this->Paginator->sort('slug') ?></th>
                     <th><?= $this->Paginator->sort('driver_name') ?></th>
                     <th><?= $this->Paginator->sort('avatar_filename') ?></th>
                     <th><?= $this->Paginator->sort('avatar_filedir') ?></th>
@@ -29,7 +29,7 @@
                 <tr>
                     <td><?= h($driversProfile->id) ?></td>
                     <td><?= $driversProfile->has('driver') ? $this->Html->link($driversProfile->driver->name, ['controller' => 'Drivers', 'action' => 'view', $driversProfile->driver->id]) : '' ?></td>
-                    <td><?= h($driversProfile->driver_nick) ?></td>
+                    <td><?= h($driversProfile->slug) ?></td>
                     <td><?= h($driversProfile->driver_name) ?></td>
                     <td><?= h($driversProfile->avatar_filename) ?></td>
                     <td><?= h($driversProfile->avatar_filedir) ?></td>

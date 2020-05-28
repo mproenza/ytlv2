@@ -262,7 +262,7 @@ class DriversTable extends Table
     // CUSTOM FINDERS
     public function findWithFullProfile(Query $query, array $options) {
         return $query->contain(['DriversProfiles', 'Provinces'])
-                ->where([ 'DriversProfiles.driver_nick'=>$options['nick'] ]);
+                ->where([ 'DriversProfiles.slug'=>$options['nick'] ]);
     }
     
     public function findRecommendedInProvince(Query $query, array $options) {
