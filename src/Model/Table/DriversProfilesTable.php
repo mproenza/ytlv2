@@ -42,7 +42,7 @@ class DriversProfilesTable extends Table
         $this->setTable('drivers_profiles');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
-        
+
         $this->addBehavior('Josegonzalez/Upload.Upload', [
             'avatar_filename' => [
                 'fields' => [
@@ -56,7 +56,7 @@ class DriversProfilesTable extends Table
             'joinType' => 'INNER',
         ]);
     }
-    
+
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options) {
         if(isset($entity->avatar) && isset($entity->avatar_dir)) $entity->avatar_path = $entity->avatar_dir.$entity->avatar;
     }
@@ -74,11 +74,11 @@ class DriversProfilesTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('driver_nick')
-            ->maxLength('driver_nick', 255)
-            ->requirePresence('driver_nick', 'create')
-            ->notEmptyString('driver_nick')
-            ->add('driver_nick', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->scalar('slug')
+            ->maxLength('slug', 255)
+            ->requirePresence('slug', 'create')
+            ->notEmptyString('slug')
+            ->add('slug', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('driver_name')
@@ -112,10 +112,10 @@ class DriversProfilesTable extends Table
             ->notEmptyFile('show_profile');
 
         $validator
-            ->scalar('driver_code')
-            ->maxLength('driver_code', 10)
-            ->requirePresence('driver_code', 'create')
-            ->notEmptyString('driver_code');
+            ->scalar('personal_code')
+            ->maxLength('personal_code', 10)
+            ->requirePresence('personal_code', 'create')
+            ->notEmptyString('personal_code');
 
         $validator
             ->integer('testimonial_attempts')
@@ -134,7 +134,7 @@ class DriversProfilesTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['driver_id'], 'Drivers'));
-        $rules->add($rules->isUnique(['driver_nick']));
+        $rules->add($rules->isUnique(['slug']));
 
         return $rules;
     }

@@ -110,28 +110,26 @@ class DriversUnapprovedController extends AppController
         if ($this->request->is(['post','put'])) {
             $driversUnapproved = $this->DriversUnapproved->newEmptyEntity();
             $driver = $this->Drivers->newEmptyEntity();
-            $driver = $this->Drivers->patchEntity($driver, $this->request->getData());
+            $driver = $this->Drivers->patchEntity($driver, $this->request->getData(),[
+                'associated' => [
+                    'Localities'
+                ]]);
             $driverprofile = $this->DriversProfiles->newEmptyEntity();
             $driverprofile = $this->DriversProfiles->patchEntity($driverprofile, $this->request->getData());
             /*Driver Completion*/
             $driver['description']=$this->request->getData('car_model')." - ".$this->request->getData('slug');
             $driver['travel_count']=0;
             /*Driver Profile Completion*/
-            $driverprofile['driver_nick']=$this->request->getData('slug');
-            $driverprofile['driver_code']=$this->request->getData('code');
+            $driverprofile['personal_code']=$this->request->getData('code');
             $driverprofile['description_es']='{"pics": [ {"src": "<'.$this->request->getData('image1_patho').'>", "title": "<'.$this->request->getData('img1_title_es').'>"},{"src": "<'.$this->request->getData('image2_patho').'>", "title": "<'.$this->request->getData('img2_title_es').'>"},{"src": "<'.$this->request->getData('image3_patho').'>", "title": "<'.$this->request->getData('img3_title_es').'>"}]   }';
             $driverprofile['description_en']='{"pics": [ {"src": "<'.$this->request->getData('image1_patho').'>", "title": "<'.$this->request->getData('img1_title_en').'>"},{"src": "<'.$this->request->getData('image2_patho').'>", "title": "<'.$this->request->getData('img2_title_en').'>"},{"src": "<'.$this->request->getData('image3_patho').'>", "title": "<'.$this->request->getData('img3_title_en').'>"}]   }';
 
-            //debug($driver);
-            //die();
-            //die(print_r($this->request->getData()));
-            $driversUnapproved = $this->DriversUnapproved->patchEntity($driversUnapproved, $this->request->getData(),[
-                'associated' => [
-                    'Provinces'
-                ]]);
-            //debug($driversProfile); die();
+
+
+            //debug($driverprofile); die();
             if ($this->Drivers->save($driver)) {
                 $this->Flash->success(__('Se ha almacenado la informacion del chofer.'));
+                $driverprofile['driver_id'] = $driver->id;//For the profile
 
                 if ($this->DriversProfiles->save($driverprofile)) {
                     $this->Flash->success(__('Se ha almacenado la información del perfil.'));

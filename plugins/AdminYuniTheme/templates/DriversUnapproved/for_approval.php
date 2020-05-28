@@ -2116,7 +2116,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <?php echo $this->Form->control('Localities.0.id', array('type' => 'select', 'multiple'=>'multiple', 'options' => $localities,
+                                            <?php echo $this->Form->control('localities._ids', array('type' => 'select', 'multiple'=>'multiple', 'options' => $localities,
                                             'label' => 'Localidades origen de sus viajes')); ?>
                                         </div>
                                         <div class="col-md-6">

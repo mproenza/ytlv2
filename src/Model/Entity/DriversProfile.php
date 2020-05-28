@@ -10,14 +10,14 @@ use Cake\ORM\Entity;
  *
  * @property string $id
  * @property int $driver_id
- * @property string $driver_nick
+ * @property string $slug
  * @property string $driver_name
  * @property string $avatar_filepath
  * @property string|null $featured_img_url
  * @property string $description_es
  * @property string $description_en
  * @property bool $show_profile
- * @property string $driver_code
+ * @property string $personal_code
  * @property int $testimonial_attempts
  *
  * @property \App\Model\Entity\Driver $driver
@@ -35,18 +35,18 @@ class DriversProfile extends Entity
      */
     protected $_accessible = [
         'driver_id' => true,
-        'driver_nick' => true,
+        'slug' => true,
         'driver_name' => true,
         'avatar_path' => true,
         'featured_img_url' => true,
         'description_es' => true,
         'description_en' => true,
         'show_profile' => true,
-        'driver_code' => true,
+        'personal_code' => true,
         'testimonial_attempts' => true,
         'driver' => true,
-        
+
         'avatar'
     ];
-    
+
 }
