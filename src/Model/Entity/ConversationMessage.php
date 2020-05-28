@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 namespace App\Model\Entity;
+use Cake\Core\Configure;
+use DateTime;
 
 use Cake\ORM\Entity;
 
@@ -42,4 +44,46 @@ class ConversationMessage extends Entity
         'date_read' => true,
         'conversation' => true,
     ];
+    
+    public function _getDaysCreated() {
+        $now = new DateTime(date('Y-m-d', time()));
+        return $now->diff($this->created, true)->format('%a');
+    }
+    
+    public function _getPrettyText() {
+        $text = strip_tags(trim($this->response_text)); 
+        
+        $text = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*cuc*/i", "<b>$0</b>", $text);
+        $text = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*(kms*|kilometros*|kilómetros*)/i", '<span style="color:tomato"><b>$0</b></span>', $text);
+        $text = preg_replace("/(\r\n|\n|\r)/", "<br/>", $text);
+        
+        return $text;
+    }
+    
+    public static function prettyText($text) {
+        $text = strip_tags(trim($text));
+        $text = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*cuc*/i", "<b>$0</b>", $text);
+        $text = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*(kms*|kilometros*|kilómetros*)/i", '<span style="color:tomato"><b>$0</b></span>', $text);
+        $text = preg_replace("/(\r\n|\n|\r)/", "<br/>", $text);
+        
+        return $text;
+    }
+    
+    public function _getStrippedTextData() {
+        $text = strip_tags(trim($this->response_text));
+        
+        $shortText = $text;
+        $msgWasShortened = false;
+        
+        if($this->msg_source === 'EML' || $this->msg_source == null) { // ONLY STRIP FOR MESSAGES COMING FROM EMAIL
+            foreach(Configure::read('Custom.Email.email_message_separator_stripped') as $separator) {
+            if(strpos($text, $separator)) {
+                $shortText = substr($text, 0, strpos($text, $separator));
+                $msgWasShortened = true;
+                }
+            }
+        }
+        
+        return ['was_shortened' => $msgWasShortened, 'text'=> $shortText];
+    }
 }

@@ -91,6 +91,9 @@ $routes->scope('/:language', function (RouteBuilder $builder) {
     // CATCH ALL
     $builder->connect('/:controller', ['action' => 'index'])->setPatterns(['language' => 'en|es']);
     $builder->connect('/:controller/:action/*', [])->setPatterns(['language' => 'en|es']);
+    
+    // PLUGINS
+    $builder->connect('/:plugin/:controller/:action/*', [])->setPatterns(['language' => 'en|es']);
 
     /*
      * Connect catchall routes for all controllers.

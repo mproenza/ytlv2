@@ -29,7 +29,7 @@ use App\Model\Entity\Province;
             </div>
 
             <div class="user_desk mbr-light mbr-fonts-style align-left pt-2 display-7">
-                <?php echo $this->Html->link(__d('drivers_by_province', 'Ver perfil'), array('controller'=>'drivers', 'action'=>'profile', $driver->profile->driver_nick), array('class'=>'btn-sm btn-success'))?>
+                <?php echo $this->Html->link(__d('drivers_by_province', 'Ver perfil'), array('controller'=>'drivers', 'action'=>'profile', $driver->profile->slug), array('class'=>'btn-sm btn-success'))?>
             </div>
         </div>
     </div>

@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 namespace App\Model\Entity;
+use DateTime;
+use App\Util\TimeUtil;
 
 use Cake\ORM\Entity;
 
@@ -60,7 +62,7 @@ class Conversation extends Entity
     //public static $NOTIFICATION_TYPE_BY_USER = 'U'; // Para los choferes que el viajero decide notificar adicionalmente (ej. si nosotros le damos la opción)
     public static $NOTIFICATION_TYPE_PREARRANGED = 'R'; // Para los viajes que se le notifiquen a los choferes y hayan sido prearreglados (ej. para hacer un descuento)
     public static $NOTIFICATION_TYPE_DIRECT_MESSAGE = 'D'; // Para las conversaciones directas (sin un viaje asociado)
-    public static $NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST = 'O'; // Para las ofertas de descuento*/
+    public static NOTIFICATION_TYPES['DISCOUNT_OFFER_REQUEST'] = 'O'; // Para las ofertas de descuento*/
     
     
     
@@ -108,6 +110,20 @@ class Conversation extends Entity
         
         return false;
     }
+    public function _getDaysExpired() {
+        if(!$this->is_expired) return 0;
+        
+        $now = new DateTime(date('Y-m-d', time()));
+        return $now->diff($this->due_date, true)->format('%a');
+    }
+    public function _getDaysToGo() {
+        $now = new DateTime(date('Y-m-d', time()));
+        return $now->diff($this->due_date, true)->format('%a');
+    }
+    
+    public function _getHasMeta() {
+        return isset ($this->meta) && $this->meta != null;
+    }
     
     public function _getUnreadMessagesCount() {
         $unreadCount = 0;
@@ -122,9 +138,8 @@ class Conversation extends Entity
         return $unreadCount;
     }
     
-    public function _getPrettyLocalizedDate() {
-        // TODO:
-        return $this->due_date;
+    public function _getPrettyDate() {
+        return TimeUtil::prettyDate($this->due_date);
     }
     
     public function _getFullIdentifier() {

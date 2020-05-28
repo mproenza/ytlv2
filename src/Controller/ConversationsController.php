@@ -52,6 +52,18 @@ class ConversationsController extends AppController
 
         $this->set('conversation', $conversation);
     }
+    
+    public function admin($conversationID) {
+        $conversation = $this->Conversations->get(
+                $conversationID,
+                [
+                    'contain' => array_merge(Conversation::$myCommonRelatedModels, ['ConversationMessages', 'Testimonials', 'DiscountRides'])
+                ]);
+        
+        $this->set('conversation', $conversation);
+        
+        $this->viewBuilder()->setTheme('AdminTheme')->setClassName('AdminTheme.AdminTheme');
+    }
 
     /**
      * Add method
@@ -157,14 +169,14 @@ class ConversationsController extends AppController
                 ]
             ];
             $this->paginate = [
-                'contain'=> \App\Model\Entity\Conversation::$myCommonRelatedModels,
+                'contain'=> Conversation::$myCommonRelatedModels,
                 'conditions' => $conditions,
                 'order'=>['Conversations.due_date'=>'ASC'],
             ];
                     
         } else if($filter == self::SEARCH_FILTERS['SEARCH_FOLLOWING']) {
             $this->paginate = [
-                'contain'=> \App\Model\Entity\Conversation::$myCommonRelatedModels,
+                'contain'=> Conversation::$myCommonRelatedModels,
                 'conditions'=>['ConversationsMeta.following' => true, 'ConversationsMeta.archived' => false],
                 'order'=>[
                     'Conversations.due_date'=>'ASC',
@@ -173,7 +185,7 @@ class ConversationsController extends AppController
             ];
         } else if($filter == self::SEARCH_FILTERS['SEARCH_DONE']) {
             $this->paginate = [
-                'contain'=> \App\Model\Entity\Conversation::$myCommonRelatedModels,
+                'contain'=> Conversation::$myCommonRelatedModels,
                 'conditions'=>['ConversationsMeta.state' => Conversation::STATES['DONE'], 'ConversationsMeta.archived' => false],
                 'order'=>['Conversations.due_date'=>'DESC'],
                 'limit'=>100
@@ -183,7 +195,7 @@ class ConversationsController extends AppController
             $conditions['TravelConversationMeta.archived'] = 0; //Que no este archivado*/
         } else if($filter == self::SEARCH_FILTERS['SEARCH_PAID']) {
             $this->paginate = [
-                'contain'=> \App\Model\Entity\Conversation::$myCommonRelatedModels,
+                'contain'=> Conversation::$myCommonRelatedModels,
                 'conditions'=>['ConversationsMeta.state' => Conversation::STATES['PAID']],
                 'order'=>['Conversations.due_date'=>'DESC'],
                 'limit'=>50

@@ -75,16 +75,28 @@ class ConversationsTable extends Table
             'foreignKey' => 'travel_id',
             'joinType' => 'LEFT',
         ]);
+        $this->hasOne('Testimonials', [
+            'foreignKey' => 'conversation_id',
+            'joinType' => 'LEFT',
+            'propertyName' => 'testimonial',
+        ]);
+        $this->hasMany('ConversationMessages', [
+            'foreignKey' => 'conversation_id',
+            'joinType' => 'LEFT',
+            'propertyName' => 'messages',
+        ]);
+        $this->belongsTo('DiscountRides', [
+            'foreignKey' => 'discount_id',
+            'joinType' => 'LEFT',
+            'propertyName' => 'discount_offer',
+        ]);
         
         $this->belongsTo('ChildConversations', [
             'foreignKey' => 'child_conversation_id',
             'joinType' => 'LEFT',
         ]);
-        $this->belongsTo('DiscountRides', [
-            'foreignKey' => 'discount_id',
-            'joinType' => 'LEFT',
-        ]);
-        $this->hasMany('ApiSyncQueue2driverConversations', [
+        
+        /*$this->hasMany('ApiSyncQueue2driverConversations', [
             'foreignKey' => 'conversation_id',
         ]);
         $this->hasMany('ArchiveDriverTravelerConversations', [
@@ -92,13 +104,7 @@ class ConversationsTable extends Table
         ]);
         $this->hasMany('ArchiveTravelsConversationsMeta', [
             'foreignKey' => 'conversation_id',
-        ]);
-        $this->hasMany('ConversationMessages', [
-            'foreignKey' => 'conversation_id',
-        ]);
-        $this->hasMany('Testimonials', [
-            'foreignKey' => 'conversation_id',
-        ]);
+        ]);*/
     }
 
     /**
