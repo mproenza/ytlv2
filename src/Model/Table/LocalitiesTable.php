@@ -87,9 +87,9 @@ class LocalitiesTable extends Table
 
         return $rules;
     }
-    
-    
-    
+
+
+
     public static function getAsSuggestions() {
         $LocalitiesTable = new LocalitiesTable();
         $localities = $LocalitiesTable->find('list')->cache('localities')->toArray();
@@ -98,7 +98,18 @@ class LocalitiesTable extends Table
         $thesaurusEntries = $ThesaurusTable->find('list', ['conditions'=>['use_as_hint'=>true]])->cache('localities-thesaurus')->toArray();
 
         $list = array_merge($localities, $thesaurusEntries);
-        
+
         return $list;
+    }
+
+    public function getAsList() {
+        $LocalitiesTable = new LocalitiesTable();
+        $localities = $this->find('list')->select([
+            "Localities.id", "Localities.name", "Provinces.name"])->
+        contain(['Provinces'])->where(["Provinces.id = Localities.province_id"]);
+
+
+
+        return $localities;
     }
 }

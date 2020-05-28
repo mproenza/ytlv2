@@ -57,7 +57,7 @@ class DriversTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
-        
+
         $this->hasOne('DriversProfiles', [
             'foreignKey' => 'driver_id',
             'propertyName' => 'profile'
@@ -82,7 +82,7 @@ class DriversTable extends Table
         $this->hasMany('DiscountRides', [
             'foreignKey' => 'driver_id',
         ]);
-        
+
         $this->hasMany('DriversTransactionalEmails', [
             'foreignKey' => 'driver_id',
         ]);
@@ -178,10 +178,10 @@ class DriversTable extends Table
             ->requirePresence('travel_count', 'create')
             ->notEmptyString('travel_count');
 
-        $validator
+       /* $validator
             ->dateTime('last_notification_date')
             ->requirePresence('last_notification_date', 'create')
-            ->notEmptyDateTime('last_notification_date');
+            ->notEmptyDateTime('last_notification_date'); COMENTADO PARA REGISTRO INICIAL*/
 
         $validator
             ->boolean('speaks_english')
@@ -214,19 +214,19 @@ class DriversTable extends Table
 
         return $rules;
     }
-    
+
     public static function getAsSuggestions() {
-        
+
         $DriversTable = new DriversTable();
         $drivers = $DriversTable->find('all')
                 ->contain(['DriversProfiles', 'Provinces'])
                 ->where(['active'=>true, 'receive_requests'=>true, 'role'=>'driver'])
                 ->cache('drivers_all_active');
-        
+
         $list = [];
         foreach ($drivers as $d) {
             $list[] = [
-                'driver_id'=>$d->id, 
+                'driver_id'=>$d->id,
                 'driver_username'=>$d->username,
                 'driver_name'=>$d->name,
                 'driver_pax'=>$d->min_people_count.'-'.$d->max_people_count,
@@ -234,42 +234,42 @@ class DriversTable extends Table
                 'province_name'=>$d->province->name
             ];
         }
-        
+
         return $list;
-        
+
         /**
          * Aqui asumo que cuando se llama a esta funcion, es porque en la vista se va a permitir notificar a mas choferes. Entonces, lo mejor es
          * que siempre que se llame restringir la notificacion de choferes si está logueado un operador.
          */
         /*if(AuthComponent::user('role') == 'operator')
             $this->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id', 'action'=>'N'));
-        
+
         $drivers = $this->find('all', array('conditions'=>array('active'=>true, 'receive_requests'=>true, 'role'=>'driver')));
         $list = array();
         foreach ($drivers as $d) {
             $list[] = array(
-                'driver_id'=>$d->id'], 
-                'driver_username'=>$d->username'], 
+                'driver_id'=>$d->id'],
+                'driver_username'=>$d->username'],
                 'driver_name'=>$d['DriverProfile']['driver_name'],
                 'driver_pax'=>$d->min_people_count'].'-'.$d->max_people_count'],
                 'province_id'=>$d['Province']['id'],
                 'province_name'=>$d['Province']['name']);
-        }  
+        }
         return $list;*/
     }
-    
-    
+
+
     // CUSTOM FINDERS
     public function findWithFullProfile(Query $query, array $options) {
         return $query->contain(['DriversProfiles', 'Provinces'])
                 ->where([ 'DriversProfiles.driver_nick'=>$options['nick'] ]);
     }
-    
+
     public function findRecommendedInProvince(Query $query, array $options) {
         $provinceID = $options['province_id'];
         $count = isset($options['count'])? $options['count']:6;
         $notThisDriverIds = isset($options['exclude_drivers'])? $options['exclude_drivers']:null;
-        
+
         $conditions = [
             'Drivers.id NOT IN' => $notThisDriverIds,
             'Drivers.active' => true,
@@ -279,16 +279,16 @@ class DriversTable extends Table
             'ConversationsMeta.state IN' =>[ConversationsMeta::$SERVICE_STATE_DONE, ConversationsMeta::$SERVICE_STATE_PAID],
         ];
         $order = ['Drivers.last_notification_date'=>'ASC'];
-        
+
         $query = $this->_getDriversInProvince($query, $provinceID, $count, ['conditions'=>$conditions, 'order'=>$order]);
-        
+
         return $query;
     }
     /**
      * @param $options: 'order', 'conditions'
      */
     private function _getDriversInProvince(Query $query, $provinceID, $count, $options) {
-        
+
         $query->contain(
                     [
                         'DriversProfiles'
@@ -323,9 +323,9 @@ class DriversTable extends Table
                 $query->group('Drivers.id');
                 if( isset($options['order']) ) $query->order($options['order'])
                 ->limit($count);
-            
+
         //debug($query);
-        
+
         return $query->cache(function ($q) {
             return 'drivers-' . md5(serialize($q->clause('where')));
         });
