@@ -24,6 +24,7 @@ class DriversController extends AppController
             'limit' => 500
         ];
         $drivers = $this->paginate($this->Drivers);
+        $this->viewBuilder()->setTheme('AdminYuniTheme')->setClassName('AdminYuniTheme.AdminYuniTheme');
 
         $this->set(compact('drivers'));
     }
@@ -113,17 +114,17 @@ class DriversController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    
-    
-    
+
+
+
     public function profile($nick) {
-        
+
         $driverWithProfile = $this->Drivers->find('withFullProfile', ['nick' => $nick])->first();
-        
+
         if($driverWithProfile == null) throw new NotFoundException (__('Este perfil no existe'));
 
         // Show 'other recommended' drivers on the driver's profile
-        $recommendedDrivers = 
+        $recommendedDrivers =
                 $this->Drivers->find('recommendedInProvince',
                         [
                             'province_id' => $driverWithProfile->province->id,
@@ -142,14 +143,14 @@ class DriversController extends AppController
                      );
          }
         */
-        
+
         // --- TESTIMONIALS ---
         $this->loadModel('Testimonials');
-        
+
         // Set the number of reviews we are going to load as per :reviews
         $passedArgs = $this->request->getParam('pass');
         $countReviewsToLoad = !empty($passedArgs) && isset($passedArgs['reviews'])? $passedArgs['reviews']:5;
-        
+
         // Check if we need to highlight one specific review, as per ?see-review
         $isAskingReview = isset($this->request->getQueryParams()['see-review']) && $this->request->getQueryParams()['see-review'];
         if($isAskingReview) {
@@ -167,52 +168,52 @@ class DriversController extends AppController
         $this->paginate = [ 'Testimonials' => [
                 'contain'=>\App\Model\Entity\Testimonial::$myCommonRelatedModels,
                 'conditions'=>[
-                    'Testimonials.driver_id' => $driverWithProfile->id, 
+                    'Testimonials.driver_id' => $driverWithProfile->id,
                     'Testimonials.state'=> \App\Model\Entity\Testimonial::$statesValues['approved']
                 ],
                 'limit' => $countReviewsToLoad,
                 'order' => ['Testimonials.created'=> 'DESC']
-            ] 
+            ]
         ];
-        
+
         $testimonials = $this->paginate($this->Testimonials);
-        
+
         // TODO: Hacer un sort de la consulta para poner el $highlightReview al principio
 
         $this->set('testimonials', $testimonials);
 
-        if($this->request->is('ajax')) {                    
+        if($this->request->is('ajax')) {
             $render = '/Elements';
             if(Configure::read('App.theme') != null) $render .= '/'.Configure::read('App.theme');
             $render .= '/ajax_testimonials_list';
             return $this->render($render, false);
         }
         // --- END TESTIMONIALS ---
-        
+
         $this->set('driverWithProfile', $driverWithProfile);
-        
+
         $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme.CubaTheme');
         $this->viewBuilder()->setLayout('driver_profile');
     }
-    
+
     public function drivers_by_province($slug) {
         $province = Province::_provinceFromSlug($slug);
-        
+
         if($province === null) throw new NotFoundException(__d('error', 'La provincia no existe'));
-        
+
         $driversData = $this->Driver->getDriversCardsByProvince($province['id']);
-        
+
         // Si no hay suficientes choferes en la provincia seleccionada, buscar choferes en provincias alternativas
         $shouldLookForAlternativeDrivers = count($driversData) < 10 && isset($province['alternative_province']) && $province['alternative_province'] != null;
         $altertativeDriversData = array();
         if($shouldLookForAlternativeDrivers) {
             $altertativeDriversData = $this->Driver->getDriversCardsByProvince($province['alternative_province']);
         }
-        
+
         $this->set('drivers_data', $driversData);
         $this->set('alternative_drivers_data', $altertativeDriversData);
         $this->set('province', $province);
-        
+
         $this->layout = 'drivers_by_province';
     }
 }

@@ -2157,7 +2157,7 @@
                                                 <i class="fa fa-eye"></i>
                                             </span>
                                             <span class="btn btn-default" id="generate" title="Generar contraseña" onclick="genPwd()">
-                                                <i class="fa fa-gear"></i>
+                                                <i class="fa fa-key"></i>
                                             </span>
                                         </div>
                                     </div>
