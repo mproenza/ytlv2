@@ -130,35 +130,35 @@ class DriversUnapprovedController extends AppController
             $driverprofile['description_es'] = json_encode([
                     'pics' => [
                         [
-                            'src' => $this->request->getData('image1_patho'),
+                            'src' => $this->request->getData('image1_path'),
                             'title' => $this->request->getData('img1_title_es')
                         ],
                         [
-                            'src' => $this->request->getData('image2_patho'),
+                            'src' => $this->request->getData('image2_path'),
                             'title' => $this->request->getData('img2_title_es')
                         ],
                         [
-                            'src' => $this->request->getData('image3_patho'),
+                            'src' => $this->request->getData('image3_path'),
                             'title' => $this->request->getData('img3_title_es')
                         ]
                     ]
-                ]); //'{"pics": [ {"src": "<'.$this->request->getData('image1_patho').'>", "title": "<'.$this->request->getData('img1_title_es').'>"},{"src": "<'.$this->request->getData('image2_patho').'>", "title": "<'.$this->request->getData('img2_title_es').'>"},{"src": "<'.$this->request->getData('image3_patho').'>", "title": "<'.$this->request->getData('img3_title_es').'>"}]   }';
+                ]); //'{"pics": [ {"src": "<'.$this->request->getData('image1_path').'>", "title": "<'.$this->request->getData('img1_title_es').'>"},{"src": "<'.$this->request->getData('image2_path').'>", "title": "<'.$this->request->getData('img2_title_es').'>"},{"src": "<'.$this->request->getData('image3_path').'>", "title": "<'.$this->request->getData('img3_title_es').'>"}]   }';
             $driverprofile['description_en'] = json_encode([
                     'pics' => [
                         [
-                            'src' => $this->request->getData('image1_patho'),
+                            'src' => $this->request->getData('image1_path'),
                             'title' => $this->request->getData('img1_title_en')
                         ],
                         [
-                            'src' => $this->request->getData('image2_patho'),
+                            'src' => $this->request->getData('image2_path'),
                             'title' => $this->request->getData('img2_title_en')
                         ],
                         [
-                            'src' => $this->request->getData('image3_patho'),
+                            'src' => $this->request->getData('image3_path'),
                             'title' => $this->request->getData('img3_title_en')
                         ]
                     ]
-                ]); //'{"pics": [ {"src": "<'.$this->request->getData('image1_patho').'>", "title": "<'.$this->request->getData('img1_title_en').'>"},{"src": "<'.$this->request->getData('image2_patho').'>", "title": "<'.$this->request->getData('img2_title_en').'>"},{"src": "<'.$this->request->getData('image3_patho').'>", "title": "<'.$this->request->getData('img3_title_en').'>"}]   }';
+                ]); //'{"pics": [ {"src": "<'.$this->request->getData('image1_path').'>", "title": "<'.$this->request->getData('img1_title_en').'>"},{"src": "<'.$this->request->getData('image2_path').'>", "title": "<'.$this->request->getData('img2_title_en').'>"},{"src": "<'.$this->request->getData('image3_path').'>", "title": "<'.$this->request->getData('img3_title_en').'>"}]   }';
 
 
 

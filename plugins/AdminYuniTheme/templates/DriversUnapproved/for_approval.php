@@ -2063,7 +2063,7 @@
                                             <label>Foto con auto</label>
                                             <div class="input-group">
                                                 <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driversUnapproved->image1_path)?>">
-                                                <?php echo $this->Form->control('image1_patho', array('type'=>'hidden', 'value'=>$driversUnapproved->image1_path)); ?>
+                                                <?php echo $this->Form->control('image1_path', array('type'=>'hidden', 'value'=>$driversUnapproved->image1_path)); ?>
 
                                             </div>
                                         </div>
@@ -2073,7 +2073,7 @@
                                             <label>Foto del auto</label>
                                             <div class="input-group">
                                                 <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driversUnapproved->image2_path)?>">
-                                                <?php echo $this->Form->control('image2_patho', array('type'=>'hidden', 'value'=>$driversUnapproved->image2_path)); ?>
+                                                <?php echo $this->Form->control('image2_path', array('type'=>'hidden', 'value'=>$driversUnapproved->image2_path)); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -2082,7 +2082,7 @@
                                             <label>foto principal del perfil</label>
                                             <div class="input-group">
                                                 <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driversUnapproved->image3_path)?>">
-                                                <?php echo $this->Form->control('image3_patho', array('type'=>'hidden', 'value'=>$driversUnapproved->image3_path)); ?>
+                                                <?php echo $this->Form->control('image3_path', array('type'=>'hidden', 'value'=>$driversUnapproved->image3_path)); ?>
                                             </div>
                                         </div>
                                     </div>
