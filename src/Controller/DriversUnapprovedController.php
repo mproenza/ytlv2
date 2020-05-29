@@ -103,26 +103,62 @@ class DriversUnapprovedController extends AppController
     }
 
     public function forApproval($id){
-        $this->Provinces = TableRegistry::getTableLocator()->get('Provinces');//La annotation no funciona
-        $this->Localities = TableRegistry::getTableLocator()->get('Localities');//La annotation no funciona
-        $this->DriversProfiles = TableRegistry::getTableLocator()->get('DriversProfiles');//La annotation no funciona
-        $this->Drivers = TableRegistry::getTableLocator()->get('Drivers');//La annotation no funciona
         if ($this->request->is(['post','put'])) {
-            $driversUnapproved = $this->DriversUnapproved->newEmptyEntity();
+            
+            $this->Provinces = TableRegistry::getTableLocator()->get('Provinces');//La annotation no funciona
+            $this->Localities = TableRegistry::getTableLocator()->get('Localities');//La annotation no funciona
+            $this->DriversProfiles = TableRegistry::getTableLocator()->get('DriversProfiles');//La annotation no funciona
+            $this->Drivers = TableRegistry::getTableLocator()->get('Drivers');//La annotation no funciona
+            
+            // DRIVER
             $driver = $this->Drivers->newEmptyEntity();
             $driver = $this->Drivers->patchEntity($driver, $this->request->getData(),[
                 'associated' => [
                     'Localities'
                 ]]);
+            
+            // Driver Completion
+            $driver['description']=$this->request->getData('car_model')." - ".$this->request->getData('slug');
+            $driver['travel_count'] = 0;
+            
+            // DRIVER PROFILE
             $driverprofile = $this->DriversProfiles->newEmptyEntity();
             $driverprofile = $this->DriversProfiles->patchEntity($driverprofile, $this->request->getData());
-            /*Driver Completion*/
-            $driver['description']=$this->request->getData('car_model')." - ".$this->request->getData('slug');
-            $driver['travel_count']=0;
-            /*Driver Profile Completion*/
-            $driverprofile['personal_code']=$this->request->getData('code');
-            $driverprofile['description_es']='{"pics": [ {"src": "<'.$this->request->getData('image1_patho').'>", "title": "<'.$this->request->getData('img1_title_es').'>"},{"src": "<'.$this->request->getData('image2_patho').'>", "title": "<'.$this->request->getData('img2_title_es').'>"},{"src": "<'.$this->request->getData('image3_patho').'>", "title": "<'.$this->request->getData('img3_title_es').'>"}]   }';
-            $driverprofile['description_en']='{"pics": [ {"src": "<'.$this->request->getData('image1_patho').'>", "title": "<'.$this->request->getData('img1_title_en').'>"},{"src": "<'.$this->request->getData('image2_patho').'>", "title": "<'.$this->request->getData('img2_title_en').'>"},{"src": "<'.$this->request->getData('image3_patho').'>", "title": "<'.$this->request->getData('img3_title_en').'>"}]   }';
+            
+            // Driver Profile Completion
+            // TODO: Esto de las 'descriptions' se puede hacer con un JsonType mejor
+            $driverprofile['description_es'] = json_encode([
+                    'pics' => [
+                        [
+                            'src' => $this->request->getData('image1_patho'),
+                            'title' => $this->request->getData('img1_title_es')
+                        ],
+                        [
+                            'src' => $this->request->getData('image2_patho'),
+                            'title' => $this->request->getData('img2_title_es')
+                        ],
+                        [
+                            'src' => $this->request->getData('image3_patho'),
+                            'title' => $this->request->getData('img3_title_es')
+                        ]
+                    ]
+                ]); //'{"pics": [ {"src": "<'.$this->request->getData('image1_patho').'>", "title": "<'.$this->request->getData('img1_title_es').'>"},{"src": "<'.$this->request->getData('image2_patho').'>", "title": "<'.$this->request->getData('img2_title_es').'>"},{"src": "<'.$this->request->getData('image3_patho').'>", "title": "<'.$this->request->getData('img3_title_es').'>"}]   }';
+            $driverprofile['description_en'] = json_encode([
+                    'pics' => [
+                        [
+                            'src' => $this->request->getData('image1_patho'),
+                            'title' => $this->request->getData('img1_title_en')
+                        ],
+                        [
+                            'src' => $this->request->getData('image2_patho'),
+                            'title' => $this->request->getData('img2_title_en')
+                        ],
+                        [
+                            'src' => $this->request->getData('image3_patho'),
+                            'title' => $this->request->getData('img3_title_en')
+                        ]
+                    ]
+                ]); //'{"pics": [ {"src": "<'.$this->request->getData('image1_patho').'>", "title": "<'.$this->request->getData('img1_title_en').'>"},{"src": "<'.$this->request->getData('image2_patho').'>", "title": "<'.$this->request->getData('img2_title_en').'>"},{"src": "<'.$this->request->getData('image3_patho').'>", "title": "<'.$this->request->getData('img3_title_en').'>"}]   }';
 
 
 
@@ -142,11 +178,9 @@ class DriversUnapprovedController extends AppController
             }
             $this->Flash->error(__('No se ha podido almacenar la informacion del chofer'));
         }
-        $this->set('localities', $this->Localities->getAsList());
-        $this->DriversUnapproved = TableRegistry::getTableLocator()->get('DriversUnapproved');//La annotation no funciona
+        
         $driversUnapproved = $this->DriversUnapproved->get($id);
-        $provinces = $this->Provinces->find('list', ['limit' => 200]);
-        $this->set(compact('driversUnapproved','provinces'));
+        $this->set(compact('driversUnapproved'));
 
         $this->viewBuilder()->setTheme('AdminYuniTheme')->setClassName('AdminYuniTheme.AdminYuniTheme');
 

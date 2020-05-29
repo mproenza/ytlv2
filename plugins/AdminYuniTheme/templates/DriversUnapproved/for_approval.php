@@ -1992,7 +1992,7 @@
 </style>
     <div class="container">
         <div class="row">
-            <?= $this->Form->create($driversUnapproved,['type'=>'file','id'=>'mainform','url' => ['action' => 'for-approval/'.$driversUnapproved->id]]) ?>
+            <?= $this->Form->create($driversUnapproved,['type'=>'file','id'=>'mainform','url' => ['action' => 'for-approval', $driversUnapproved->id]]) ?>
             <div class="col-lg-11">
                 <div class="ibox collapsed ">
                     <div class="ibox-title">
@@ -2108,7 +2108,7 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <?php echo $this->Form->control('code', array('type'=>'text', 'label' => 'Codigo del chofer','class'=>'form-control','required'=>true)); ?>
+                                            <?php echo $this->Form->control('personal_code', array('type'=>'text', 'label' => 'Codigo del chofer','class'=>'form-control','required'=>true)); ?>
                                         </div>
                                         <div class="col-md-6">
                                             <?php echo $this->Form->control('slug', array('label'=>'URL perfil (slug)', 'placeholder'=>'Para: /drivers/profile/<slug>', 'required'=>true,'class'=>'form-control')); ?>
@@ -2116,7 +2116,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <?php echo $this->Form->control('localities._ids', array('type' => 'select', 'multiple'=>'multiple', 'options' => $localities,
+                                            <?php echo $this->Form->control('localities._ids', array('type' => 'select', 'multiple'=>'multiple', 'options' => App\Model\Table\LocalitiesTable::getAsList(),
                                             'label' => 'Localidades origen de sus viajes')); ?>
                                         </div>
                                         <div class="col-md-6">

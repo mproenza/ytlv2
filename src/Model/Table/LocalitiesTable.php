@@ -101,14 +101,13 @@ class LocalitiesTable extends Table
 
         return $list;
     }
-
-    public function getAsList() {
+    
+    public static function getAsList() {
         $LocalitiesTable = new LocalitiesTable();
-        $localities = $this->find('list')->select([
-            "Localities.id", "Localities.name", "Provinces.name"])->
-        contain(['Provinces'])->where(["Provinces.id = Localities.province_id"]);
-
-
+        $localities = $LocalitiesTable->find('list')
+                ->select(["Localities.id", "Localities.name", "Provinces.name"])
+                ->contain(['Provinces'])
+                ->where(["Provinces.id = Localities.province_id"]);
 
         return $localities;
     }
