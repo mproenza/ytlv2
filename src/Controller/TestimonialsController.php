@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Core\Configure;
+use App\Model\Entity\Testimonial;
 
 /**
  * Testimonials Controller
@@ -26,6 +27,8 @@ class TestimonialsController extends AppController
         $testimonials = $this->paginate($this->Testimonials);
 
         $this->set(compact('testimonials'));
+
+        $this->redirect(array('action' => 'list/pending'));
     }
 
     /**
@@ -42,6 +45,7 @@ class TestimonialsController extends AppController
         ]);
 
         $this->set('testimonial', $testimonial);
+
     }
 
     /**
@@ -111,29 +115,58 @@ class TestimonialsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    
+
+    public function admin($id) {
+        $data = $this->Testimonials->get($id);
+        if (!$data)
+            throw new NotFoundException('No existe el testimonio solicitado');
+
+        $this->set('testimonial', $data);
+        $this->viewBuilder()->setTheme('AdminTheme')->setClassName('AdminTheme.AdminTheme');
+    }
+
+    public function list($filtro = 'pending') {
+        $conditions = array();
+        if ($filtro != 'all')
+            $conditions = array('Testimonials.state =' => Testimonial::$statesValues[$filtro]);
+
+
+        $this->paginate = [
+            'contain'=>\App\Model\Entity\Testimonial::$myCommonRelatedModels,
+            'conditions'=>$conditions,
+            ];
+
+        $testimonials = $this->paginate($this->Testimonials);
+
+        $this->set('testimonials', $testimonials);
+        $this->set('filter_applied', $filtro);
+        $this->viewBuilder()->setTheme('AdminTheme')->setClassName('AdminTheme.AdminTheme');
+
+        $this->render('all');
+    }
+
     public function featured($redirect = true) {
         if($redirect) return $this->redirect(['action'=>'reviews', '?'=>$this->request->getQueryParams()], 301);
-        
+
         // --- LANG ---
         $currentLang = $alternativeLangUrlQuery = Configure::read('App.language');
         $langs = [ $currentLang ];
-        
+
         if(isset($this->request->getQueryParams()['also'])) $alternativeLangUrlQuery = $this->request->getQueryParams()['also'];
         if($currentLang != $alternativeLangUrlQuery) {
             $langs[] = $alternativeLangUrlQuery;
         }
         // --- END LANG ---
-        
+
         $this->paginate = [
             'order'=>['Testimonials.created' => 'DESC'],
             'limit'=>30,
             'contain' => \App\Model\Entity\Testimonial::$myCommonRelatedModels,
             'conditions' => ['Testimonials.featured'=>true, 'Testimonials.lang IN'=>$langs]
         ];
-        
+
         $this->set('testimonials', $this->paginate($this->Testimonials));
-        
+
         $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme.CubaTheme');
     }
     public function reviews() {
