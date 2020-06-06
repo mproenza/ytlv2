@@ -55,6 +55,7 @@ class TestimonialsTable extends Table
         $this->belongsTo('Drivers', [
             'foreignKey' => 'driver_id',
             'joinType' => 'INNER',
+            'propertyName' =>'driver'
         ]);
         $this->hasMany('TestimonialsReplies', [
             'foreignKey' => 'testimonial_id',

@@ -126,23 +126,19 @@ class TestimonialsController extends AppController
     }
 
     public function list($filtro = 'pending') {
-        $conditions = array();
+        $conditions = [];
         if ($filtro != 'all')
-            $conditions = array('Testimonials.state =' => Testimonial::$statesValues[$filtro]);
-
+            $conditions = ['Testimonials.state =' => Testimonial::$statesValues[$filtro]];
 
         $this->paginate = [
             'contain'=>\App\Model\Entity\Testimonial::$myCommonRelatedModels,
             'conditions'=>$conditions,
+            'order' => ['Testimonials.created' => 'DESC']
             ];
 
-        $testimonials = $this->paginate($this->Testimonials);
-
-        $this->set('testimonials', $testimonials);
-        $this->set('filter_applied', $filtro);
+        $this->set('testimonials', $this->paginate($this->Testimonials));
+        
         $this->viewBuilder()->setTheme('AdminTheme')->setClassName('AdminTheme.AdminTheme');
-
-        $this->render('all');
     }
 
     public function featured($redirect = true) {

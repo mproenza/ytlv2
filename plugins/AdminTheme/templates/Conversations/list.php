@@ -9,7 +9,7 @@ if(!isset($details)) $details = true;
             
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
             <br/>
-            <?php echo $this->element('widget/widget_search_filters', array('filters'=> App\Controller\ConversationsController::SEARCH_FILTERS))?>
+            <?php echo $this->element('widget/widget-search-filters', array('filters'=> App\Controller\ConversationsController::SEARCH_FILTERS))?>
         </div>
         <div class="col-md-8 col-md-offset-2">
             <?php if(!empty ($conversations)): ?>

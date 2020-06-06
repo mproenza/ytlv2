@@ -7,11 +7,11 @@ if (isset($driver_profile))
 ?>
 
 <div class="row" id="<?php echo "testimonial{$testimonial['id']}"; ?>">
-    <div class="row"> <?php echo $this->element('admin/testimonials/testimonial_header', $pass);?></div>
+    <div class="row"> <?php echo $this->element('admin/testimonials/testimonial-admin-header', $pass);?></div>
 
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <div class="panel-title"><?php echo "<b>Testimonio {$testimonial['id']}:</b>"; ?>
+            <div class="panel-title"><?php echo "<b>Testimonio {$testimonial->id}:</b>"; ?>
                 &nbsp;
                 <?php echo $this->Html->link('admin »', array('controller' => 'testimonials', 'action' => 'admin', $testimonial['id']))?>
                 &nbsp;
@@ -24,8 +24,8 @@ if (isset($driver_profile))
 
         <div class="panel-body">
             <?php
-            echo $this->element('admin/testimonials/testimonial_admin', array('testimonial' => $testimonial));
-            echo $this->element('admin/testimonials/testimonial_body', array('testimonial' => $testimonial, 'width' => 25, 'height' => 25));
+            echo $this->element('admin/testimonials/testimonial-admin-controls', array('testimonial' => $testimonial));
+            echo $this->element('admin/testimonials/testimonial-admin-data', array('testimonial' => $testimonial, 'width' => 25, 'height' => 25));
             ?>
         </div>
     </div>
