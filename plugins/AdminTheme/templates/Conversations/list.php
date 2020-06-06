@@ -20,12 +20,13 @@ if(!isset($details)) $details = true;
                 <?php 
                 $totalIncome = 0.00;
                 $totalSavings = 0.00;
-                foreach ($conversations as $dt) {
-                    $hasMetadata = (isset ($dt['TravelConversationMeta']) && $dt['TravelConversationMeta'] != null && !empty ($dt['TravelConversationMeta']) && strlen(implode($dt['TravelConversationMeta'])) != 0);
-                    if($hasMetadata && $dt['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID
-                        && $dt['TravelConversationMeta']['income'] != null) {
-                        $totalIncome += $dt['TravelConversationMeta']['income'];
-                        if($dt['TravelConversationMeta']['income_saving'] != null) $totalSavings += $dt['TravelConversationMeta']['income_saving'];
+                foreach ($conversations as $conversation) {
+                    if( $conversation->has_meta 
+                        && $conversation->meta->state == \App\Model\Entity\Conversation::STATES['PAID']
+                        && $conversation->meta->income != null
+                        ) {
+                        $totalIncome += $conversation->meta->income;
+                        if($conversation->meta->income_saving != null) $totalSavings += $conversation->meta->income_saving;
                     }
                 }
                 ?>
@@ -45,9 +46,9 @@ if(!isset($details)) $details = true;
                 <?php endif;?>
 
                 <ul style="list-style-type: none;padding: 0px">
-                <?php foreach ($conversations as $dt) :?>
+                <?php foreach ($conversations as $conversation) :?>
                     <li style="margin-bottom: 60px">
-                        <?php echo $this->element('admin/conversations/conversation_card', array('conversation'=>$dt));?>
+                        <?php echo $this->element('admin/conversations/conversation_card', array('conversation'=>$conversation));?>
                     </li> 
                 <?php endforeach; ?>
                 </ul>

@@ -5,8 +5,6 @@ use App\Util\TimeUtil;
 
 <?php 
 if(!isset($showComments)) $showComments = true;
-
-$hasMetadata = isset ($conversation->meta) && $conversation->meta != null;
 ?>
 
 <?php
@@ -19,7 +17,7 @@ if($conversation->notification_type == Conversation::NOTIFICATION_TYPES['BY_ADMI
 <?= $conversation->driver->name.': '.$this->Html->link($conversation->id, array('controller'=>'conversations', 'action'=>'admin', $conversation->id), $info);?>
 
 <?php $badgesMargin = -30; $badgesSpacing = 25;?>
-<?php if($hasMetadata):?>
+<?php if($conversation->has_meta):?>
 
     <!-- VERIFICACION DE VIAJE -->
     <?php if($conversation->meta->received_confirmation_type != null):?>
@@ -33,7 +31,7 @@ if($conversation->notification_type == Conversation::NOTIFICATION_TYPES['BY_ADMI
         </small>
         
     <!-- Pedido de confirmacion enviado al chofer -->
-    <?php elseif($hasMetadata && $conversation->meta->asked_confirmation):?>
+    <?php elseif($conversation->has_meta && $conversation->meta->asked_confirmation):?>
            
         <small>
             <span class="label label-default info" style="float:left;margin-left: <?= $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Pedido de confirmación del viaje enviado al chofer">
@@ -128,7 +126,7 @@ if($conversation->message_count > 0): // Respondido ?>
 <?php endif?>
 
 <!-- METADATOS -->
-<?php if($hasMetadata):?>
+<?php if($conversation->has_meta):?>
     <!-- SIGUIENDO -->
     <?php if($conversation->meta->following):?> 
         <small><span class="label label-info" style="margin-left:5px">Siguiendo</span></small>

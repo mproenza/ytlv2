@@ -9,7 +9,7 @@ $driverHasProfile = isset ($driver->profile) && $driver->profile != null;
     <h2>
         <?php 
         if($driverHasProfile) :?>
-            <img src="<?= \App\Util\PathUtil::getFullPath($driver->profile->avatar_filepath)?>" class="info" title="<?= $driver->profile->driver_name?>" style="max-height: 40px; max-width: 40px"/>
+            <img src="<?= \App\Util\PathUtil::getFullPath($driver->profile->avatar_path)?>" style="max-height: 40px; max-width: 40px"/>
         <?php endif;?>
         <span style="display: inline-block">
             <small>#<?= $conversation->full_identifier; ?></small>
