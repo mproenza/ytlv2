@@ -6,34 +6,34 @@
 <?php
    //--------------------------Viajero----------------------------
    if(isset($user)){
-      $nombreViajero = ( $user['display_name'] ) ? $user['display_name'] : $user['username'];
-      $urlViajero = array('controller' => 'users', 'action' => "admin", $user['id']);
+      $nombreViajero = ( $user->display_name ) ? $user->display_name : $user->username;
+      $urlViajero = array('controller' => 'users', 'action' => "admin", $user->id);
    }
 
    //--------------------------Chofer----------------------------
    $nombreChofer = 'Perfil En Construcción';
-   if( isset($driver_profile['driver_nick']) ){
-      $nombreChofer = $driver_profile['driver_nick'];
+   if( isset($driver_profile->slug) ){
+      $nombreChofer = $driver_profile->slug;
       $urlPerfil = array('controller' => 'drivers', 'action' => 'profile', $nombreChofer);
    }
 
-   if(isset( $driver_profile['driver_name'] ) )
-      $nombreChofer = $driver_profile['driver_name'];
+   if(isset( $driver_profile->driver_name) )
+      $nombreChofer = $driver_profile->driver_name;
 
 
    $imagen_path = 'files/driver_default_jpg';
-   if( isset($driver_profile['avatar_filepath']) )
-      $imagen_path = str_replace('\\', '/', $driver_profile['avatar_filepath']);
+   if( isset($driver_profile->avatar_filepath) )
+      $imagen_path = str_replace('\\', '/', $driver_profile->avatar_filepath);
 
    //--------------------------Viaje----------------------------
    if( isset($travel) )
-      $urlViaje = array('controller' => 'travels', 'action' => "admin", $travel['id']);
+      $urlViaje = array('controller' => 'travels', 'action' => "admin", $travel->id);
 ?>
 
 <div class="row">
     <div class="col-md-6">
         <div class="col-md-2">
-           <?php echo "<img src='{$webroot}{$imagen_path}' style='max-height: 50px; max-width: 50px' />"; ?>
+           <?php echo "<img src='".\App\Util\PathUtil::getFullPath($imagen_path)."' style='max-height: 50px; max-width: 50px' />"; ?>
         </div>
 
         <div class="col-md-10">
@@ -42,13 +42,13 @@
               <li>
                   <?php if ($isUserLoggedIn) :?>
                   <?php if($userRole === 'admin' || $userRole === 'operator'):?>
-                     <?php echo "<b>Email:</b> {$driver['username']}<br>"; ?>
+                     <?php echo "<b>Email:</b> {$driver->username}<br>"; ?>
                   <?php endif; ?>
                   <?php endif; ?>
               </li>
               <li>
                 <?php if( isset($urlPerfil) ): ?>
-                    <a href="<?php echo $this->html->url($urlPerfil, true); ?>" >
+                    <a href="<?php echo $this->Url->build($urlPerfil); ?>" >
                       <i class='glyphicon glyphicon-picture'></i>
                       Ver Perfil
                     </a>
@@ -62,19 +62,19 @@
         <ul class="list-unstyled">
           <?php if( isset($nombreViajero) ): ?>
              <li>
-               <a href="<?php echo $this->html->url($urlViajero, true); ?>" title="Administrar Usuario" > <?php echo "<i class='glyphicon glyphicon-user'></i> <b>Usuario {$user['id']}:</b>" ?> </a>
+               <a href="<?php echo $this->Url->build($urlViajero); ?>" title="Administrar Usuario" > <?php echo "<i class='glyphicon glyphicon-user'></i> <b>Usuario {$user->id}:</b>" ?> </a>
                <?php echo $nombreViajero; ?>
              </li>
           <?php endif; ?>
 
           <?php if( isset($travel) ): ?>
              <li>
-                <a href="<?php echo $this->html->url($urlViaje, true); ?>" title="Administrar Viaje" > <?php echo "<i class='glyphicon glyphicon-road'></i> <b>Viaje {$travel['id']}:</b> " ?> </a>
-                <?php echo "{$travel['origin']} <i class='glyphicon glyphicon-arrow-right'></i> {$travel['destination']}"; ?>
+                <a href="<?php echo $this->Url->build($urlViaje); ?>" title="Administrar Viaje" > <?php echo "<i class='glyphicon glyphicon-road'></i> <b>Viaje {$travel->id}:</b> " ?> </a>
+                <?php echo "{$travel->origin} <i class='glyphicon glyphicon-arrow-right'></i> {$travel->destination}"; ?>
              </li>
 
              <li>
-                <?php echo "con fecha <b class='text-muted'>{$travel['date']}</b> y un total de <b class='text-muted'>{$travel['people_count']} pasajeros</b>"; ?>
+                <?php echo "con fecha <b class='text-muted'>{$travel->date}</b> y un total de <b class='text-muted'>{$travel->people_count} pasajeros</b>"; ?>
              </li>
           <?php endif; ?>
         </ul>

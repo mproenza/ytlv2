@@ -6,19 +6,19 @@ if (isset($driver_profile))
     $pass = array_merge($pass, array('driver_profile' => $driver_profile));
 ?>
 
-<div class="row" id="<?php echo "testimonial{$testimonial['id']}"; ?>">
+<div class="row" id="<?php echo "testimonial{$testimonial->id}"; ?>">
     <div class="row"> <?php echo $this->element('admin/testimonials/testimonial-admin-header', $pass);?></div>
 
     <div class="panel panel-primary">
         <div class="panel-heading">
             <div class="panel-title"><?php echo "<b>Testimonio {$testimonial->id}:</b>"; ?>
                 &nbsp;
-                <?php echo $this->Html->link('admin »', array('controller' => 'testimonials', 'action' => 'admin', $testimonial['id']))?>
+                <?php echo $this->Html->link('admin »', array('controller' => 'testimonials', 'action' => 'admin', $testimonial->id))?>
                 &nbsp;
-                <?php echo $this->Html->link('permalink »', array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_profile['driver_nick'],'?'=>array('see-review'=>$testimonial['id'])), array('target'=>'_blank'))?>
+                <?php echo $this->Html->link('permalink »', array('language'=>$testimonial->lang, 'controller' => 'drivers', 'action' => 'profile',$driver_profile->slug,'?'=>array('see-review'=>$testimonial->id)), array('target'=>'_blank'))?>
                 &nbsp;
-                <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Url->build(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_profile['driver_nick'],'?'=>array('see-review'=>$testimonial['id']), 'base'=>false)) ?>" class="glyphicon glyphicon-share" target="_blank"></a>
-                <div>Token respuesta chofer: <?php echo $testimonial['driver_reply_token']?></div>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Url->build(array('language'=>$testimonial->lang, 'controller' => 'drivers', 'action' => 'profile',$driver_profile->slug,'?'=>array('see-review'=>$testimonial->id), 'base'=>false)) ?>" class="glyphicon glyphicon-share" target="_blank"></a>
+                <div>Token respuesta chofer: <?php echo $testimonial->driver_reply_token?></div>
             </div>
         </div>
 

@@ -137,8 +137,92 @@ class TestimonialsController extends AppController
             ];
 
         $this->set('testimonials', $this->paginate($this->Testimonials));
-        
+
         $this->viewBuilder()->setTheme('AdminTheme')->setClassName('AdminTheme.AdminTheme');
+    }
+
+    /*Para administrar el testimonio*/
+
+    public function setFeatured($id) {
+        $OK = $this->changeField($id, 'featured', true);
+
+        //if(!$OK)
+
+        $this->redirect($this->referer().'#testimonial'.$id);
+    }
+    public function unsetFeatured($id) {
+        $OK = $this->changeField($id, 'featured', false);
+
+        //if(!$OK)
+
+        $this->redirect($this->referer().'#testimonial'.$id);
+    }
+
+    public function setSample($id) {
+        $OK = $this->changeField($id, 'use_as_sample', true);
+
+        //if(!$OK)
+
+        $this->redirect($this->referer().'#testimonial'.$id);
+    }
+    public function unsetSample($id) {
+        $OK = $this->changeField($id, 'use_as_sample', false);
+
+        //if(!$OK)
+
+        $this->redirect($this->referer().'#testimonial'.$id);
+    }
+
+    public function langChange($id, $lang, $action = 'admin') {
+        $testimonial = $this->Testimonials->get($id);
+        if (!$testimonial) $this->Flash->error('No existe el testimonio solicitado');
+
+        if (!in_array($lang, Testimonial::$langs))
+            $this->Flash->error('El idioma no es válido');
+
+        $save_data = array('lang' => $lang, 'modified' => false);
+        $testimonial = $this->Testimonials->patchEntity($testimonial,array('Testimonials'=>$save_data));
+        if ($this->Testimonials->save($testimonial)) {
+            $state_str = Testimonial::$states[$testimonial->state];
+            if ($action == 'admin')
+                return $this->redirect(array('action' => "admin/$id"));
+            else
+                return $this->redirect(array('action' => "list/$state_str#testimonial$id"));
+        }
+        $this->Flash->error('No se pudo cambiar el idioma');
+    }
+
+    public function stateChange($id, $state, $action = 'admin') {
+        //$this->Driver->attachProfile($this->Testimonial);//Tuve que ponerlo porque no funcionaba el profile, no se por que (antes funcionaba)
+        $testimonial = $this->Testimonials->get($id);
+        if (!$testimonial) $this->Flash->error('No existe el testimonio solicitado');
+
+        if (!in_array($state, Testimonial::$statesValues))
+            $this->Flash->error('El estado no es válido');
+
+        $save_data = array('state' => $state, 'modified' => false);
+
+        $testimonial = $this->Testimonials->patchEntity($testimonial,array('Testimonials'=>$save_data));
+        if ($this->Testimonials->save($testimonial)) {
+
+            // Enviar correo de aprobacion al chofer
+            $state_str = Testimonial::$states[$state];
+            //if($state_str == 'approved') $this->_sendApprovedToDriver($data);
+
+            if ($action == 'admin')
+                return $this->redirect(array('action' => "admin/$id"));
+            else
+                return $this->redirect(array('action' => "list/$state_str#testimonial$id"));
+        }
+        $this->Flash->error('No se pudo cambiar el estado');
+    }
+
+    private function changeField($testimonialId, $field, $value) {
+        $testimonial = $this->Testimonials->get($testimonialId);
+        if (!$testimonial) throw new NotFoundException ();
+        $testimonial = $this->Testimonials->patchEntity($testimonial,array('Testimonials'=>array($field=>$value, 'modified'=>false)));
+
+        return $this->Testimonials->save($testimonial);
     }
 
     public function featured($redirect = true) {
@@ -169,4 +253,6 @@ class TestimonialsController extends AppController
         $this->featured(false);
         $this->render('featured');
     }
+
+
 }

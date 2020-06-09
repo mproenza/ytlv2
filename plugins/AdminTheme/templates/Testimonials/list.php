@@ -29,12 +29,12 @@ use App\Model\Entity\Testimonial;
                 <?php
                    foreach($testimonials as $data){
                     //print_r($data); die();
-                      $pass = array('testimonial' => $data, 'driver' => $data['driver']);
+                      $pass = array('testimonial' => $data, 'driver' => $data->driver);
                       //if( isset($data['driver']['profile']['avatar_path']) )
-                         $pass = array_merge($pass, array('driver_profile' => $data['driver']['profile']));
+                         $pass = array_merge($pass, array('driver_profile' => $data->driver->profile));
 
-                      if( isset($data['driverTravel']['Travel']) )
-                         $pass = array_merge($pass, array('travel' => $data['driverTravel']['Travel'], 'user' => $data['driverTravel']['Travel']['User']));
+                      if( isset($dat->driverTravel->Travel) )
+                         $pass = array_merge($pass, array('travel' => $data->driverTravel->Travel, 'user' => $data->driverTravel->Travel->User));
 
                       echo $this->element('admin/testimonials/testimonial-admin-widget', $pass);
                       echo '<br/><hr/>';

@@ -3,7 +3,7 @@
  */ ?>
 
 <?php
-$urlConversation = array('controller' => 'driver_traveler_conversations', 'action' => 'view', $testimonial['conversation_id']);
+$urlConversation = array('controller' => 'driver_traveler_conversations', 'action' => 'view', $testimonial->conversation_id);
 
 $statesStr = array('P' => 'Pendiente', 'A' => 'Aprobado', 'R' => 'Rechazado');
 $statesClasses = array('P' => 'btn-default', 'A' => 'btn-success', 'R' => 'btn-danger');
@@ -21,17 +21,17 @@ $action = $this->request->getData('action');
                 <th>Idioma <small class="text-muted">(cambiar si es otro)</small></th>
                 <th>Creado</th>
                 <th>Modificado</th>
-                <th><?php echo ( ($testimonial['conversation_id']) ? "Conversación" : "Email"); ?></th>
+                <th><?php echo ( ($testimonial->conversation_id) ? "Conversación" : "Email"); ?></th>
                 <th>
                     <?php
-                    if($testimonial['featured']) echo $this->Form->button('Quitar featured', array('class'=>'btn-danger btn-sm', 'action'=>'unset_featured/'.$testimonial['id']), true);
-                    else echo $this->Form->button('Poner featured', array('class'=>'btn-info btn-sm', 'action'=>'set_featured/'.$testimonial['id']), true);
+                    if($testimonial->featured) echo $this->Html->link('Quitar featured', array('action'=>'unset_featured/'.$testimonial->id), array('class'=>'btn btn-danger btn-sm','escape'=>false));
+                    else echo $this->Html->link('Poner featured', array('action'=>'set_featured/'.$testimonial->id),array('class'=>'btn btn-info btn-sm','escape'=>false));
                     ?>
                 </th>
                 <th>
                     <?php
-                    if($testimonial['use_as_sample']) echo $this->Form->button('Quitar de Homepage', array('class'=>'btn-danger btn-sm', 'action'=>'unset_sample/'.$testimonial['id']), true);
-                    else echo $this->Form->button('Mostrar en Homepage', array('class'=>'btn-info btn-sm', 'action'=>'set_sample/'.$testimonial['id']), true);
+                    if($testimonial->use_as_sample) echo  $this->Html->link('Quitar de Homepage', array( 'action'=>'unset_sample/'.$testimonial->id), array('class'=>'btn btn-danger btn-sm'));
+                    else echo $this->Html->link('Mostrar en Homepage', array('action'=>'set_sample/'.$testimonial->id), array('class'=>'btn btn-info btn-sm'));
                     ?>
                 </th>
             </tr>
@@ -42,16 +42,16 @@ $action = $this->request->getData('action');
                 <!-- Estado -->
                 <td>
                     <div class="btn-group" style="cursor: pointer">
-                        <span class="<?php echo $statesClasses[$testimonial['state']]; ?>" data-toggle="dropdown" style="display: table-cell">
-                            <?php  echo $statesStr[$testimonial['state']]; ?>
+                        <span class="<?php echo $statesClasses[$testimonial->state]; ?>" data-toggle="dropdown" style="display: table-cell">
+                            <?php  echo $statesStr[$testimonial->state]; ?>
                             <i class="caret"></i>
                         </span>
 
                         <div class="dropdown-menu">
                             <?php
                             foreach ($statesStr as $clave => $valor)
-                                if ($testimonial['state'] != $clave)
-                                    echo $this->Form->button("$valor", array('class' => "btn-block {$statesClasses[$clave]}", 'action' => "state_change/{$testimonial['id']}/$clave/$action"), true);
+                                if ($testimonial->state != $clave)
+                                    echo $this->Html->link("$valor", array( 'action' => "state_change/{$testimonial->id}/$clave/$action"), array('class' => "btn btn-block {$statesClasses[$clave]}"));
                             ?>
                         </div>
                     </div>
@@ -69,7 +69,7 @@ $action = $this->request->getData('action');
                             <?php
                             foreach ($idiomas as $clave => $valor)
                                 if ($testimonial['lang'] != $clave)
-                                    echo $this->Form->button("$valor", array('escape' => false, 'action' => "lang_change/{$testimonial['id']}/$clave/$action"), true);
+                                    echo $this->Html->link("$valor", array('escape' => false, 'action' => "lang_change/{$testimonial['id']}/$clave/$action"), array('class'=>'btn'));
                             ?>
                         </div>
                     </div>
@@ -90,7 +90,7 @@ $action = $this->request->getData('action');
                 <!-- Conversación -->
                 <td>
                     <?php if ($testimonial['conversation_id']): ?>
-                        <a href="<?php echo $this->html->url($urlConversation, true); ?>" target="_blank">
+                        <a href="<?php echo $this->Url->build($urlConversation); ?>" target="_blank">
                             Ver conversación
                         </a>
                     <?php
