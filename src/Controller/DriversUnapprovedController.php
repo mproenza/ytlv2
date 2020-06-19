@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
+use App\Util\PathUtil;
 
 /**
  * DriversUnapproved Controller
@@ -15,7 +15,7 @@ use Cake\ORM\TableRegistry;
 class DriversUnapprovedController extends AppController
 {
 
-     public function beforeRender(\Cake\Event\EventInterface $event) {
+    public function beforeRender(\Cake\Event\EventInterface $event) {
         parent::beforeFilter($event);
 
     }
@@ -101,12 +101,44 @@ class DriversUnapprovedController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    
+    
+    public function apply() {
+        
+        $this->DriversUnapproved = TableRegistry::getTableLocator()->get('DriversUnapproved');//La annotation no funciona
+        $driversProfile = $this->DriversUnapproved->newEmptyEntity();
+        
+        if ($this->request->is('post')) {
+            
+            $driversProfile = $this->DriversUnapproved->patchEntity($driversProfile, $this->request->getData(),[
+                'associated' => [        
+                    'Provinces'
+                ]]);
+            
+            if ($this->DriversUnapproved->save($driversProfile)) {
+                $this->Flash->success(__('Se ha almacenado su información. Espere nuestra notificación'));
 
-    public function forApproval($id){
+                return $this->redirect(['action'=>'thanks', $this->request->getData('full_name')]);
+            }
+            
+            $this->Flash->error(__('The drivers profile could not be saved. Please, try again.'));
+        }
+        
+        $this->set(compact('driversProfile'));
+        
+        $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme.CubaTheme');
+        
+    }
+    
+    public function thanks($name) {
+        $this->set(compact('name'));
+        $this->viewBuilder()->setTheme('CubaTheme')->setClassName('CubaTheme.CubaTheme');
+    }
+
+    public function approve($id) {
         if ($this->request->is(['post','put'])) {
             
-            $this->Provinces = TableRegistry::getTableLocator()->get('Provinces');//La annotation no funciona
-            $this->Localities = TableRegistry::getTableLocator()->get('Localities');//La annotation no funciona
             $this->DriversProfiles = TableRegistry::getTableLocator()->get('DriversProfiles');//La annotation no funciona
             $this->Drivers = TableRegistry::getTableLocator()->get('Drivers');//La annotation no funciona
             
@@ -115,72 +147,72 @@ class DriversUnapprovedController extends AppController
             $driver = $this->Drivers->patchEntity($driver, $this->request->getData(),[
                 'associated' => [
                     'Localities'
-                ]]);
-            
-            // Driver Completion
-            $driver['description']=$this->request->getData('car_model')." - ".$this->request->getData('slug');
-            $driver['travel_count'] = 0;
+                ]]);            
+
+            $driver->description = $this->request->getData('car_model')." - ".$this->request->getData('slug');
+            $driver->travel_count = 0;
             
             // DRIVER PROFILE
             $driverprofile = $this->DriversProfiles->newEmptyEntity();
             $driverprofile = $this->DriversProfiles->patchEntity($driverprofile, $this->request->getData());
             
-            // Driver Profile Completion
+            $img1Fullpath = PathUtil::getFullPath($this->request->getData('image1_path'));
+            $img2Fullpath = PathUtil::getFullPath($this->request->getData('image2_path'));
+            $img3Fullpath = PathUtil::getFullPath($this->request->getData('image3_path'));
+            
+            $driverprofile->featured_img_url = $img1Fullpath;
+            
             // TODO: Esto de las 'descriptions' se puede hacer con un JsonType mejor
-            $driverprofile['description_es'] = json_encode([
+            $driverprofile->description_es = json_encode([
                     'pics' => [
                         [
-                            'src' => $this->request->getData('image1_path'),
+                            'src' => $img1Fullpath,
                             'title' => $this->request->getData('img1_title_es')
                         ],
                         [
-                            'src' => $this->request->getData('image2_path'),
+                            'src' => $img2Fullpath,
                             'title' => $this->request->getData('img2_title_es')
                         ],
                         [
-                            'src' => $this->request->getData('image3_path'),
+                            'src' => $img3Fullpath,
                             'title' => $this->request->getData('img3_title_es')
                         ]
                     ]
-                ]); //'{"pics": [ {"src": "<'.$this->request->getData('image1_path').'>", "title": "<'.$this->request->getData('img1_title_es').'>"},{"src": "<'.$this->request->getData('image2_path').'>", "title": "<'.$this->request->getData('img2_title_es').'>"},{"src": "<'.$this->request->getData('image3_path').'>", "title": "<'.$this->request->getData('img3_title_es').'>"}]   }';
-            $driverprofile['description_en'] = json_encode([
+                ]);
+            $driverprofile->description_en = json_encode([
                     'pics' => [
                         [
-                            'src' => $this->request->getData('image1_path'),
+                            'src' => $img1Fullpath,
                             'title' => $this->request->getData('img1_title_en')
                         ],
                         [
-                            'src' => $this->request->getData('image2_path'),
+                            'src' => $img2Fullpath,
                             'title' => $this->request->getData('img2_title_en')
                         ],
                         [
-                            'src' => $this->request->getData('image3_path'),
+                            'src' => $img3Fullpath,
                             'title' => $this->request->getData('img3_title_en')
                         ]
                     ]
-                ]); //'{"pics": [ {"src": "<'.$this->request->getData('image1_path').'>", "title": "<'.$this->request->getData('img1_title_en').'>"},{"src": "<'.$this->request->getData('image2_path').'>", "title": "<'.$this->request->getData('img2_title_en').'>"},{"src": "<'.$this->request->getData('image3_path').'>", "title": "<'.$this->request->getData('img3_title_en').'>"}]   }';
-
-
-
-            //debug($driverprofile); die();
+                ]);
+            
             if ($this->Drivers->save($driver)) {
-                $this->Flash->success(__('Se ha almacenado la informacion del chofer.'));
-                $driverprofile['driver_id'] = $driver->id;//For the profile
+                
+                $driverprofile->driver_id = $driver->id;
 
                 if ($this->DriversProfiles->save($driverprofile)) {
                     $this->Flash->success(__('Se ha almacenado la información del perfil.'));
-
-                    return $this->redirect(['controller'=>'drivers', 'action'=>'index']);//Hay que crear una pagina para esto
+                    return $this->redirect(['controller'=>'drivers', 'action'=>'index']);
                 }
+                
                 $this->Flash->error(__('No se ha podido almacenar la informacion del perfil'));
-
-
             }
+            
             $this->Flash->error(__('No se ha podido almacenar la informacion del chofer'));
         }
         
-        $driversUnapproved = $this->DriversUnapproved->get($id);
-        $this->set(compact('driversUnapproved'));
+        $driverUnapproved = $this->DriversUnapproved->get($id);
+        $this->set(compact('driverUnapproved'));
 
         $this->viewBuilder()->setTheme('AdminYuniTheme')->setClassName('AdminYuniTheme.AdminYuniTheme');
 

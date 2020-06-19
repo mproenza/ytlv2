@@ -56,7 +56,7 @@
                         <td><?php if($profile->speaks_english) echo "Si"; else echo "No"; ?></td>
                         <td><?php if($profile->has_air_conditioner) echo "Si"; else echo "No"; ?></td>
                         <td>
-                            <a title="Aprobar perfil" href="<?php echo $this->Url->build(['action'=>'for-approval',$profile->id]); ?>"><i class="fa fa-edit text-navy"></i></a>
+                            <a title="Aprobar perfil" href="<?php echo $this->Url->build(['action'=>'approve', $profile->id]); ?>"><i class="fa fa-edit text-navy"></i></a>
                         </td>
                     </tr>
                        <?php endforeach; ?>

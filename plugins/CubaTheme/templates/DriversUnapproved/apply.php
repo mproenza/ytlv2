@@ -1,8 +1,5 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\DriversProfile $driversProfile
- */
+use App\Model\Table\ProvincesTable;
 ?>
 <style>
 
@@ -1989,325 +1986,118 @@
         max-width: 300px;
     }
 
+
+
 </style>
+<div style="background-color: graytext">
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
     <div class="container">
-        <div class="row">
-            <?= $this->Form->create($driversUnapproved,['type'=>'file','id'=>'mainform','url' => ['action' => 'for-approval', $driversUnapproved->id]]) ?>
-            <div class="col-lg-11">
-                <div class="ibox collapsed ">
-                    <div class="ibox-title">
-                        <h5><?= __('DATOS DEL CHOFER') ?><small> (del registro)</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="driversProfiles form content">
-
-                            <div class="row">
-                                <div class="col-sm-7 b-r">
-
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <?php echo $this->Form->control('username', array('type'=>'text', 'label' => 'Correo','class'=>'form-control','required'=>true)); ?>
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            <?php echo $this->Form->control('phone', array('label'=>'Teléfono', 'placeholder'=>'Teléfono móvil (+53...)', 'required'=>true,'class'=>'form-control')); ?>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <?php echo $this->Form->control('full_name', array('type'=>'text', 'label' => 'Nombre completo','class'=>'form-control','required'=>true)); ?>
-                                            <?php echo $this->Form->control('name', array('type'=>'hidden', 'value'=>$driversUnapproved->full_name)); ?>
-                                            <?php echo $this->Form->control('DriversProfiles.driver_name', array('type'=>'hidden', 'value'=>$driversUnapproved->full_name)); ?>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <?php echo $this->Form->control('province_id', array('type' => 'select', 'options' => $provinces, 'label' => 'Provincia donde vive')); ?>
-
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <?php echo $this->Form->control('about', array('required'=>true,'label' => 'Descripción (Resumen Bio para los clientes)','class'=>'form-control','type'=>'textarea')); ?>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table>
-                                                <tr><td colspan="2"><?php echo $this->Form->control('car_model', array('required'=>true,'type'=>'text', 'label' => 'Marca y modelo auto','class'=>'form-control')); ?></td></tr>
-                                                <tr>
-                                                    <td style="margin-right:2px"> <?php echo $this->Form->control('max_people_count', array('required'=>true,'default' => 4, 'min' => 1, 'label' => 'Cap. máxima','class'=>'form-control')); ?></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="conainer" style="border: solid 2px #F9F2F4; margin-top: 3px; padding: 5px; border-radius: 5px">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <?php echo $this->Form->checkbox('has_air_conditioner', ['hiddenField'=>'false']).'<b> Aire acondicionado?</b>'; ?>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <?php echo $this->Form->checkbox('speaks_english',['hiddenField'=>'false']).'<b> Habla inglés?</b>'; ?>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="col-sm-5"><h4>Ver imágenes</h4>
-                                    <div class="col-xs-9 col-md-9">
-                                        <div class="form-group">
-                                            <label>Foto con auto</label>
-                                            <div class="input-group">
-                                                <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driversUnapproved->image1_path)?>">
-                                                <?php echo $this->Form->control('image1_path', array('type'=>'hidden', 'value'=>$driversUnapproved->image1_path)); ?>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-9 col-md-9">
-                                        <div class="form-group">
-                                            <label>Foto del auto</label>
-                                            <div class="input-group">
-                                                <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driversUnapproved->image2_path)?>">
-                                                <?php echo $this->Form->control('image2_path', array('type'=>'hidden', 'value'=>$driversUnapproved->image2_path)); ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-9 col-md-9">
-                                        <div class="form-group">
-                                            <label>foto principal del perfil</label>
-                                            <div class="input-group">
-                                                <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driversUnapproved->image3_path)?>">
-                                                <?php echo $this->Form->control('image3_path', array('type'=>'hidden', 'value'=>$driversUnapproved->image3_path)); ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                </div>
+        <div class="row"> 
+            <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5><?= __('DATOS PARA PERFIL') ?></h5>
-
+                        <h5><?= __('DATOS DEL NUEVO CHOFER') ?><small> (pendiente a aprobación)</small></h5>                        
                     </div>
                     <div class="ibox-content">
                         <div class="driversProfiles form content">
-
+                            
+                            <?= $this->Form->create($driversProfile, ['type' => 'file']) ?>
+                            
                             <div class="row">
                                 <div class="col-sm-7 b-r">
-                                     <input type="hidden" name="driver_id" id="driver_id" value="<?php echo $driversUnapproved->id ?>">
-
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <?php echo $this->Form->control('personal_code', array('type'=>'text', 'label' => 'Codigo del chofer','class'=>'form-control','required'=>true)); ?>
+                                            <?php echo $this->Form->control('username', array('type' => 'text', 'label' => 'Correo', 'class' => 'form-control', 'required' => true)); ?>
                                         </div>
                                         <div class="col-md-6">
-                                            <?php echo $this->Form->control('slug', array('label'=>'URL perfil (slug)', 'placeholder'=>'Para: /drivers/profile/<slug>', 'required'=>true,'class'=>'form-control')); ?>
+                                            <?php echo $this->Form->control('phone', array('label' => 'Teléfono', 'placeholder' => 'Teléfono móvil (+53...)', 'required' => true, 'class' => 'form-control')); ?>
+                                        </div>
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <?php echo $this->Form->control('full_name', array('type' => 'text', 'label' => 'Nombre completo', 'class' => 'form-control', 'required' => true)); ?>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <?php echo $this->Form->control('province_id', array('type' => 'select', 'options' => ProvincesTable::getAsList(), 'label' => 'Provincia donde vive')); ?>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <?php echo $this->Form->control('localities._ids', array('type' => 'select', 'multiple'=>'multiple', 'options' => App\Model\Table\LocalitiesTable::getAsList(),
-                                            'label' => 'Localidades origen de sus viajes')); ?>
+                                            <?php echo $this->Form->control('about', array('required' => true, 'label' => 'Descripción (Resumen Bio para los clientes)', 'class' => 'form-control', 'type' => 'textarea')); ?>                        
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6">  
                                             <table>
-                                                <tr><td colspan="2"><?php echo $this->Form->control('car_type', array('required'=>true,'type'=>'select', 'label' => 'Tipo de auto','class'=>'form-control','options'=>["Moderno","Clásico","Otro"])); ?></td></tr>
+                                                <tr><td colspan="2"><?php echo $this->Form->control('car_model', array('required' => true, 'type' => 'text', 'label' => 'Marca y modelo auto', 'class' => 'form-control')); ?></td></tr>               
                                                 <tr>
-                                                    <td style="margin-right:2px"> <?php echo $this->Form->control('min_people_count', array('required'=>true,'default' => 1, 'max' => 2, 'label' => 'Cap. mínima','class'=>'form-control')); ?></td>
+                                                    <td style="margin-right:2px"> <?php echo $this->Form->control('max_people_count', array('required' => true, 'default' => 4, 'min' => 1, 'label' => 'Cap. máxima', 'class' => 'form-control')); ?></td>
                                                 </tr>
                                             </table>
                                         </div>
                                     </div>
                                     <div class="conainer" style="border: solid 2px #F9F2F4; margin-top: 3px; padding: 5px; border-radius: 5px">
-                                        <div class="row">
+                                        <div class="row">                                                                      
                                             <div class="col-md-6">
-                                                <?php echo $this->Form->checkbox('active', ['hiddenField'=>'false']).'<b> Activo?</b>'; ?>
+                                                <?php echo $this->Form->checkbox('has_air_conditioner', ['hiddenField' => 'false']) . '<b> Aire acondicionado?</b>'; ?>                        
                                             </div>
                                             <div class="col-md-6">
-                                                <?php echo $this->Form->checkbox('receive_requests',['hiddenField'=>'false']).'<b> Recibe notificaciones?</b>'; ?>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <?php echo $this->Form->checkbox('email_active',['hiddenField'=>'false']).'<b> Recibe en email?</b>'; ?>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <?php echo $this->Form->checkbox('mobile_app_active',['hiddenField'=>'false']).'<b> Tiene la App?</b>'; ?>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <?php echo $this->Form->checkbox('has_modern_car',['hiddenField'=>'false']).'<b> Auto moderno?</b>'; ?>
+                                                <?php echo $this->Form->checkbox('speaks_english', ['hiddenField' => 'false']) . '<b> Habla inglés?</b>'; ?>                        
                                             </div>
 
                                         </div>
-
                                     </div>
-                                    <div class="row">
-                                        <br>
-                                        <div class="col-md-6">
-                                            <?php echo $this->Form->control('password',['id'=>'passfield', 'label'=>'Contraseña para el usuario','type'=>'password','class'=>'form-control','required'=>true]); ?>
-                                            <span class="btn btn-default" id="show" title="Mostrar">
-                                                <i class="fa fa-eye"></i>
-                                            </span>
-                                            <span class="btn btn-default" id="generate" title="Generar contraseña" onclick="genPwd()">
-                                                <i class="fa fa-key"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-
-
+                                    
                                 </div>
-                                <div class="col-sm-5"><h4>Describir imágenes</h4>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
+                                <div class="col-sm-5"><h4>Subir imágenes</h4>
+                                    <div class="col-xs-9 col-md-9">
+                                        <div class="form-group">
                                             <label>Imagen de usuario <small>(Se debe ver el rostro JPG)</small></label>
-                                            <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driversUnapproved->image1_path)?>">
-                                            <div class="input-group">
+                                            <div class="input-group"> 
                                                 <div class="fileinput fileinput-new " data-provides="fileinput">
-                                                    <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="image1"></span>
+                                                    <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="image1" required></span>
                                                     <span class="fileinput-filename"></span>
                                                     <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                                 </div>
                                             </div>
                                         </div>
-                                            <div class="col-md-6">
-                                                <?php echo $this->Form->control('img1_title_es', array('type'=>'text', 'label' => 'Título Es','class'=>'form-control','required'=>true)); ?>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <?php echo $this->Form->control('img1_title_en', array('label'=>'Título En', 'required'=>true,'class'=>'form-control')); ?>
-                                            </div>
-
                                     </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
+                                    <div class="col-xs-9 col-md-9">
+                                        <div class="form-group">
                                             <label>foto con su auto <small>(JPG hasta 500Kb)</small></label>
-                                            <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driversUnapproved->image2_path)?>">
-                                            <div class="input-group">
+                                            <div class="input-group"> 
                                                 <div class="fileinput fileinput-new " data-provides="fileinput">
-                                                    <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="image2"></span>
+                                                    <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="image2" required></span>
                                                     <span class="fileinput-filename"></span>
                                                     <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <?php echo $this->Form->control('img2_title_es', array('type'=>'text', 'label' => 'Título Es','class'=>'form-control','required'=>true)); ?>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <?php echo $this->Form->control('img2_title_en', array('label'=>'Título En', 'required'=>true,'class'=>'form-control')); ?>
+                                    </div>
+                                    <div class="col-xs-9 col-md-9">
+                                        <div class="form-group">
+                                            <label>foto principal del perfil <small>(JPG hasta 500Kb)</small></label>
+                                            <div class="input-group"> 
+                                                <div class="fileinput fileinput-new " data-provides="fileinput">
+                                                    <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="image3" required></span>
+                                                    <span class="fileinput-filename"></span>
+                                                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label>foto principal del perfil <small>(JPG hasta 500Kb)</small></label>
-                                            <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driversUnapproved->image3_path)?>">
-                                            <div class="input-group">
-                                                <div class="fileinput fileinput-new " data-provides="fileinput">
-                                                    <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="image3"></span>
-                                                    <span class="fileinput-filename"></span>
-                                                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <?php echo $this->Form->control('img3_title_es', array('type'=>'text', 'label' => 'Título Es','class'=>'form-control','required'=>true)); ?>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <?php echo $this->Form->control('img3_title_en', array('label'=>'Título En', 'required'=>true,'class'=>'form-control')); ?>
-                                        </div>
-                                    </div>
+                                        <button type="submit" class="btn btn-primary">Registrar</button>
+                                    </div> 
                                 </div>
                             </div>
 
+                            <?php echo $this->Form->end(); ?> 
 
-
-                        </div>
-
-                        <div class="row">
-                            <button type="submit" class="btn btn-primary btn-lg">Aprobar Registro del Chofer</button>
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
-            <?php echo $this->Form->end(); ?>
-
         </div>
     </div>
-
-<script>
-    $("input[type=file]").on('change',function(){
-        alert('fichero seleccionado');
-        var id=$("#driver_id").val();
-        var formData = new FormData($("#mainform")[0])
-    $.ajax({
-        url: "drivers-unapproved/edit/".id,
-        type: "POST",
-        data:formData,
-        processData:false,
-        contentType: false,
-        /*data: {
-            name: name,
-            phone: phone,
-            email: email,
-            message: message,
-            to: to,
-            subscriber: subscriber,
-            addon: addon
-        },*/
-        cache: false,
-        success: function(msg) {
-            // Success message
-
-
-        },
-        error: function(msg) {
-
-        },
-    });
-
-    });
-
-    /*Generate password*/
-    var uppers = "ABCDEFHGIJKLMNOPQRSTUVWXYZ";
-    var lowers = "abcdefghijklmnopqrstuvwxyz";
-    var digits = "0123456789";
-    var specials = "!@#$%^&*_-=+";
-    var minlen = 3;
-    var maxlen = 10;
-    function genPwd() {
-        var dict = '';
-        var pwd = '';
-        dict += uppers+= lowers+=digits+=specials;
-
-
-            for (var i = 0; i < maxlen; ++i) {
-                pwd += dict[Math.floor(Math.random() * dict.length)];
-            }
-
-            $("#passfield").val(pwd);
-
-    }
-
-    $("#show").on('click', function(){
-       if( $("#show > i").hasClass('fa fa-eye') ) {
-           $("#show > i").removeClass('fa fa-eye');
-           $("#show > i").addClass('fa fa-eye-slash')
-           $("#passfield").attr('type','text');
-       }else{
-               $("#show > i").removeClass('fa fa-eye-slash');
-               $("#show > i").addClass('fa fa-eye')
-               $("#passfield").attr('type','password');
-
-       }
-    })
-</script>
+</div>

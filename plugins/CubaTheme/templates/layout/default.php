@@ -57,7 +57,6 @@ echo $this->Html->css ('datepicker/css/datepicker', array('inline' => false));
 echo $this->Html->css ('typeaheadjs/css/typeahead.js-bootstrap', array('inline' => false));
 echo $this->Html->css ('jasny/css/jasny-bootstrap.min');
 
-
 echo $this->fetch('css');
 ?>
       
@@ -101,11 +100,6 @@ echo $this->Html->script ('typeaheadjs/js/typeahead-martin', array('inline' => f
 
 echo $this->Html->script ('jasny/js/jasny-bootstrap.min');
 
-/*$this->Js->set('localities', Locality::getAsSuggestions());
-echo $this->Js->writeBuffer(array('inline' => false));
-
-echo $this->fetch('script');*/
-
 ?>
     
 <?= $this->fetch('script');?>
@@ -117,20 +111,15 @@ echo $this->fetch('script');*/
     $(document).ready(function() { 
         
         /*Checkbox personalized and check event*/
-        $('.i-checks').iCheck({
+        /*$('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-green',
         }).on('ifChanged', function(){
-
-
         });
-         
         
         $('#sample_input').awesomeCropper(
         { width: 100, height: 100, debug: true }
-        );
-
-
+        );*/
         
         /*Popover de picko linker */
         picko = $('.picko-linker');
@@ -172,18 +161,17 @@ echo $this->fetch('script');*/
 </script>
 
 <script type="text/javascript">
-    /*$(document).ready(function() {
+    $(document).ready(function() {
         $('input.locality-typeahead').typeahead({
             valueKey: 'name',
             local: <?= json_encode(App\Model\Table\LocalitiesTable::getAsSuggestions())?>,
             limit: 20
-        }).on('typeahead:selected', function(event, datum) {
-            
-        });
+        })/*.on('typeahead:selected', function(event, datum) {            
+        });*/
         
         $('input.tt-hint').addClass('form-control');
         $('.twitter-typeahead').css('display', 'block');
-    });*/
+    });
 
 </script>
 

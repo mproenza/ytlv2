@@ -156,7 +156,7 @@ class DriversTable extends Table
 
         $validator
             ->boolean('has_modern_car')
-            ->requirePresence('has_modern_car', 'create')
+            //->requirePresence('has_modern_car', 'create')
             ->notEmptyString('has_modern_car');
 
         $validator

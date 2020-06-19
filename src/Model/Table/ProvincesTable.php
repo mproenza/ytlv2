@@ -86,4 +86,12 @@ class ProvincesTable extends Table
 
         return $rules;
     }
+    
+    public static function getAsList() {
+        $ProvincesTable = new ProvincesTable();
+        $provinces = $ProvincesTable->find('list')
+                ->select(['Provinces.id', 'Provinces.name']);
+
+        return $provinces;
+    }
 }

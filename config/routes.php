@@ -81,10 +81,21 @@ $routes->scope('/:language', function (RouteBuilder $builder) {
             ->setPatterns(['language' => 'en']);
     $builder->connect('/opiniones-taxi-cuba', ['controller'=>'testimonials', 'action' => 'featured'])
             ->setPatterns(['language' => 'es']);
+    //
     
     $builder->connect('/taxi-driver/*', ['controller'=>'drivers', 'action' => 'profile'])
             ->setPatterns(['language' => 'en']);
     $builder->connect('/chofer-taxi/*', ['controller'=>'drivers', 'action' => 'profile'])
+            ->setPatterns(['language' => 'es']);
+    
+    $builder->connect('/taxi-apply', ['controller'=>'drivers-unapproved', 'action' => 'apply'])
+            ->setPatterns(['language' => 'en']);
+    $builder->connect('/aplicar-taxi', ['controller'=>'drivers-unapproved', 'action' => 'apply'])
+            ->setPatterns(['language' => 'es']);
+    
+    $builder->connect('/taxi-apply/thanks/*', ['controller'=>'drivers-unapproved', 'action' => 'thanks'])
+            ->setPatterns(['language' => 'en']);
+    $builder->connect('/aplicar-taxi/gracias/*', ['controller'=>'drivers-unapproved', 'action' => 'thanks'])
             ->setPatterns(['language' => 'es']);
     
     
