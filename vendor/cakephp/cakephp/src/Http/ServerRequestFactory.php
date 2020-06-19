@@ -79,6 +79,7 @@ abstract class ServerRequestFactory implements ServerRequestFactoryInterface
             'base' => $uri->base,
             'session' => $session,
             'mergeFilesAsObjects' => Configure::read('App.uploadedFilesAsObjects', true),
+            'input' => $server['CAKEPHP_INPUT'] ?? null,
         ]);
 
         return $request;

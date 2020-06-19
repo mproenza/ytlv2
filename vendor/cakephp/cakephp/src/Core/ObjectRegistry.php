@@ -103,6 +103,7 @@ abstract class ObjectRegistry implements Countable, IteratorAggregate
             }
         }
 
+        // phpcs:ignore SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation.NonFullyQualifiedClassName
         /** @psalm-var TObject $instance */
         $instance = $this->_create($className, $name, $config);
         $this->_loaded[$name] = $instance;
@@ -331,8 +332,9 @@ abstract class ObjectRegistry implements Countable, IteratorAggregate
      *
      * @param string $objectName The name of the object to set in the registry.
      * @param object $object instance to store in the registry
-     * @psalm-param TObject $object
      * @return $this
+     * @psalm-param TObject $object
+     * @psalm-suppress MoreSpecificReturnType
      */
     public function set(string $objectName, object $object)
     {
@@ -347,6 +349,7 @@ abstract class ObjectRegistry implements Countable, IteratorAggregate
         }
         $this->_loaded[$name] = $object;
 
+        /** @psalm-suppress LessSpecificReturnStatement */
         return $this;
     }
 
@@ -357,6 +360,7 @@ abstract class ObjectRegistry implements Countable, IteratorAggregate
      *
      * @param string $objectName The name of the object to remove from the registry.
      * @return $this
+     * @psalm-suppress MoreSpecificReturnType
      */
     public function unload(string $objectName)
     {
@@ -371,6 +375,7 @@ abstract class ObjectRegistry implements Countable, IteratorAggregate
         }
         unset($this->_loaded[$objectName]);
 
+        /** @psalm-suppress LessSpecificReturnStatement */
         return $this;
     }
 

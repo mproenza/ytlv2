@@ -191,6 +191,7 @@ class Connection implements ConnectionInterface
     public function setDriver($driver, $config = [])
     {
         if (is_string($driver)) {
+            /** @psalm-var class-string<\Cake\Database\DriverInterface>|null $className */
             $className = App::className($driver, 'Database/Driver');
             if ($className === null) {
                 throw new MissingDriverException(['driver' => $driver]);
@@ -684,12 +685,12 @@ class Connection implements ConnectionInterface
     /**
      * @inheritDoc
      */
-    public function transactional(callable $callback)
+    public function transactional(callable $transaction)
     {
         $this->begin();
 
         try {
-            $result = $callback($this);
+            $result = $transaction($this);
         } catch (Throwable $e) {
             $this->rollback(false);
             throw $e;
@@ -724,13 +725,13 @@ class Connection implements ConnectionInterface
     /**
      * @inheritDoc
      */
-    public function disableConstraints(callable $callback)
+    public function disableConstraints(callable $operation)
     {
-        return $this->getDisconnectRetry()->run(function () use ($callback) {
+        return $this->getDisconnectRetry()->run(function () use ($operation) {
             $this->disableForeignKeys();
 
             try {
-                $result = $callback($this);
+                $result = $operation($this);
             } finally {
                 $this->enableForeignKeys();
             }

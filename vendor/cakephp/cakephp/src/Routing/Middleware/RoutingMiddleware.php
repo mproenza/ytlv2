@@ -38,6 +38,8 @@ class RoutingMiddleware implements MiddlewareInterface
 {
     /**
      * Key used to store the route collection in the cache engine
+     *
+     * @var string
      */
     public const ROUTE_COLLECTION_CACHE_KEY = 'routeCollection';
 
@@ -135,6 +137,7 @@ class RoutingMiddleware implements MiddlewareInterface
             if (empty($params['controller'])) {
                 $parsedBody = $request->getParsedBody();
                 if (is_array($parsedBody) && isset($parsedBody['_method'])) {
+                    /** @var \Cake\Http\ServerRequest $request */
                     $request = $request->withMethod($parsedBody['_method']);
                 }
                 $params = Router::parseRequest($request) + $params;
@@ -142,6 +145,7 @@ class RoutingMiddleware implements MiddlewareInterface
                     $middleware = $params['_middleware'];
                     unset($params['_middleware']);
                 }
+                /** @var \Cake\Http\ServerRequest $request */
                 $request = $request->withAttribute('params', $params);
                 Router::setRequest($request);
             }

@@ -27,11 +27,15 @@ class UnaryExpression implements ExpressionInterface
 {
     /**
      * Indicates that the operation is in pre-order
+     *
+     * @var int
      */
     public const PREFIX = 0;
 
     /**
      * Indicates that the operation is in post-order
+     *
+     * @var int
      */
     public const POSTFIX = 1;
 
@@ -93,11 +97,11 @@ class UnaryExpression implements ExpressionInterface
     /**
      * @inheritDoc
      */
-    public function traverse(Closure $callable)
+    public function traverse(Closure $visitor)
     {
         if ($this->_value instanceof ExpressionInterface) {
-            $callable($this->_value);
-            $this->_value->traverse($callable);
+            $visitor($this->_value);
+            $this->_value->traverse($visitor);
         }
 
         return $this;

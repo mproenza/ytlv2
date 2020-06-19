@@ -89,9 +89,20 @@ class TypeHintHelper
 			if ($tokens[$docCommentOwnerPointer]['code'] !== T_FUNCTION) {
 				return false;
 			}
+		} else {
+			$docCommentOwnerPointer = null;
 		}
 
-		$classPointer = ClassHelper::getClassPointer($phpcsFile, $docCommentOpenPointer);
+		$pointerToFindClass = $docCommentOpenPointer;
+		if ($docCommentOwnerPointer === null) {
+			$functionPointer = TokenHelper::findPrevious($phpcsFile, T_FUNCTION, $docCommentOpenPointer - 1);
+			if ($functionPointer !== null) {
+				$pointerToFindClass = $functionPointer;
+			}
+		}
+
+		$classPointer = ClassHelper::getClassPointer($phpcsFile, $pointerToFindClass);
+
 		if ($classPointer === null) {
 			return false;
 		}
