@@ -59,8 +59,7 @@ use Cake\Utility\Hash;
 use Cake\Utility\Security;
 use Exception;
 use Laminas\Diactoros\Uri;
-use LogicException;
-use PHPUnit\Framework\Error\Error as PhpUnitError;
+use PHPUnit\Exception as PHPUnitException;
 use Throwable;
 
 /**
@@ -80,6 +79,7 @@ trait IntegrationTestTrait
      * The customized application class name.
      *
      * @var string|null
+     * @psalm-var class-string<\Cake\Core\HttpApplicationInterface>|null
      */
     protected $_appClass;
 
@@ -227,6 +227,7 @@ trait IntegrationTestTrait
      * @param string $class The application class name.
      * @param array|null $constructorArgs The constructor arguments for your application class.
      * @return void
+     * @psalm-param class-string<\Cake\Core\HttpApplicationInterface> $class
      */
     public function configApplication(string $class, ?array $constructorArgs): void
     {
@@ -377,7 +378,6 @@ trait IntegrationTestTrait
      *
      * @param string|array $url The URL to request.
      * @return void
-     * @throws \PHPUnit\Framework\Error\Error|\Throwable
      */
     public function get($url): void
     {
@@ -394,7 +394,6 @@ trait IntegrationTestTrait
      * @param string|array $url The URL to request.
      * @param string|array $data The data for the request.
      * @return void
-     * @throws \PHPUnit\Framework\Error\Error|\Throwable
      */
     public function post($url, $data = []): void
     {
@@ -411,7 +410,6 @@ trait IntegrationTestTrait
      * @param string|array $url The URL to request.
      * @param string|array $data The data for the request.
      * @return void
-     * @throws \PHPUnit\Framework\Error\Error|\Throwable
      */
     public function patch($url, $data = []): void
     {
@@ -428,7 +426,6 @@ trait IntegrationTestTrait
      * @param string|array $url The URL to request.
      * @param string|array $data The data for the request.
      * @return void
-     * @throws \PHPUnit\Framework\Error\Error|\Throwable
      */
     public function put($url, $data = []): void
     {
@@ -444,7 +441,6 @@ trait IntegrationTestTrait
      *
      * @param string|array $url The URL to request.
      * @return void
-     * @throws \PHPUnit\Framework\Error\Error|\Throwable
      */
     public function delete($url): void
     {
@@ -460,7 +456,6 @@ trait IntegrationTestTrait
      *
      * @param string|array $url The URL to request.
      * @return void
-     * @throws \PHPUnit\Framework\Error\Error|\Throwable
      */
     public function head($url): void
     {
@@ -476,7 +471,6 @@ trait IntegrationTestTrait
      *
      * @param string|array $url The URL to request.
      * @return void
-     * @throws \PHPUnit\Framework\Error\Error|\Throwable
      */
     public function options($url): void
     {
@@ -492,7 +486,7 @@ trait IntegrationTestTrait
      * @param string $method The HTTP method
      * @param string|array $data The request data.
      * @return void
-     * @throws \PHPUnit\Framework\Error\Error|\Throwable
+     * @throws \PHPUnit\Exception|\Throwable
      */
     protected function _sendRequest($url, $method, $data = []): void
     {
@@ -507,11 +501,7 @@ trait IntegrationTestTrait
                 $this->_requestSession->write('Flash', $this->_flashMessages);
             }
             $this->_response = $response;
-        } catch (PhpUnitError $e) {
-            throw $e;
-        } catch (DatabaseException $e) {
-            throw $e;
-        } catch (LogicException $e) {
+        } catch (PHPUnitException | DatabaseException $e) {
             throw $e;
         } catch (Throwable $e) {
             $this->_exception = $e;
@@ -602,19 +592,6 @@ trait IntegrationTestTrait
         }
 
         parse_str($query, $queryData);
-        $props = [
-            'url' => $url,
-            'session' => $session,
-            'query' => $queryData,
-            'files' => [],
-        ];
-        if (is_string($data)) {
-            $props['input'] = $data;
-        } else {
-            $data = $this->_addTokens($tokenUrl, $data);
-            $props['post'] = $this->_castToString($data);
-        }
-        $props['cookies'] = $this->_cookie;
 
         $env = [
             'REQUEST_METHOD' => $method,
@@ -637,7 +614,28 @@ trait IntegrationTestTrait
             }
             unset($this->_request['headers']);
         }
-        $props['environment'] = $env;
+        $props = [
+            'url' => $url,
+            'session' => $session,
+            'query' => $queryData,
+            'files' => [],
+            'environment' => $env,
+        ];
+
+        if (is_string($data)) {
+            $props['input'] = $data;
+        } elseif (
+            is_array($data) &&
+            isset($props['environment']['CONTENT_TYPE']) &&
+            $props['environment']['CONTENT_TYPE'] === 'application/x-www-form-urlencoded'
+        ) {
+            $props['input'] = http_build_query($data);
+        } else {
+            $data = $this->_addTokens($tokenUrl, $data);
+            $props['post'] = $this->_castToString($data);
+        }
+
+        $props['cookies'] = $this->_cookie;
         $props = Hash::merge($props, $this->_request);
 
         return $props;

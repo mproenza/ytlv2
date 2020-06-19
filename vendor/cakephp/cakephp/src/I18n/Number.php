@@ -29,16 +29,22 @@ class Number
 {
     /**
      * Default locale
+     *
+     * @var string
      */
     public const DEFAULT_LOCALE = 'en_US';
 
     /**
      * Format type to format as currency
+     *
+     * @var string
      */
     public const FORMAT_CURRENCY = 'currency';
 
     /**
      * Format type to format as currency, accounting style (negative numbers in parentheses)
+     *
+     * @var string
      */
     public const FORMAT_CURRENCY_ACCOUNTING = 'currency_accounting';
 
@@ -46,6 +52,8 @@ class Number
      * ICU Constant for accounting format; not yet widely supported by INTL library.
      * This will be able to go away once CakePHP minimum PHP requirement is 7.4.1 or higher.
      * See UNUM_CURRENCY_ACCOUNTING in https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/unum_8h.html
+     *
+     * @var int
      */
     public const CURRENCY_ACCOUNTING = 12;
 
@@ -264,8 +272,8 @@ class Number
      * Getter/setter for default currency. This behavior is *deprecated* and will be
      * removed in future versions of CakePHP.
      *
-     * @deprecated 3.9 Use getDefaultCurrency() and setDefaultCurrency()
-     * @param string|false|null $currency Default currency string to be used by currency()
+     * @deprecated 3.9.0 Use {@link getDefaultCurrency()} and {@link setDefaultCurrency()} instead.
+     * @param string|false|null $currency Default currency string to be used by {@link currency()}
      * if $currency argument is not provided. If boolean false is passed, it will clear the
      * currently stored value
      * @return string|null Currency
@@ -310,7 +318,7 @@ class Number
     /**
      * Setter for default currency
      *
-     * @param string|null $currency Default currency string to be used by currency()
+     * @param string|null $currency Default currency string to be used by {@link currency()}
      * if $currency argument is not provided. If null is passed, it will clear the
      * currently stored value
      * @return void

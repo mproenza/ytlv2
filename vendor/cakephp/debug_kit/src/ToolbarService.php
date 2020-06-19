@@ -19,9 +19,10 @@ use Cake\Core\Plugin as CorePlugin;
 use Cake\Event\EventManager;
 use Cake\Http\ServerRequest;
 use Cake\Log\Log;
-use Cake\ORM\TableRegistry;
+use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Routing\Router;
 use DebugKit\Panel\PanelRegistry;
+use PDOException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -33,6 +34,7 @@ use Psr\Http\Message\ResponseInterface;
 class ToolbarService
 {
     use InstanceConfigTrait;
+    use LocatorAwareTrait;
 
     /**
      * The panel registry.
@@ -65,6 +67,7 @@ class ToolbarService
         ],
         'forceEnable' => false,
         'safeTld' => [],
+        'ignorePathsPattern' => null,
     ];
 
     /**
@@ -145,7 +148,7 @@ class ToolbarService
             Log::warning(
                 "DebugKit is disabling itself as your host `{$host}` " .
                 "is not in the known safe list of top-level-domains ({$safeList}). " .
-                "If you would like to force DebugKit on use the `DebugKit.forceEnable` Configure option."
+                'If you would like to force DebugKit on use the `DebugKit.forceEnable` Configure option.'
             );
 
             return true;
@@ -207,19 +210,27 @@ class ToolbarService
      *
      * @param \Cake\Http\ServerRequest $request The request
      * @param \Psr\Http\Message\ResponseInterface $response The response
-     * @return null|\DebugKit\Model\Entity\Request Saved request data.
+     * @return false|\DebugKit\Model\Entity\Request Saved request data.
      */
     public function saveData(ServerRequest $request, ResponseInterface $response)
     {
-        // Skip debugkit requests and requestAction()
+        $ignorePathsPattern = $this->getConfig('ignorePathsPattern');
         $path = $request->getUri()->getPath();
+        $statusCode = $response->getStatusCode();
+
         if (
             strpos($path, 'debug_kit') !== false ||
             strpos($path, 'debug-kit') !== false ||
-            $request->is('requested')
+            (
+                $ignorePathsPattern &&
+                $statusCode >= 200 &&
+                $statusCode <= 299 &&
+                preg_match($ignorePathsPattern, $path)
+            )
         ) {
-            return null;
+            return false;
         }
+
         $data = [
             'url' => $request->getUri()->getPath(),
             'content_type' => $response->getHeaderLine('Content-Type'),
@@ -229,7 +240,7 @@ class ToolbarService
             'panels' => [],
         ];
         /** @var \DebugKit\Model\Table\RequestsTable $requests */
-        $requests = TableRegistry::getTableLocator()->get('DebugKit.Requests');
+        $requests = $this->getTableLocator()->get('DebugKit.Requests');
         $requests->gc();
 
         $row = $requests->newEntity($data);
@@ -253,7 +264,14 @@ class ToolbarService
             ]);
         }
 
-        return $requests->save($row);
+        try {
+            return $requests->save($row);
+        } catch (PDOException $e) {
+            Log::warning('Unable to save request. This is probably due to concurrent requests.');
+            Log::warning((string)$e);
+        }
+
+        return false;
     }
 
     /**
