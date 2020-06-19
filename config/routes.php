@@ -88,14 +88,14 @@ $routes->scope('/:language', function (RouteBuilder $builder) {
     $builder->connect('/chofer-taxi/*', ['controller'=>'drivers', 'action' => 'profile'])
             ->setPatterns(['language' => 'es']);
     
-    $builder->connect('/taxi-apply', ['controller'=>'drivers-unapproved', 'action' => 'apply'])
+    $builder->connect('/subscribe-taxi', ['controller'=>'drivers-unapproved', 'action' => 'apply'])
             ->setPatterns(['language' => 'en']);
-    $builder->connect('/aplicar-taxi', ['controller'=>'drivers-unapproved', 'action' => 'apply'])
+    $builder->connect('/suscribir-taxi', ['controller'=>'drivers-unapproved', 'action' => 'apply'])
             ->setPatterns(['language' => 'es']);
     
-    $builder->connect('/taxi-apply/thanks/*', ['controller'=>'drivers-unapproved', 'action' => 'thanks'])
+    $builder->connect('/subscribe-taxi/thanks/*', ['controller'=>'drivers-unapproved', 'action' => 'thanks'])
             ->setPatterns(['language' => 'en']);
-    $builder->connect('/aplicar-taxi/gracias/*', ['controller'=>'drivers-unapproved', 'action' => 'thanks'])
+    $builder->connect('/suscribir-taxi/gracias/*', ['controller'=>'drivers-unapproved', 'action' => 'thanks'])
             ->setPatterns(['language' => 'es']);
     
     
