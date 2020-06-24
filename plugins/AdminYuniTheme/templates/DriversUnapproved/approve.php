@@ -2026,7 +2026,7 @@
                                             <?php echo $this->Form->control('DriversProfiles.driver_name', array('type'=>'hidden', 'value'=>$driverUnapproved->full_name)); ?>
                                         </div>
                                         <div class="col-md-6">
-                                            <?php echo $this->Form->control('province_id', array('type' => 'select', 'options' => $provinces, 'label' => 'Provincia donde vive')); ?>
+                                            <?php echo $this->Form->control('province_id', ['options' => $provinces, 'label' => 'Provincia donde vive']); ?>
 
                                         </div>
                                     </div>
@@ -2129,14 +2129,14 @@
                                     <div class="conainer" style="border: solid 2px #F9F2F4; margin-top: 3px; padding: 5px; border-radius: 5px">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <?php echo $this->Form->checkbox('active').'<b> Activo</b>'; ?>
+                                                <?php echo $this->Form->checkbox('active',['hiddenField'=>'false']).'<b> Activo</b>'; ?>
                                                 <br>
-                                                <?php echo $this->Form->checkbox('receive_requests').'<b> Recibe Solicitudes</b>'; ?>
+                                                <?php echo $this->Form->checkbox('receive_requests',['hiddenField'=>'false']).'<b> Recibe Solicitudes</b>'; ?>
                                             </div>
                                             <div class="col-md-6">
-                                                <?php echo $this->Form->checkbox('email_active').'<b> Recibe en email</b>'; ?>
+                                                <?php echo $this->Form->checkbox('email_active',['hiddenField'=>'false']).'<b> Recibe en email</b>'; ?>
                                                 <br>
-                                                <?php echo $this->Form->checkbox('mobile_app_active').'<b> Recibe en App Móvil</b>'; ?>
+                                                <?php echo $this->Form->checkbox('mobile_app_active',['hiddenField'=>'false']).'<b> Recibe en App Móvil</b>'; ?>
                                             </div>
                                         </div>
 
@@ -2152,6 +2152,11 @@
                                                 <i class="fa fa-key"></i>
                                             </span>
                                         </div>
+                                        <div class="col-md-6">
+                                           <?php echo $this->Form->control('role', array('label' => 'Tipo de chofer',
+                                             'options' => array('driver' => 'Chofer', 'driver_tester' => 'Chofer de Prueba (usar este solo para administradores)')  )); ?>
+                                        </div>
+                                             
                                     </div>
 
 

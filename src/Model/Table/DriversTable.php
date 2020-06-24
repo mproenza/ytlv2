@@ -145,28 +145,7 @@ class DriversTable extends Table
             ->requirePresence('max_people_count', 'create')
             ->notEmptyString('max_people_count');
 
-        $validator
-            ->boolean('active')
-            ->requirePresence('active', 'create')
-            ->notEmptyString('active');
-
-        $validator
-            ->boolean('receive_requests')
-            ->notEmptyString('receive_requests');
-
-        $validator
-            ->boolean('has_modern_car')
-            //->requirePresence('has_modern_car', 'create')
-            ->notEmptyString('has_modern_car');
-
-        $validator
-            ->boolean('has_classic_car')
-            ->notEmptyString('has_classic_car');
-
-        $validator
-            ->boolean('has_air_conditioner')
-            ->requirePresence('has_air_conditioner', 'create')
-            ->notEmptyString('has_air_conditioner');
+        
 
         $validator
             ->scalar('description')
@@ -183,17 +162,7 @@ class DriversTable extends Table
             ->requirePresence('last_notification_date', 'create')
             ->notEmptyDateTime('last_notification_date'); COMENTADO PARA REGISTRO INICIAL*/
 
-        $validator
-            ->boolean('speaks_english')
-            ->notEmptyString('speaks_english');
-
-        $validator
-            ->boolean('mobile_app_active')
-            ->notEmptyString('mobile_app_active');
-
-        $validator
-            ->boolean('email_active')
-            ->notEmptyString('email_active');
+        
 
         return $validator;
     }
