@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Model\Entity;
+use App\Model\Constants\CarTypes;
 
 use Cake\ORM\Entity;
 
@@ -124,5 +125,13 @@ class Driver extends Entity
         $name = trim($name);
         
         return $name;
+    }
+    
+    public function setCarType($carType) {
+        $this->has_modern_car = $driver->has_classic_car = false;
+        if($carType == CarTypes::Modern)
+            $this->has_modern_car = true;
+        if($carType == CarTypes::Classic)
+            $this->has_classic_car = true;
     }
 }

@@ -1,8 +1,6 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\DriversProfile $driversProfile
- */
+use App\Model\Constants\CarTypes;
+use App\Model\Table\ProvincesTable;
 ?>
 <style>
 
@@ -2026,7 +2024,7 @@
                                             <?php echo $this->Form->control('DriversProfiles.driver_name', array('type'=>'hidden', 'value'=>$driverUnapproved->full_name)); ?>
                                         </div>
                                         <div class="col-md-6">
-                                            <?php echo $this->Form->control('province_id', ['options' => $provinces, 'label' => 'Provincia donde vive']); ?>
+                                            <?php echo $this->Form->control('province_id', ['options' => ProvincesTable::getAsList(), 'label' => 'Provincia donde vive']); ?>
 
                                         </div>
                                     </div>
@@ -2106,10 +2104,10 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <?php echo $this->Form->control('personal_code', array('type'=>'text', 'label' => 'Codigo del chofer','class'=>'form-control','required'=>true)); ?>
+                                            <?php echo $this->Form->control('personal_code', array('type'=>'text', 'label' => 'Codigo del chofer', 'class'=>'form-control', 'required'=>true)); ?>
                                         </div>
                                         <div class="col-md-6">
-                                            <?php echo $this->Form->control('slug', array('label'=>'URL perfil (slug)', 'placeholder'=>'Para: /drivers/profile/<slug>', 'required'=>true,'class'=>'form-control')); ?>
+                                            <?php echo $this->Form->control('slug', array('label'=>'URL perfil (slug)', 'placeholder'=>'ej. pepito-perez', 'required'=>true,'class'=>'form-control')); ?>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -2119,7 +2117,9 @@
                                         </div>
                                         <div class="col-md-6">
                                             <table>
-                                                <tr><td colspan="2"><?php echo $this->Form->control('car_type', array('required'=>true,'type'=>'select', 'label' => 'Tipo de auto','class'=>'form-control','options'=>["Moderno","Clásico","Otro"])); ?></td></tr>
+                                                <tr>
+                                                    <td colspan="2"><?php echo $this->Form->control('car_type', ['options'=>[CarTypes::Modern=>'Moderno', CarTypes::Classic=>'Clásico', CarTypes::Other=>'Otro'], 'required'=>true, 'type'=>'select', 'label' => 'Tipo de auto', 'class'=>'form-control']); ?></td>
+                                                </tr>
                                                 <tr>
                                                     <td style="margin-right:2px"> <?php echo $this->Form->control('min_people_count', array('required'=>true,'default' => 1, 'max' => 2, 'label' => 'Cap. mínima','class'=>'form-control')); ?></td>
                                                 </tr>

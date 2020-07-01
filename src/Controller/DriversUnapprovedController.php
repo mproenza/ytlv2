@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 use Cake\ORM\TableRegistry;
 use App\Util\PathUtil;
-
+use App\Model\Constants\CarTypes;
 /**
  * DriversUnapproved Controller
  *
@@ -139,30 +139,23 @@ class DriversUnapprovedController extends AppController
     public function approve($id) {
         if ($this->request->is(['post','put'])) {
             
-            $this->DriversProfiles = TableRegistry::getTableLocator()->get('DriversProfiles');//La annotation no funciona
-            $this->Drivers = TableRegistry::getTableLocator()->get('Drivers');//La annotation no funciona
-            
             // DRIVER
+            $this->Drivers = TableRegistry::getTableLocator()->get('Drivers');
+            
             $driver = $this->Drivers->newEmptyEntity();
             $driver = $this->Drivers->patchEntity($driver, $this->request->getData(),[
                 'associated' => [
                     'Localities'
-                ]]);            
+                ]]);
 
             $driver->description = $this->request->getData('car_model')." - ".$this->request->getData('slug');
             $driver->travel_count = 0;
             
-                    
-            
-            //for type of vehicle
-            $driver->has_modern_car=false;
-            $driver->has_classic_car=false;
-            if($this->request->getData('car_type')==0)
-                $driver->has_modern_car=true;
-            if($this->request->getData('car_type')==1)
-                $driver->has_classic_car=true;
+            $driver->setCarType($this->request->getData('car_type'));
             
             // DRIVER PROFILE
+            $this->DriversProfiles = TableRegistry::getTableLocator()->get('DriversProfiles');
+            
             $driverprofile = $this->DriversProfiles->newEmptyEntity();
             $driverprofile = $this->DriversProfiles->patchEntity($driverprofile, $this->request->getData());
             
@@ -206,19 +199,20 @@ class DriversUnapprovedController extends AppController
                     ]
                 ]);
             
-            debug($driver);
-            
             if ($this->Drivers->save($driver)) {
                 
                 $driverprofile->driver_id = $driver->id;
 
                 if ($this->DriversProfiles->save($driverprofile)) {
+                    
                     $unapproved = $this->DriversUnapproved->get($id);
+                    
                     if ($this->DriversUnapproved->delete($unapproved)) {
                         $this->Flash->success(__('El registro inicial se ha eliminado.'));
                     } else {
                         $this->Flash->error(__('El registro inicial no se ha podido eliminar.'));
                     }
+                    
                     $this->Flash->success(__('Se ha almacenado la información del perfil.'));
                     return $this->redirect(['controller'=>'drivers', 'action'=>'index']);
                 }
@@ -230,8 +224,7 @@ class DriversUnapprovedController extends AppController
         }
         
         $driverUnapproved = $this->DriversUnapproved->get($id);
-        $provinces = $this->DriversUnapproved->Provinces->find('list', ['limit' => 200]);
-        $this->set(compact('driverUnapproved','provinces'));
+        $this->set(compact('driverUnapproved'));
 
         $this->viewBuilder()->setTheme('AdminYuniTheme')->setClassName('AdminYuniTheme.AdminYuniTheme');
 
