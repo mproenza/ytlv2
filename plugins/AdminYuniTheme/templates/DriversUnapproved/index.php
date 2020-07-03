@@ -29,10 +29,12 @@
                     <tr>
                         <th data-toggle="true">Nombre</th>
                         <th>Correo</th>
-                        <th data-hide="all">Fotos</th>
-                        <th data-hide="all">Telefono</th>
+                        <th>Telefono</th>
+                        <th>Provincia</th>
+                        <th data-hide="all">Fotos</th> 
+                        <th data-hide="all">Bio</th>
                         <th data-hide="all">Carro/modelo</th>
-                        <th data-hide="all">Pasajeros</th>
+                        <th data-hide="all">Pasajeros</th>                        
                         <th data-hide="all">Habla inglÃ©s?</th>
                         <th data-hide="all">A/C</th>
                         <th>Opciones</th>
@@ -43,14 +45,52 @@
                     <tr>
                         <td><?php echo $profile->full_name ?></td>
                         <td><?php echo $profile->username ?></td>
+                        <td><?php echo $profile->phone ?></td>
+                        <td><?php echo $profile->province->name ?></td>
                         <td>
                             <div class="row">
-                            <div class="col-md-4 col-xs-12 b-r"><img style="width: 80px; height: 60px" class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->image1_path)?>"></div>
-                            <div class="col-md-4 col-xs-12 b-r"><img style="width: 80px; height: 60px" class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->image2_path)?>"></div>
-                            <div class="col-md-4 col-xs-12"><img style="width: 80px; height: 60px" class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->image3_path)?>"></div>
+                                <div class="col-md-4 col-xs-12 b-r"><a data-toggle="modal" data-target="#img1profile<?php echo $profile->id; ?>"><img style="width: 80px; height: 60px" class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->image1_path)?>"></a></div>
+                                <div class="col-md-4 col-xs-12 b-r"><a data-toggle="modal" data-target="#img2profile<?php echo $profile->id; ?>"><img style="width: 80px; height: 60px" class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->image2_path)?>"></a></div>
+                                <div class="col-md-4 col-xs-12"><a data-toggle="modal" data-target="#img3profile<?php echo $profile->id; ?>"><img style="width: 80px; height: 60px" class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->image3_path)?>"></a></div>
                             </div>
-                        </td>
-                        <td><?php echo $profile->phone ?></td>
+                            <div class="modal inmodal" id="img1profile<?php echo $profile->id; ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content animated fadeIn">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>                                            
+                                        </div>
+                                        <div class="modal-body">
+                                            <img  class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->image1_path)?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal inmodal" id="img2profile<?php echo $profile->id; ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content animated fadeIn">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>                                            
+                                        </div>
+                                        <div class="modal-body">
+                                            <img  class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->image2_path)?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal inmodal" id="img3profile<?php echo $profile->id; ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content animated fadeIn">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>                                            
+                                        </div>
+                                        <div class="modal-body">
+                                            <img  class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($profile->image3_path)?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td> 
+                        <td><?php echo $profile->about ?></td>
                         <td><?php echo $profile->car_model ?></td>
                         <td><span class="pie"><?php echo $profile->max_people_count ?></span></td>
                         <td><?php if($profile->speaks_english) echo "Si"; else echo "No"; ?></td>

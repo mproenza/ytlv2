@@ -5,6 +5,8 @@ namespace App\Controller;
 use Cake\ORM\TableRegistry;
 use App\Util\PathUtil;
 use App\Model\Constants\CarTypes;
+use App\Util\StringsUtil;
+use Authentication\PasswordHasher\DefaultPasswordHasher; 
 /**
  * DriversUnapproved Controller
  *
@@ -150,8 +152,13 @@ class DriversUnapprovedController extends AppController
 
             $driver->description = $this->request->getData('car_model')." - ".$this->request->getData('slug');
             $driver->travel_count = 0;
+            $driver->personal_code = $this->request->getData('personal_code');//ya vi que fallaba pero no debia esta de campo
+            $driver->web_auth_token= StringsUtil::getWeirdString();//Esto te iba a preguntar lo que no hablamos mas jejeje
+            $driver->password = (new DefaultPasswordHasher())->hash( $this->request->getData('password'));
             
             $driver->setCarType($this->request->getData('car_type'));
+            
+           
             
             // DRIVER PROFILE
             $this->DriversProfiles = TableRegistry::getTableLocator()->get('DriversProfiles');
