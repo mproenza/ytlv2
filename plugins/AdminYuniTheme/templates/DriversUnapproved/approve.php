@@ -1990,23 +1990,18 @@ use App\Model\Table\ProvincesTable;
 </style>
     <div class="container">
         <div class="row">
+            <div class="col-md-12">
             <?= $this->Form->create($driverUnapproved, ['type'=>'file', 'id'=>'mainform', 'url' => ['action' => 'approve', $driverUnapproved->id]]) ?>
             <div class="col-lg-11">
-                <div class="ibox collapsed ">
+                <div class="ibox ">
                     <div class="ibox-title">
                         <h5><?= __('DATOS DEL CHOFER') ?><small> (del registro)</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                        </div>
+                        
                     </div>
-                    <div class="ibox-content">
-                        <div class="driversProfiles form content">
+                    <div class="ibox-content">                      
 
                             <div class="row">
-                                <div class="col-sm-7 b-r">
-
+                                <div class="col-md-6">
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -2032,7 +2027,7 @@ use App\Model\Table\ProvincesTable;
                                         <div class="col-md-6">
                                             <?php echo $this->Form->control('about', array('required'=>true,'label' => 'Descripción (Resumen Bio para los clientes)','class'=>'form-control','type'=>'textarea')); ?>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-5">
                                             <table>
                                                 <tr><td colspan="2"><?php echo $this->Form->control('car_model', array('required'=>true,'type'=>'text', 'label' => 'Marca y modelo auto','class'=>'form-control')); ?></td></tr>
                                                 <tr>
@@ -2040,66 +2035,75 @@ use App\Model\Table\ProvincesTable;
                                                 </tr>
                                             </table>
                                         </div>
-                                    </div>
-                                    <div class="conainer" style="border: solid 2px #F9F2F4; margin-top: 3px; padding: 5px; border-radius: 5px">
-                                        <div class="row">
-                                            <div class="col-md-6">
+                                    </div>                                    
+                                        
+                                            <div class="conainer" style="border: solid 2px #F9F2F4; margin-top: 3px; padding: 5px; border-radius: 5px">
+                                            <div class="row">
+                                                <div class="col-md-5">
                                                 <?php echo $this->Form->checkbox('has_air_conditioner', ['hiddenField'=>'false']).'<b> Aire acondicionado?</b>'; ?>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
                                                 <?php echo $this->Form->checkbox('speaks_english',['hiddenField'=>'false']).'<b> Habla inglés?</b>'; ?>
                                             </div>
+                                                </div>
+                                            </div>
 
-                                        </div>
-                                    </div>
+                                        
+                                    
 
 
                                 </div>
-                                <div class="col-sm-5"><h4>Ver imágenes</h4>
-                                    <div class="col-xs-9 col-md-9">
+                                <div class="col-md-5">
+                                 <h4>Ver imágenes</h4>
+                                    <div class="row">
+                                    <div class="col-md-9">
                                         <div class="form-group">
                                             <label>Foto con auto</label>
                                             <div class="input-group">
-                                                <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image1_path)?>">
+                                                <a data-toggle="modal" data-target="#img1profile<?php echo $driverUnapproved->id; ?>"><img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image1_path)?>"></a>
                                                 <?php echo $this->Form->control('image1_path', array('type'=>'hidden', 'value'=>$driverUnapproved->image1_path)); ?>
 
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-9 col-md-9">
+                                  </div>
+                                    <div class="row">
+                                    <div class="col-md-9">
                                         <div class="form-group">
                                             <label>Foto del auto</label>
                                             <div class="input-group">
-                                                <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image2_path)?>">
+                                                <a data-toggle="modal" data-target="#img2profile<?php echo $driverUnapproved->id; ?>"><img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image2_path)?>"></a>
                                                 <?php echo $this->Form->control('image2_path', array('type'=>'hidden', 'value'=>$driverUnapproved->image2_path)); ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-9 col-md-9">
+                                    </div>
+                                    <div class="row">
+                                    <div class="col-md-9">
                                         <div class="form-group">
                                             <label>foto principal del perfil</label>
                                             <div class="input-group">
-                                                <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image3_path)?>">
+                                                <a data-toggle="modal" data-target="#img3profile<?php echo $driverUnapproved->id; ?>"><img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image3_path)?>"></a>
                                                 <?php echo $this->Form->control('image3_path', array('type'=>'hidden', 'value'=>$driverUnapproved->image3_path)); ?>
                                             </div>
                                         </div>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
-
-                        </div>
+                        
                     </div>
                 </div>
-                <div class="ibox float-e-margins">
+                <div class="ibox">
                     <div class="ibox-title">
                         <h5><?= __('DATOS PARA PERFIL') ?></h5>
 
                     </div>
                     <div class="ibox-content">
-                        <div class="driversProfiles form content">
+                       
 
                             <div class="row">
-                                <div class="col-sm-7 b-r">
+                                <div class="col-md-6">
                                      <input type="hidden" name="driver_id" id="driver_id" value="<?php echo $driverUnapproved->id ?>">
 
                                     <div class="row">
@@ -2161,11 +2165,11 @@ use App\Model\Table\ProvincesTable;
 
 
                                 </div>
-                                <div class="col-sm-5"><h4>Describir imágenes</h4>
+                                <div class="col-md-4"><h4>Describir imágenes</h4>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label>Imagen de usuario <small>(Se debe ver el rostro JPG)</small></label>
-                                            <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image1_path)?>">
+                                            <a data-toggle="modal" data-target="#img1profile<?php echo $driverUnapproved->id; ?>"><img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image1_path)?>"></a>
                                             <div class="input-group">
                                                 <div class="fileinput fileinput-new " data-provides="fileinput">
                                                     <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="image1"></span>
@@ -2173,19 +2177,32 @@ use App\Model\Table\ProvincesTable;
                                                     <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                                 </div>
                                             </div>
+                                            <div class="modal inmodal" id="img1profile<?php echo $driverUnapproved->id; ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content animated fadeIn">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>                                            
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <img  class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image1_path)?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                            <div class="col-md-6">
+                                        <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <?php echo $this->Form->control('img1_title_es', array('type'=>'text', 'label' => 'Título Es','class'=>'form-control','required'=>true)); ?>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <?php echo $this->Form->control('img1_title_en', array('label'=>'Título En', 'required'=>true,'class'=>'form-control')); ?>
                                             </div>
-
+                                       </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label>foto con su auto <small>(JPG hasta 500Kb)</small></label>
-                                            <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image2_path)?>">
+                                            <a data-toggle="modal" data-target="#img2profile<?php echo $driverUnapproved->id; ?>"><img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image2_path)?>"></a>
                                             <div class="input-group">
                                                 <div class="fileinput fileinput-new " data-provides="fileinput">
                                                     <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="image2"></span>
@@ -2193,18 +2210,32 @@ use App\Model\Table\ProvincesTable;
                                                     <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                                 </div>
                                             </div>
+                                            <div class="modal inmodal" id="img2profile<?php echo $driverUnapproved->id; ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content animated fadeIn">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>                                            
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <img  class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image2_path)?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <?php echo $this->Form->control('img2_title_es', array('type'=>'text', 'label' => 'Título Es','class'=>'form-control','required'=>true)); ?>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <?php echo $this->Form->control('img2_title_en', array('label'=>'Título En', 'required'=>true,'class'=>'form-control')); ?>
+                                            <div class="col-md-12">
+                                                <?php echo $this->Form->control('img2_title_es', array('type'=>'text', 'label' => 'Título Es','class'=>'form-control','required'=>true)); ?>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <?php echo $this->Form->control('img2_title_en', array('label'=>'Título En', 'required'=>true,'class'=>'form-control')); ?>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label>foto principal del perfil <small>(JPG hasta 500Kb)</small></label>
-                                            <img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image3_path)?>">
+                                            <a data-toggle="modal" data-target="#img3profile<?php echo $driverUnapproved->id; ?>"><img class="img-responsive" style="max-width: 8em; max-height: 6em" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image3_path)?>"></a>
                                             <div class="input-group">
                                                 <div class="fileinput fileinput-new " data-provides="fileinput">
                                                     <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><input type="file" name="image3"></span>
@@ -2212,12 +2243,26 @@ use App\Model\Table\ProvincesTable;
                                                     <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                                 </div>
                                             </div>
+                                            <div class="modal inmodal" id="img3profile<?php echo $driverUnapproved->id; ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content animated fadeIn">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>                                            
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <img  class="img img-responsive" src="<?= App\Util\PathUtil::getFullPath($driverUnapproved->image3_path)?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <?php echo $this->Form->control('img3_title_es', array('type'=>'text', 'label' => 'Título Es','class'=>'form-control','required'=>true)); ?>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <?php echo $this->Form->control('img3_title_en', array('label'=>'Título En', 'required'=>true,'class'=>'form-control')); ?>
+                                            <div class="col-md-12">
+                                                <?php echo $this->Form->control('img3_title_es', array('type'=>'text', 'label' => 'Título Es','class'=>'form-control','required'=>true)); ?>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <?php echo $this->Form->control('img3_title_en', array('label'=>'Título En', 'required'=>true,'class'=>'form-control')); ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2225,7 +2270,7 @@ use App\Model\Table\ProvincesTable;
 
 
 
-                        </div>
+                     
 
                         <div class="row">
                             <button type="submit" class="btn btn-primary btn-lg">Aprobar Registro del Chofer</button>
@@ -2237,7 +2282,7 @@ use App\Model\Table\ProvincesTable;
 
 
             <?php echo $this->Form->end(); ?>
-
+            </div>
         </div>
     </div>
 

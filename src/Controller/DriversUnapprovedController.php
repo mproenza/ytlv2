@@ -139,7 +139,8 @@ class DriversUnapprovedController extends AppController
     }
 
     public function approve($id) {
-        if ($this->request->is(['post','put'])) {
+        if ($this->request->is(['post','put'])) { 
+            
             
             // DRIVER
             $this->Drivers = TableRegistry::getTableLocator()->get('Drivers');
@@ -221,7 +222,7 @@ class DriversUnapprovedController extends AppController
                     }
                     
                     $this->Flash->success(__('Se ha almacenado la información del perfil.'));
-                    return $this->redirect(['controller'=>'drivers', 'action'=>'index']);
+                    return $this->redirect(['controller'=>'drivers', 'action'=>'profile',$driverprofile->slug]);
                 }
                 
                 $this->Flash->error(__('No se ha podido almacenar la informacion del perfil'));
