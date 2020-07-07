@@ -31,12 +31,12 @@
                         <th>Correo</th>
                         <th>Telefono</th>
                         <th>Provincia</th>
-                        <th data-hide="all">Fotos</th> 
-                        <th data-hide="all">Bio</th>
+                        <th data-hide="all">Fotos</th>
                         <th data-hide="all">Carro/modelo</th>
                         <th data-hide="all">Pasajeros</th>                        
-                        <th data-hide="all">Habla inglÃ©s?</th>
+                        <th data-hide="all">Habla inglés?</th>
                         <th data-hide="all">A/C</th>
+                        <th data-hide="all">Bio</th>
                         <th>Opciones</th>
                     </tr>
                     </thead>
@@ -89,12 +89,12 @@
                                     </div>
                                 </div>
                             </div>
-                        </td> 
-                        <td><?php echo $profile->about ?></td>
+                        </td>
                         <td><?php echo $profile->car_model ?></td>
                         <td><span class="pie"><?php echo $profile->max_people_count ?></span></td>
                         <td><?php if($profile->speaks_english) echo "Si"; else echo "No"; ?></td>
                         <td><?php if($profile->has_air_conditioner) echo "Si"; else echo "No"; ?></td>
+                        <td><?php echo $profile->about ?></td>
                         <td>
                             <a title="Aprobar perfil" href="<?php echo $this->Url->build(['action'=>'approve', $profile->id]); ?>"><i class="fa fa-edit text-navy"></i></a>
                         </td>
