@@ -25,11 +25,15 @@ else if($conversation->meta->state == Conversation::STATES['PAID']) $btnType = '
                 <?php endif?>
 
                 <?php if($conversation->meta->state != Conversation::STATES['DONE']):?>
-                    <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-thumbs-up"></i> Realizado', array('class'=>'btn btn-warning states-btn', 'data-url' => Router::url(array('action' => 'set_state', $conversation->id, Conversation::STATES['DONE']), true), 'escape'=>false), true);?></div>
+                    <div>
+                        <a class='btn btn-warning states-btn' data-url='<?php echo $this->Url->build(array('action' => 'set_state', $conversation->id, Conversation::STATES['DONE'])) ?>'><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</a> 
+                    </div>
                 <?php endif?>
 
                 <?php if($conversation->meta->state != Conversation::STATES['PAID']):?>
-                    <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-usd"></i> Pagado', array('class'=>'btn btn-success states-btn', 'data-url' => Router::url(array('action' => 'set_state', $conversation->id, Conversation::STATES['PAID']), true), 'escape'=>false), true);?></div>
+                    <div>
+                        <a class='btn btn-success states-btn' data-url='<?php echo $this->Url->build(array('action' => 'set_state', $conversation->id, Conversation::STATES['PAID'])) ?>'><i class="glyphicon glyphicon-usd"></i> Pagado</a>
+                    </div>
                 <?php endif?>
             </div>
         </span>
@@ -40,7 +44,7 @@ else if($conversation->meta->state == Conversation::STATES['PAID']) $btnType = '
 <!-- INCOME CONTROLS -->
 <?php
 if($conversation->meta->state == Conversation::STATES['PAID']) {
-    echo $this->element('travel_income_controls', array('thread'=>$conversation, 'conversation'=>$data, 'modal'=>true));
+    echo $this->element('admin/conversations/controls/travel_income_controls', array('thread'=>$conversation, 'conversation'=>$conversation, 'modal'=>true));
 }
 ?>
 

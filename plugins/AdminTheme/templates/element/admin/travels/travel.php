@@ -181,7 +181,7 @@ foreach (Travel::getPreferences() as $key => $value) {
 
     </ul>
 <?php endif?>
-
+        
 <?php if($actions):?>
     <ul style="list-style-type: none;padding:0px">
         

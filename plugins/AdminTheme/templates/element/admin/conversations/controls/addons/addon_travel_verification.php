@@ -1,6 +1,8 @@
 <?php 
 use App\Model\Entity\Conversation;
 use Cake\Routing\Router;
+use Cake\I18n\Time;
+
 ?>
 
 <?php 
@@ -14,10 +16,12 @@ if($hasMessages) {
     $lastMessage = $conversation->messages[count($conversation->messages) - 1];
     $daysLastMessage = $lastMessage->daysCreated;
 }
+
+$travelDate = $conversation->travel->date;
 ?>
 
 <div id='conversation-alerts'>
-    <?php if(!$conversation->is_expired && $following && CakeTime::isWithinNext('2 weeks',  strtotime($travelDate))):?>
+    <?php $time = new Time($travelDate);  if(!$conversation->is_expired && $following && $time->isWithinNext('2 weeks')):?>
         <?php if($hasMessages && $daysLastMessage > 15):?>
             <span class="alert alert-warning" style="display: inline-block; width: 100%"><i class="glyphicon glyphicon-warning-sign"></i> No hay mensajes nuevos <span class="badge">hace <?php echo $daysLastMessage?> días</span> y el viaje es <span class="label label-success">dentro de <?php echo $conversation->days_to_go?> días</span>. <b>Toma las precauciones necesarias!</b></span>
         <?php else: ?>

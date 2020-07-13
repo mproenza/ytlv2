@@ -10,7 +10,12 @@ if($hasMessages) {
     $lastMessage = $conversation->messages[count($conversation->messages) - 1];
     $daysLastMessage = $lastMessage->daysCreated;
 }
-?>          
+
+        
+?> 
+<script>
+ var token = '<?php echo $token ?>' ;
+</script>
 
 <div class="control-panel">
     <div class="control-panel-frame">
@@ -26,12 +31,12 @@ if($hasMessages) {
                 <span id="unreadMessages">
                     <span class="label label-success info" style="margin-left:5px" title="Mensajes nuevos">+<?php echo $conversation->unread_messages_count?></span>
 
-                    <?php $firstUnreadMessage = $conversation->messages[count($conversation->messages) - $conversation->unread_messages_count]['DriverTravelerConversation'];?>
-                    <span><a href="#!" class="last-msg" data-where="message-<?php echo $firstUnreadMessage['id']?>">&ndash; leer nuevos</a></span>
+                    <?php $firstUnreadMessage = $conversation->messages[count($conversation->messages) - $conversation->unread_messages_count];?>
+                    <span><a href="#!" class="last-msg" data-where="message-<?php echo $firstUnreadMessage->id ?>">&ndash; leer nuevos</a></span>
 
                     <br/>
                     <br/>
-                    <?php echo $this->Form->button('Marcar todos como leídos', array('id' => 'ajax-leer', 'data-url' => Router::url(array('action' => 'update_read_entries', $conversation->id, count($conversation->messages)), true), 'class'=>'btn btn-primary'), true);?>
+                    <?php echo $this->Form->button('Marcar todos como leídos', array('id' => 'ajax-leer', 'data-url' => $this->Url->build(array('action' => 'update_read_entries', $conversation->id, count($conversation->messages))), 'class'=>'btn btn-primary'), true);?>
                 </span>
             <?php else:?>
                 &nbsp;No mensajes nuevos
@@ -63,7 +68,7 @@ if($hasMessages) {
             <br/>
             
             <!-- FLAG / UNFLAG -->
-            <?php $flagged = $conversation->has_meta && $conversation->meta->flag_type != null? true:false?>
+            <?php $flagged = $conversation->meta->flag_type != null? true:false?>
             <?php if($flagged) :?>
             
             <div class="input-group info" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $conversation->meta->flag_comment);?>" data-placement="bottom">
@@ -73,16 +78,17 @@ if($hasMessages) {
                         </span>
                     </span>
                     <span class="input-group-btn">
-                        <?php echo $this->Form->button('Quitar', array('class'=>'btn-danger', 'action'=>'unpin', $conversation->id), true);?>
+                       <?php echo $this->Form->button('Quitar', array('class'=>'btn btn-danger pin-btn','data-url' => Router::url(array('action'=>'unpin',$conversation->id),true)),true); ?>
+                        
                     </span>
                 </div>
             
             <?php else:?>
-                <?php echo $this->Form->button('<i class="glyphicon glyphicon-pushpin"></i> Pinear', array('escape'=>false, 'class'=>'btn-warning open-form info', 'data-form'=>'form-flag-comment', 'data-placement'=>'bottom', 'title'=>'Pinea este viaje para darle un seguimiento especial: si hay problemas, si te parece importante, si lo estás gestionando personalmente, etc.'));?>
+                 <a data-placement='bottom' title='Pinea este viaje para darle un seguimiento especial: si hay problemas, si te parece importante, si lo estás gestionando personalmente, etc.'  data-form='form-flag-comment' class='btn btn-warning open-form info'><i class="glyphicon glyphicon-pushpin"></i> Pinear</a>
             <?php endif?>
             
             <div id="form-flag-comment" style="display: none">
-                <?php //echo $this->element('form_conversation_flag_comment', array('data' => $data)); ?>
+                <?php echo $this->element('admin/conversations/controls/form_conversation_flag_comment', array('data' => $conversation)); ?>
             </div>
             
         </div>
@@ -189,6 +195,7 @@ echo $this->Html->script('ajaxify/buttons');
         $('#content').prepend("<div class='alert alert-success alert-dismissable' style='text-align: center'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + response + "</div>");
     }
     
-    ajaxifyButton($('.follow-btn'), followSuccess, onError);
+    ajaxifyButton($('.follow-btn'), followSuccess, onError,);
     ajaxifyButton($('#ajax-leer'), readSuccess, onError);
+    ajaxifyButton($('.pin-btn'), readSuccess, onError);
  </script>

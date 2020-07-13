@@ -2,9 +2,11 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\ORM\TableRegistry;
 
 use App\Model\Entity\Conversation;
-
+use App\Model\Entity\User;
+use Cake\View\View;
 /**
  * Conversations Controller
  *
@@ -53,7 +55,11 @@ class ConversationsController extends AppController
         $this->set('conversation', $conversation);
     }
     
-    public function admin($conversationID) {
+    public function admin($conversationID) {        
+        //Using token
+        $token = $this->request->getAttribute('csrfToken');
+        $this->set('token', $token);
+        
         $conversation = $this->Conversations->get(
                 $conversationID,
                 [
@@ -304,4 +310,212 @@ class ConversationsController extends AppController
         
         return $this->redirect($this->referer().'#travel-'.$travelID);
     }
+    
+     public function updateReadEntries($conversationId, $entriesCount) {
+         $this->ConversationsMeta = TableRegistry::getTableLocator()->get('ConversationsMeta');
+        // Verificar que la cantidad de entradas es igual o menor que la real
+        $Total = $this->Conversations->find( 'all', array('conditions' => array('id' => "$conversationId") ) );
+        if($entriesCount > $Total->count()){
+            if($this->request->is('ajax'))
+                throw new BadRequestException("Se está intentando marcar como leídos $entriesCount mensajes de un total de $Total");
+            
+           $this->setErrorMessage("Se está intentando marcar como leídos $entriesCount mensajes de un total de $Total"); 
+           return;
+        }        
+        
+        // Sanity check passed       
+        
+        // Preparar consulta para marcar los mensajes con el operador que los leyo
+        $username = User::prettyName( $this->Auth->user() );
+        $query = "update conversation_messages\n".
+                 "set read_by = '$username', date_read = now()\n".
+                 "where conversation_id = '$conversationId' and read_by is null";
+        // TODO: Esto se puede hacer con un saveField()
+        
+        $OK = true;
+//        $datasource = $this->TravelConversationMeta->getDataSource();
+//        $datasource->begin();
+        
+        // Marcar los mensajes con el operador que los leyo
+        try{ $this->Conversations->query($query); }
+        catch(Exception $error){ $OK = false; }
+      
+        if($OK){
+            $this->ConversationsMeta->conversation_id = $conversationId;
+            $meta = array();
+
+            
+            $meta['ConversationsMeta']['read_entry_count'] = $entriesCount;
+            $conversationsMeta = $this->ConversationsMeta->newEmptyEntity();  
+            
+            $conversationsMeta = $this->ConversationsMeta->patchEntity($conversationsMeta,$meta);
+            
+            $OK = $this->ConversationsMeta->save($conversationsMeta);
+        }
+        
+        if($this->request->is('ajax')){
+            $this->autoRender = false;
+          
+            if($OK){
+                echo json_encode (array('Se marcaron todos los mensajes de este viaje como leídos'));
+                
+            } else throw new BadRequestException('Ocurrió un error salvando los datos.');
+            
+            return;
+        }
+        
+        if ($OK) {
+            $this->setSuccessMessage('Se marcaron todos los mensajes de este viaje como leídos');
+           
+        } else {
+           
+           $this->setErrorMessage('Ocurrió un error salvando los datos.');
+        }
+        
+        $this->redirect(array('action' => 'admin/'.$conversationId));
+    }
+    
+    public function setState($conversationId, $state) {
+        $this->viewBuilder()->setTheme('AdminTheme')->setClassName('AdminTheme.AdminTheme');
+        $OK = $this->tag($conversationId, 'state', $state);
+        
+        if($this->request->is('ajax')){           
+            $this->autoRender = false;
+           $data = $this->Conversations->get($conversationId);
+            $conversations = $this->Conversations->findAllByConversationId($conversationId);
+            
+            $view = new View();
+            $elements = array(
+                'admin-toolbox-states-button' => $view->element('admin/conversations/toolbox/admin-toolbox-states-button', compact('data')),
+                'addon_travel_verification'   => $view->element('admin/conversations/controls/addon/addon_travel_verification', compact('data', 'conversations')),
+                'addon_testimonial_request'   => $view->element('admin/conversations/controls/addon/addon_testimonial_request', compact('data')),
+                'state'                       => $state
+            );
+            
+           
+            echo json_encode($elements);
+            
+            return;
+        }
+        
+        
+        $this->redirect(array('action' => 'admin/'.$conversationId));
+    
+    }
+      
+    public function follow($conversationId, $following = true) {
+        $this->tag($conversationId, 'following', true);
+        
+        if($this->request->is('ajax')){
+            $this->autoRender = false;
+            echo json_encode(array('follow'));
+            return;
+        }
+        
+        $this->redirect(array('action' => 'admin/'.$conversationId));
+    }
+    
+    public function unfollow($conversationId) {
+        $this->tag($conversationId, 'following', false);
+        
+        if($this->request->is('ajax')){
+            $this->autoRender = false;
+            echo json_encode(array('unfollow'));
+            return;
+        }
+        
+        $this->redirect(array('action' => 'admin/'.$conversationId));
+    }
+    
+    public function pin($conversationId) {
+        // Ponerle el usuario que hizo el comentario al final del comentario        
+        $user = $this->Auth->user('username');
+        $meta = $this->request->getData();
+        $meta['flag_comment'] = 
+            trim($this->request->getData('flag_comment').'<br/><b>- Comentario por '.User::prettyName($user).' -</b>');
+        //$this->request->
+        
+//        $datasource = $this->ConversationsMeta->getDataSource();
+//        $datasource->begin();
+        
+        $OK = $this->tag($conversationId, 'flag_type', 'F');
+        if($OK) $OK = $this->updateMetaField($conversationId, false /*No autoredirect*/); // Esta funcion va a coger directamente del $this->request-data
+        
+        if($OK) true;//$datasource->commit();
+        else {
+            //$datasource->rollback();
+            $this->setErrorMessage('Ocurrió un error pineando este viaje');
+        }
+        
+        $this->redirect(array('action' => 'admin/'.$conversationId));
+    }
+    
+    public function updateMetaField($id = null, $autoRedirect = true) {
+        $this->ConversationsMeta = TableRegistry::getTableLocator()->get('ConversationsMeta');
+        $conversation = $this->Conversations->get($id);
+        if (!$conversation) {
+            throw new NotFoundException('Conversación inválida.');
+        }
+        
+        if ($this->request->is('post') || $this->request->is('put')) {
+            
+            
+            $meta = $this->request->getData();
+            //die(print_r($meta));
+            $meta['conversation_id'] = $id;
+            $conversationsMeta = $this->ConversationsMeta->newEmptyEntity();  
+            
+            $conversationsMeta = $this->ConversationsMeta->patchEntity($conversationsMeta,$meta);
+            
+            if ($this->ConversationsMeta->save($conversationsMeta)) {
+                $this->Flash->success('Se guardó el campo del viaje <b>'.$id.'</b> exitosamente.');
+                
+                if(!$autoRedirect) return true;
+                return $this->redirect($this->referer());
+            }
+            
+            if(!$autoRedirect) return false;
+            $this->Flash->error('Ocurrió un error salvando el campo del viaje '.$id);
+        } else throw new UnauthorizedException();
+    }
+    
+    public function unpin($conversationId) {        ;
+        $this->tag($conversationId, 'flag_type', null);
+         if($this->request->is('ajax')){
+            $this->autoRender = false;           
+            echo json_encode(array("Se ha eliminado el pin de esta conversacion"));
+            return;
+        }
+        $this->redirect(array('action' => 'admin/'.$conversationId));
+    }
+    private function tag($conversationId, $tagName, $value) {
+        $this->ConversationsMeta = TableRegistry::getTableLocator()->get('ConversationsMeta');
+        // TODO: Verificar que la conversacion existe
+        $conversationMeta = $this->ConversationsMeta->find()->where(['conversation_id'=>$conversationId]);
+        if (!$conversationMeta) {
+            throw new NotFoundException('Conversación inválida.');
+        }
+        $meta = array();
+        
+        $meta['ConversationsMeta']['conversation_id'] = $conversationId;
+        $meta['ConversationsMeta'][$tagName] = $value;
+        
+        
+       
+        $conversationsMeta = $this->ConversationsMeta->newEmptyEntity();  
+            
+        $conversationsMeta = $this->ConversationsMeta->patchEntity($conversationsMeta,$meta);
+        
+        $OK = true;
+        if (!$this->ConversationsMeta->save($conversationsMeta)) {
+            if($this->request->is('ajax'))
+                throw new BadRequestException('Ocurrió un error.');
+            
+            $OK = false;
+            $this->setErrorMessage('Ocurrió un error.');
+        }
+        
+        return $OK;
+    }
+        
 }

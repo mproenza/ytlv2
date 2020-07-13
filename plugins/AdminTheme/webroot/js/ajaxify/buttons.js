@@ -1,6 +1,7 @@
 function ajaxifyButton(button, onSuccess, onError, confirmMessage) {
 	
     button.click(function( event ) {
+        
         // Para que el boton no haga nada por defecto
         event.preventDefault();
         
@@ -13,11 +14,14 @@ function ajaxifyButton(button, onSuccess, onError, confirmMessage) {
             //var prevText = boton.text();
             boton.attr('disabled', true);
             //boton.text('Espere ...');
-
-            $.ajax({
+            
+            $.ajax({                
                 type: "POST",
                 dataType: returnType,
                 url: $(this).data('url'),
+                headers : {
+                      'X-CSRF-Token': token /*Esto es nuevo para las llamadas AJAX*/
+                   },
                 success: function(response) {
                     if(onSuccess)
                         onSuccess(response);
@@ -30,7 +34,7 @@ function ajaxifyButton(button, onSuccess, onError, confirmMessage) {
                     // Habilitar boton y restaurar texto
                     boton.attr('disabled', false);
                     //boton.text(prevText);
-                }
+                },
             });
         }
     });

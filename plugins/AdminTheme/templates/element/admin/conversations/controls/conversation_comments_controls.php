@@ -22,7 +22,7 @@ if(!empty($comments)) {
     <span class="bg-warning text-warning">Si ya hay comentarios, no borres los anteriores y agrega el tuyo debajo.</span>
     
     <div>
-        <?php echo $this->Form->create(null, array('url' => array('controller' => 'conversations_meta', 'action' =>'update_meta_field', $conversation->id))); ?>
+        <?php echo $this->Form->create(null, array('url' => array('controller' => 'conversations', 'action' =>'update_meta_field', $conversation->id))); ?>
         <fieldset>
             <?php
             echo $this->Form->input('conversation_id', array('type'=>'hidden'));

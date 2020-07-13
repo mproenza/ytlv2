@@ -1,5 +1,6 @@
 <?php
 use App\Model\Entity\Conversation;
+
 ?>
 
 <style>
@@ -43,7 +44,7 @@ use App\Model\Entity\Conversation;
         /*color: #fff;*/
         cursor: pointer;
         /*opacity: .8;*/
-        height: 35px;
+        /*height: 35px;*/
     }
     .skin-settings {
         width: 220px;
@@ -64,6 +65,24 @@ use App\Model\Entity\Conversation;
     .skin-name a {
         text-transform: uppercase;
     }
+    /*.setings-item a {
+            color: #fff;
+    }*/
+
+	    
+       
+   
+
+/*Ocultar el panel superior*/
+    #main-header {      
+      transition: top 0.5s!important;
+      display: block;
+      background-color: white;
+      position: fixed;
+      z-index: 10;
+      top: 45px
+           
+   }
 </style>
 
 <?php $fechaCambiada = isset ($conversation->original_date) && $conversation->original_date != null;?>
