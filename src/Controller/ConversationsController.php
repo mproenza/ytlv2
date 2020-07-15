@@ -23,7 +23,6 @@ class ConversationsController extends AppController
         'SEARCH_PAID'           => 'paid',
     ];
     
-    
     /**
      * Index method
      *
@@ -158,7 +157,7 @@ class ConversationsController extends AppController
              * 
              * OR
              * 
-             * Las conversaciones que tienen leídos, pero hay más mensajes que leídos
+             * Las conversaciones que tienen leÃ­dos, pero hay mÃ¡s mensajes que leÃ­dos
              */
             $conditions['OR'] = [
                [
@@ -249,11 +248,11 @@ class ConversationsController extends AppController
 
         $this->Driver->id = $driverId;
         if (!$this->Driver->exists()) {
-            throw new NotFoundException('Chofer inválido.');
+            throw new NotFoundException('Chofer invÃ¡lido.');
         }
         $this->Travel->id = $travelID;
         if (!$this->Travel->exists()) {
-            throw new NotFoundException('Viaje inválido.');
+            throw new NotFoundException('Viaje invÃ¡lido.');
         }
 
         $driver = $this->Driver->findById($driverId);
@@ -317,9 +316,9 @@ class ConversationsController extends AppController
         $Total = $this->Conversations->find( 'all', array('conditions' => array('id' => "$conversationId") ) );
         if($entriesCount > $Total->count()){
             if($this->request->is('ajax'))
-                throw new BadRequestException("Se está intentando marcar como leídos $entriesCount mensajes de un total de $Total");
+                throw new BadRequestException("Se estÃ¡ intentando marcar como leÃ­dos $entriesCount mensajes de un total de $Total");
             
-           $this->setErrorMessage("Se está intentando marcar como leídos $entriesCount mensajes de un total de $Total"); 
+           $this->setErrorMessage("Se estÃ¡ intentando marcar como leÃ­dos $entriesCount mensajes de un total de $Total"); 
            return;
         }        
         
@@ -357,19 +356,19 @@ class ConversationsController extends AppController
             $this->autoRender = false;
           
             if($OK){
-                echo json_encode (array('Se marcaron todos los mensajes de este viaje como leídos'));
+                echo json_encode (array('Se marcaron todos los mensajes de este viaje como leÃ­dos'));
                 
-            } else throw new BadRequestException('Ocurrió un error salvando los datos.');
+            } else throw new BadRequestException('OcurriÃ³ un error salvando los datos.');
             
             return;
         }
         
         if ($OK) {
-            $this->setSuccessMessage('Se marcaron todos los mensajes de este viaje como leídos');
+            $this->setSuccessMessage('Se marcaron todos los mensajes de este viaje como leÃ­dos');
            
         } else {
            
-           $this->setErrorMessage('Ocurrió un error salvando los datos.');
+           $this->setErrorMessage('OcurriÃ³ un error salvando los datos.');
         }
         
         $this->redirect(array('action' => 'admin/'.$conversationId));
@@ -385,6 +384,9 @@ class ConversationsController extends AppController
             $conversations = $this->Conversations->findAllByConversationId($conversationId);
             
             $view = new View();
+            $view->setTheme('AdminTheme');
+            $this->viewClass = "AdminTheme.AdminTheme";
+            //$this->viewPath = 'element/';
             $elements = array(
                 'admin-toolbox-states-button' => $view->element('admin/conversations/toolbox/admin-toolbox-states-button', compact('data')),
                 'addon_travel_verification'   => $view->element('admin/conversations/controls/addon/addon_travel_verification', compact('data', 'conversations')),
@@ -444,7 +446,7 @@ class ConversationsController extends AppController
         if($OK) true;//$datasource->commit();
         else {
             //$datasource->rollback();
-            $this->setErrorMessage('Ocurrió un error pineando este viaje');
+            $this->setErrorMessage('OcurriÃ³ un error pineando este viaje');
         }
         
         $this->redirect(array('action' => 'admin/'.$conversationId));
@@ -454,7 +456,7 @@ class ConversationsController extends AppController
         $this->ConversationsMeta = TableRegistry::getTableLocator()->get('ConversationsMeta');
         $conversation = $this->Conversations->get($id);
         if (!$conversation) {
-            throw new NotFoundException('Conversación inválida.');
+            throw new NotFoundException('ConversaciÃ³n invÃ¡lida.');
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -468,14 +470,14 @@ class ConversationsController extends AppController
             $conversationsMeta = $this->ConversationsMeta->patchEntity($conversationsMeta,$meta);
             
             if ($this->ConversationsMeta->save($conversationsMeta)) {
-                $this->Flash->success('Se guardó el campo del viaje <b>'.$id.'</b> exitosamente.');
+                $this->Flash->success('Se guardÃ³ el campo del viaje <b>'.$id.'</b> exitosamente.');
                 
                 if(!$autoRedirect) return true;
                 return $this->redirect($this->referer());
             }
             
             if(!$autoRedirect) return false;
-            $this->Flash->error('Ocurrió un error salvando el campo del viaje '.$id);
+            $this->Flash->error('OcurriÃ³ un error salvando el campo del viaje '.$id);
         } else throw new UnauthorizedException();
     }
     
@@ -493,26 +495,23 @@ class ConversationsController extends AppController
         // TODO: Verificar que la conversacion existe
         $conversationMeta = $this->ConversationsMeta->find()->where(['conversation_id'=>$conversationId]);
         if (!$conversationMeta) {
-            throw new NotFoundException('Conversación inválida.');
+            throw new NotFoundException('ConversaciÃ³n invÃ¡lida.');
         }
-        $meta = array();
-        
-        $meta['ConversationsMeta']['conversation_id'] = $conversationId;
-        $meta['ConversationsMeta'][$tagName] = $value;
-        
         
        
-        $conversationsMeta = $this->ConversationsMeta->newEmptyEntity();  
+        $conversationsMeta = $this->ConversationsMeta->newEntity(array('conversation_id' => $conversationId, $tagName=>$value)); 
+        
             
-        $conversationsMeta = $this->ConversationsMeta->patchEntity($conversationsMeta,$meta);
+        //$conversationsMeta = $this->ConversationsMeta->patchEntity($conversationsMeta,$meta);
+        //die(print_r($conversationsMeta));
         
         $OK = true;
         if (!$this->ConversationsMeta->save($conversationsMeta)) {
             if($this->request->is('ajax'))
-                throw new BadRequestException('Ocurrió un error.');
+                throw new BadRequestException('OcurriÃ³ un error.');
             
             $OK = false;
-            $this->setErrorMessage('Ocurrió un error.');
+            $this->setErrorMessage('OcurriÃ³ un error.');
         }
         
         return $OK;
