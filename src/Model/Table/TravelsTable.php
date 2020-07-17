@@ -182,10 +182,10 @@ class TravelsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['id']));
-        $rules->add($rules->existsIn(['origin_locality_id'], 'Localities'));
-        $rules->add($rules->existsIn(['destination_locality_id'], 'Localities'));
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
-        $rules->add($rules->existsIn(['operator_id'], 'Users'));
+        $rules->add($rules->existsIn(['origin_locality_id'], 'OriginLocality'));
+        $rules->add($rules->existsIn(['destination_locality_id'], 'DestinationLocality'));
+        $rules->add($rules->existsIn(['user_id'], 'User'));
+        $rules->add($rules->existsIn(['operator_id'], 'Operator'));
 
         return $rules;
     }

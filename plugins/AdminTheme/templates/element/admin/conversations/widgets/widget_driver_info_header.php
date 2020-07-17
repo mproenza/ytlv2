@@ -5,6 +5,7 @@ use \App\Util\TimeUtil;
 
 $driver = $conversation->driver;
 $driverHasProfile = isset ($driver->profile) && $driver->profile != null;
+$fechaCambiada = isset ($conversation->original_date) && $conversation->original_date != null;
 ?>
 <div id="main-header" class="col-md-8 col-md-offset-2 col-xs-12 well">
     <div class="row" style="/*background-color: rgba(200, 219, 243, 0.6);*/ padding: 3px;">
@@ -43,9 +44,9 @@ $driverHasProfile = isset ($driver->profile) && $driver->profile != null;
             <?= TimeUtil::prettyDate($conversation->due_date) ?>
 
             <!--Control para el cambio de fecha-->
-            <?php if($isUserLoggedIn && ($userRole == 'admin' || $userRole == 'operator')):?>
-            <?= $this->element('form_travel_date_controls', array('travel'=>$data, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($conversation->due_date)))?>
-            <?php endif; ?>
+            <?php /*if($isUserLoggedIn && ($userRole == 'admin' || $userRole == 'operator')):*/?>
+            <?= $this->element('admin/conversations/controls/form_travel_date_controls', array('travel'=>$conversation, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($conversation->due_date)))?>
+            <?php /*endif;*/ ?>
         </div>
 
     </div>

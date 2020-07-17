@@ -6,7 +6,9 @@ use Cake\ORM\TableRegistry;
 
 use App\Model\Entity\Conversation;
 use App\Model\Entity\User;
+use App\Model\Entity\Travel;
 use Cake\View\View;
+use App\Util\TimeUtil;
 /**
  * Conversations Controller
  *
@@ -157,7 +159,7 @@ class ConversationsController extends AppController
              * 
              * OR
              * 
-             * Las conversaciones que tienen leÃ­dos, pero hay mÃ¡s mensajes que leÃ­dos
+             * Las conversaciones que tienen leÃƒÂ­dos, pero hay mÃƒÂ¡s mensajes que leÃƒÂ­dos
              */
             $conditions['OR'] = [
                [
@@ -248,11 +250,11 @@ class ConversationsController extends AppController
 
         $this->Driver->id = $driverId;
         if (!$this->Driver->exists()) {
-            throw new NotFoundException('Chofer invÃ¡lido.');
+            throw new NotFoundException('Chofer invÃƒÂ¡lido.');
         }
         $this->Travel->id = $travelID;
         if (!$this->Travel->exists()) {
-            throw new NotFoundException('Viaje invÃ¡lido.');
+            throw new NotFoundException('Viaje invÃƒÂ¡lido.');
         }
 
         $driver = $this->Driver->findById($driverId);
@@ -316,9 +318,9 @@ class ConversationsController extends AppController
         $Total = $this->Conversations->find( 'all', array('conditions' => array('id' => "$conversationId") ) );
         if($entriesCount > $Total->count()){
             if($this->request->is('ajax'))
-                throw new BadRequestException("Se estÃ¡ intentando marcar como leÃ­dos $entriesCount mensajes de un total de $Total");
+                throw new BadRequestException("Se estÃƒÂ¡ intentando marcar como leÃƒÂ­dos $entriesCount mensajes de un total de $Total");
             
-           $this->setErrorMessage("Se estÃ¡ intentando marcar como leÃ­dos $entriesCount mensajes de un total de $Total"); 
+           $this->setErrorMessage("Se estÃƒÂ¡ intentando marcar como leÃƒÂ­dos $entriesCount mensajes de un total de $Total"); 
            return;
         }        
         
@@ -356,26 +358,26 @@ class ConversationsController extends AppController
             $this->autoRender = false;
           
             if($OK){
-                echo json_encode (array('Se marcaron todos los mensajes de este viaje como leÃ­dos'));
+                echo json_encode (array('Se marcaron todos los mensajes de este viaje como leÃƒÂ­dos'));
                 
-            } else throw new BadRequestException('OcurriÃ³ un error salvando los datos.');
+            } else throw new BadRequestException('OcurriÃƒÂ³ un error salvando los datos.');
             
             return;
         }
         
         if ($OK) {
-            $this->setSuccessMessage('Se marcaron todos los mensajes de este viaje como leÃ­dos');
+            $this->setSuccessMessage('Se marcaron todos los mensajes de este viaje como leÃƒÂ­dos');
            
         } else {
            
-           $this->setErrorMessage('OcurriÃ³ un error salvando los datos.');
+           $this->setErrorMessage('OcurriÃƒÂ³ un error salvando los datos.');
         }
         
         $this->redirect(array('action' => 'admin/'.$conversationId));
     }
     
     public function setState($conversationId, $state) {
-        $this->viewBuilder()->setTheme('AdminTheme')->setClassName('AdminTheme.AdminTheme');
+        
         $OK = $this->tag($conversationId, 'state', $state);
         
         if($this->request->is('ajax')){           
@@ -388,9 +390,9 @@ class ConversationsController extends AppController
             $this->viewClass = "AdminTheme.AdminTheme";
             //$this->viewPath = 'element/';
             $elements = array(
-                'admin-toolbox-states-button' => $view->element('admin/conversations/toolbox/admin-toolbox-states-button', compact('data')),
-                'addon_travel_verification'   => $view->element('admin/conversations/controls/addon/addon_travel_verification', compact('data', 'conversations')),
-                'addon_testimonial_request'   => $view->element('admin/conversations/controls/addon/addon_testimonial_request', compact('data')),
+                'admin-toolbox-states-button' => $view->element('/admin/conversations/toolbox/admin-toolbox-states-button', compact('data')),
+                'addon_travel_verification'   => $view->element('/admin/conversations/controls/addon/addon_travel_verification', compact('data', 'conversations')),
+                'addon_testimonial_request'   => $view->element('/admin/conversations/controls/addon/addon_testimonial_request', compact('data')),
                 'state'                       => $state
             );
             
@@ -446,7 +448,7 @@ class ConversationsController extends AppController
         if($OK) true;//$datasource->commit();
         else {
             //$datasource->rollback();
-            $this->setErrorMessage('OcurriÃ³ un error pineando este viaje');
+            $this->setErrorMessage('OcurriÃƒÂ³ un error pineando este viaje');
         }
         
         $this->redirect(array('action' => 'admin/'.$conversationId));
@@ -456,7 +458,7 @@ class ConversationsController extends AppController
         $this->ConversationsMeta = TableRegistry::getTableLocator()->get('ConversationsMeta');
         $conversation = $this->Conversations->get($id);
         if (!$conversation) {
-            throw new NotFoundException('ConversaciÃ³n invÃ¡lida.');
+            throw new NotFoundException('ConversaciÃƒÂ³n invÃƒÂ¡lida.');
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -470,14 +472,14 @@ class ConversationsController extends AppController
             $conversationsMeta = $this->ConversationsMeta->patchEntity($conversationsMeta,$meta);
             
             if ($this->ConversationsMeta->save($conversationsMeta)) {
-                $this->Flash->success('Se guardÃ³ el campo del viaje <b>'.$id.'</b> exitosamente.');
+                $this->Flash->success('Se guardÃƒÂ³ el campo del viaje <b>'.$id.'</b> exitosamente.');
                 
                 if(!$autoRedirect) return true;
                 return $this->redirect($this->referer());
             }
             
             if(!$autoRedirect) return false;
-            $this->Flash->error('OcurriÃ³ un error salvando el campo del viaje '.$id);
+            $this->Flash->error('OcurriÃƒÂ³ un error salvando el campo del viaje '.$id);
         } else throw new UnauthorizedException();
     }
     
@@ -495,7 +497,7 @@ class ConversationsController extends AppController
         // TODO: Verificar que la conversacion existe
         $conversationMeta = $this->ConversationsMeta->find()->where(['conversation_id'=>$conversationId]);
         if (!$conversationMeta) {
-            throw new NotFoundException('ConversaciÃ³n invÃ¡lida.');
+            throw new NotFoundException('ConversaciÃƒÂ³n invÃƒÂ¡lida.');
         }
         
        
@@ -508,13 +510,65 @@ class ConversationsController extends AppController
         $OK = true;
         if (!$this->ConversationsMeta->save($conversationsMeta)) {
             if($this->request->is('ajax'))
-                throw new BadRequestException('OcurriÃ³ un error.');
+                throw new BadRequestException('OcurriÃƒÂ³ un error.');
             
             $OK = false;
-            $this->setErrorMessage('OcurriÃ³ un error.');
+            $this->setErrorMessage('OcurriÃƒÂ³ un error.');
         }
         
         return $OK;
+    }
+    
+    public function changeDate($id) {
+        $this->Travels=  TableRegistry::getTableLocator()->get('Travels');
+         $conversation = $this->Conversations->get($id);
+        if (!$conversation) {
+            throw new NotFoundException('ConversaciÃƒÂ³n invÃƒÂ¡lida.');
+        }
+        
+        if ($this->request->is('post') || $this->request->is('put')) {            
+            
+            if($conversation->notification_type == Conversation::NOTIFICATION_TYPES['DIRECT_MESSAGE'])
+                $OK = $this->Conversations->save($this->request->data, false);
+            else{        
+                $travel = $this->Travels->get($conversation->travel_id,['contain'=>Travel::$myCommonRelatedModels]);
+                
+                if( !empty($this->request->getData('travel_date')) ){
+                    
+                    $travel->date = $this->request->getData('travel_date');
+                    $conversation->due_date = "'".TimeUtil::dmY_to_Ymd($this->request->getData('travel_date'))."'";
+                    //$driver_travel['travel_date'] = "'".TimeUtil::dmY_to_Ymd($this->request->data['DriverTravel']['travel_date'])."'";
+                }    
+                
+                if( !empty($this->request->getData('original_date') )){
+                    $travel->original_date = $this->request->getData('original_date');
+                    $conversation->original_due_date    = "'".$this->request->getData('original_date')."'";
+                }    
+                
+//                $datasource = $this->DriverTravel->getDataSource();
+//                $datasource->begin();
+                
+                $OK = $this->Travels->save($travel);
+//                debug($travel);
+//                die();
+                if(!$OK){
+                    $this->Flash->error('OcurriÃƒÂ³ un error actualizando el viaje de esta conversaciÃƒÂ³n'); 
+                }
+                if($OK){
+                    //$this->Conversations->unbindModel(array('belongsTo' => array('Drivers', 'Travels', 'Users'),
+                                                          // 'hasOne'    => array('ConversationsMeta')));
+                    $OK = $OK && $this->Conversations->updateAll($conversation);
+                }
+                
+                if($OK) true;
+                else{
+                    //$datasource->rollback();
+                   $this->Flash->error('OcurriÃƒÂ³ un error actualizando esta conversaciÃƒÂ³n');
+                }
+            }
+            
+            return $this->redirect($this->referer());
+        } else throw new MethodNotAllowedException();
     }
         
 }
